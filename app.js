@@ -1,26 +1,3 @@
-<<<<<<< HEAD
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var path = require("path");
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(path.join(__dirname, "public")));
-
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-
-var studentsController = require("./controllers/studentsController");
-
-app.get("/", studentsController.list);
-app.get("/edit/:id", studentsController.editRecord);
-app.post("/new", studentsController.insert);
-app.post("/edit/:id", studentsController.update);
-app.delete("/:id", studentsController.delete);
-
-app.listen(3000);
-=======
 // Import basic modules
 var express = require('express');
 var path = require('path');
@@ -107,7 +84,12 @@ app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
-
+var productController = require('./server/controllers/productControllers');
+app.get("/viewProduct", productController.list)
+app.get("/viewProduct/edit/:id", studentsController.editRecord);
+app.post("/viewProduct/new", studentsController.insert);
+app.post("/viewProduct/edit/:id", studentsController.update);
+app.delete("/viewProduct/:id", studentsController.delete);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
