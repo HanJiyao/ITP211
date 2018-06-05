@@ -112,10 +112,8 @@ var server = httpServer.listen(app.get('port'), function () {
 });
 
 var productController = require("./server/controllers/productController");
-app.get("/View Products", productController.list);
-app.get("/View Product/:id", productController.editRecord);
-app.post("/View Product", productController.update);
-app.post("/view Product/new", productController.insert);
-app.delete("/View Product/: id", productController.delete)
-
-app.listen(3000);
+app.get("/products", productController.list);
+app.get("/products/:id", productController.editRecord);
+app.post("/products", productController.update);
+app.post("/products/new", productController.insert);
+app.delete("/products/: id", productController.delete)

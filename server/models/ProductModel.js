@@ -1,5 +1,5 @@
-var myDatabase = require('../controllers/sqlDatabase');
-var sequelizeInstance = myDatabase.sequelizeInstance;
+var myDatabase = require('../controllers/database');
+var sequelizeInstance = myDatabase.sequelize;
 var Sequelize = myDatabase.Sequelize;
 
 const ProductModel = sequelizeInstance.define('View Products', {
@@ -41,4 +41,4 @@ ProductModel.sync({force: false, loging: console.log}).then(()=> {
     });
 });
 
-module.exports = sequelizeInstance.model("Students", StudentModel)
+module.exports = sequelizeInstance.model("View Products", ProductModel)

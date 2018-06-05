@@ -1,5 +1,5 @@
 var productModel = require('../models/ProductModel');
-var myDatabase = require("./sqlDatabase");
+var myDatabase = require("./database");
 var SequelizeInstance = myDatabase.SequelizeInstance;
 
 exports.insert = function(req, res){
