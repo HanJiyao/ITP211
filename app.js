@@ -86,10 +86,10 @@ app.get('/logout', function (req, res) {
 });
 var productController = require('./server/controllers/productControllers');
 app.get("/viewProduct", productController.list)
-app.get("/viewProduct/edit/:id", studentsController.editRecord);
-app.post("/viewProduct/new", studentsController.insert);
-app.post("/viewProduct/edit/:id", studentsController.update);
-app.delete("/viewProduct/:id", studentsController.delete);
+app.get("/viewProduct/edit/:id", productController.editRecord);
+app.post("/viewProduct/new", productController.insert);
+app.post("/viewProduct/edit/:id", productController.update);
+app.delete("/viewProduct/:id", productController.delete);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
