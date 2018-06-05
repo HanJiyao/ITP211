@@ -39,10 +39,10 @@ exports.list = function(req, res){
 
 exports.editRecord = function(req, res){
     var record_num = req.params.id;
-    studentModel.findById(record_num).then(function(studentRecord){
+    productModel.findById(record_num).then(function(productRecord){
         res.render("editRecord", {
             title: "Edit  Records",
-            item: studentRecord,
+            item: productRecord,
             hostPath: req.protocol + "://" + req.get("host") + req.url
         });
     }).catch((err)=> {
@@ -53,13 +53,14 @@ exports.editRecord = function(req, res){
 };
 
 exports.update = function(req, res){
-    var studentData ={
-        studentId: req.body.studentId,
-        name: req.body.name,
-        group: req.body.group,
-        hobby: req.body.hobby,
+    var productData ={
+        productId: req.body.productId,
+        productName: req.body.productName,
+        type: req.body.type,
+        qty: req.body.qty,
+        price: req.body.price,
     }
-    studentModel.update(updateData, {where: {id: record_num}}).then((updateRecord)=> {
+    productModel.update(updateData, {where: {id: record_num}}).then((updateRecord)=> {
         if (!updateRecord || updateRecord==0){
             return res.send(400, {
                 message: "error"
@@ -72,12 +73,12 @@ exports.update = function(req, res){
 exports.delete = function(req, res){
     var record_num = req.params.id;
     console.log("deleting" + record_num);
-    studentModel.destroy({where: { id: record_num}}).then((deleteRecord)=>{
+    productModel.destroy({where: { id: record_num}}).then((deleteRecord)=>{
         if (!deleteRecord){
             return res.send(400, {
                 message: "error"
             });
         }
-        res.status(200).send({message: "Delete Student Record: " + record_num});
+        res.status(200).send({message: "Delete product record: " + record_num});
     });
 }
