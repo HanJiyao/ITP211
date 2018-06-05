@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Import basic modules
 var express = require('express');
 var path = require('path');
@@ -116,3 +117,5 @@ var server = httpServer.listen(app.get('port'), function () {
     console.log('http server listening on port ' + server.address().port);
 });
 >>>>>>> 76473b6d19e1f41a1a60867cdde9d449252e742c
+=======
+>>>>>>> e4e69953fe027750b2bd5214b32fbf89f0bea1cf

@@ -1,25 +1,27 @@
 var Sequelize = require('sequelize');
 var sequelizeTransforms = require('sequelize-transforms');
-const sequelize = new Sequelize('p4db', 'root', 'Hanjiyao38', {
-    host: 'localhost',
+const sequelizeInstance = new Sequelize('itp211', 'root', 'mysql', {
+    host: '127.0.0.1',
     port: '3306',
     dialect: 'mysql',
+
     pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
     },
     operatorsAliases: false
 });
 
-sequelize.authenticate().then(() => {
+sequelizeInstance.authenticate().then(() => {
     console.log('Connection has been established successfully.');
 }).catch(err => {
     console.error('Unable to connect to the database:', err);
 });
 
-sequelizeTransforms(sequelize);
+sequelizeTransforms(sequelizeInstance);
 
-module.exports.sequelize = sequelize;
+
+module.exports.sequelizeInstance = sequelizeInstance;
 module.exports.Sequelize = Sequelize;
