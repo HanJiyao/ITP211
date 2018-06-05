@@ -24,7 +24,7 @@ const ProductModel = sequelizeInstance.define('View Products', {
         type: Sequelize.INTEGER
     },
     price: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         trim: true,
     }
 });
