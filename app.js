@@ -110,3 +110,12 @@ app.set('port', serverPort);
 var server = httpServer.listen(app.get('port'), function () {
     console.log('http server listening on port ' + server.address().port);
 });
+
+var productController = require("./server/controllers/productController");
+app.get("/View Products", productController.list);
+app.get("/View Product/:id", productController.editRecord);
+app.post("/View Product", productController.update);
+app.post("/view Product/new", productController.insert);
+app.delete("/View Product/: id", productController.delete)
+
+app.listen(3000);
