@@ -10,23 +10,23 @@ exports.insert = function(req, res){
         qty: req.body.qty,
         price: req.body.price,
     }
-    productModel.create(productData).then((newRecord, created)=> {
-        if (!newRecord){
+    productModel.create(productData).then((newProduct, created)=> {
+        if (!newProduct){
             return res.send(400, {
                 message: "error"
             });
             
         }
-        res.redirect("/")
+        res.redirect("/products")
     })
 };
 
 exports.list = function(req, res){
     productModel.findAll({
-        attributes: ["id","productId", "productName", "type", "qty", "price"]
+        attributes: ["productId", "productName", "type", "qty", "price"]
     }).then(function(products){
-        res.render("index", {
-            title: "View Products",
+        res.render("products", {
+            title: " View Products",
             itemList: products,
             urlPath: req.protocol + "://" + req.get("host") + req.url
         });
@@ -41,7 +41,7 @@ exports.editRecord = function(req, res){
     var record_num = req.params.id;
     productModel.findById(record_num).then(function(productRecord){
         res.render("editRecord", {
-            title: "Edit  Records",
+            title: "Edit Records",
             item: productRecord,
             hostPath: req.protocol + "://" + req.get("host") + req.url
         });
