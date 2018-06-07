@@ -2,7 +2,7 @@ var myDatabase = require('../controllers/database');
 var sequelizeInstance = myDatabase.sequelize;
 var Sequelize = myDatabase.Sequelize;
 
-const ProductModel = sequelizeInstance.define('View Products', {
+const ProductModel = sequelizeInstance.define('Products', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -41,4 +41,4 @@ ProductModel.sync({force: false, loging: console.log}).then(()=> {
     });
 });
 
-module.exports = sequelizeInstance.model("View Products", ProductModel)
+module.exports = sequelizeInstance.model("Products", ProductModel)
