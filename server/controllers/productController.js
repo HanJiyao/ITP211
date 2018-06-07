@@ -1,12 +1,12 @@
 var productModel = require('../models/ProductModel');
-var myDatabase = require("./database");
+var myDatabase = require("../controllers/database")
 var SequelizeInstance = myDatabase.SequelizeInstance;
 
 exports.insert = function(req, res){
     var productData ={
-        productID: req.body.productID,
+        productId: req.body.productId,
         productName: req.body.productName,
-        type: req.body.type,
+        productType: req.body.productType,
         qty: req.body.qty,
         price: req.body.price,
     }
@@ -23,10 +23,10 @@ exports.insert = function(req, res){
 
 exports.list = function(req, res){
     productModel.findAll({
-        attributes: ["productId", "productName", "type", "qty", "price"]
+        attributes: ["id","productId", "productName", "productType", "qty","price"]
     }).then(function(products){
         res.render("products", {
-            title: " View Products",
+            title: "View Products",
             itemList: products,
             urlPath: req.protocol + "://" + req.get("host") + req.url
         });
@@ -36,39 +36,39 @@ exports.list = function(req, res){
         });
     });
 };
-
 exports.editRecord = function(req, res){
     var record_num = req.params.id;
-    productModel.findById(record_num).then(function(productRecord){
-        res.render("editRecord", {
-            title: "Edit Records",
-            item: productRecord,
-            hostPath: req.protocol + "://" + req.get("host") + req.url
+    studentModel.findById(record_num).then(function(productRecords){
+        res.render("edit", {
+            title: "Edit Product",
+            item: productRecords,
+            hostPath: req.protocol + "://" + req.get("host")
         });
     }).catch((err)=> {
         return res.status(400).send({
             message: err
         });
     });
-};
-
+};  
 exports.update = function(req, res){
-    var productData ={
+    var record_num = req.params.id; 
+    var updateData ={
         productId: req.body.productId,
         productName: req.body.productName,
-        type: req.body.type,
+        productType: req.body.productType,
         qty: req.body.qty,
-        price: req.body.price,
+        price: req.body.price
     }
-    productModel.update(updateData, {where: {id: record_num}}).then((updateRecord)=> {
-        if (!updateRecord || updateRecord==0){
+    productModel.update(updateData, {where: {id: record_num}}).then((updatedProduct)=> {
+        if (!updatedProduct || updatedProduct==0){
             return res.send(400, {
                 message: "error"
             });   
         }
-        res.status(200).send({message: "Updated student record: " + record_num});
+        res.status(200).send({message: "Updated Product Record: " + record_num});
     })
 };
+
 
 exports.delete = function(req, res){
     var record_num = req.params.id;
@@ -79,6 +79,6 @@ exports.delete = function(req, res){
                 message: "error"
             });
         }
-        res.status(200).send({message: "Delete product record: " + record_num});
+        res.status(200).send({message: "Delete Product record: " + record_num});
     });
 }

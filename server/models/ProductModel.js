@@ -16,7 +16,7 @@ const ProductModel = sequelizeInstance.define('View Products', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    type: {
+    productType: {
         type: Sequelize.STRING,
         trim: true,
     },
@@ -35,7 +35,7 @@ ProductModel.sync({force: false, loging: console.log}).then(()=> {
         id:1,
         productID: 001,
         productName: "Seagate 1TB 7200RPM (Blue)",
-        type: "Hard Disk",
+        productType: "Hard Disk",
         qty: 100,
         price: 150
     });
