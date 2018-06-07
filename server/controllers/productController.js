@@ -38,8 +38,8 @@ exports.list = function(req, res){
 };
 exports.editRecord = function(req, res){
     var record_num = req.params.id;
-    studentModel.findById(record_num).then(function(productRecords){
-        res.render("edit", {
+    productModel.findById(record_num).then(function(productRecords){
+        res.render("editProduct", {
             title: "Edit Product",
             item: productRecords,
             hostPath: req.protocol + "://" + req.get("host")

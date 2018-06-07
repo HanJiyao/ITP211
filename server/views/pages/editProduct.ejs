@@ -4,20 +4,17 @@
     <title>
         <%= title %>
     </title>
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src='/javascripts/jquery.min.js'></script>
-    <script src='/javascripts/bootstrap.min.js'></script>
 </head>
 
 <body>
+    <% include ../partials/header %>
     <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Edit Student Record</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit Product Record</h4>
     </div>
     <div class="modal-body">
         <fieldset class="form-group">
             <label for="inputproductID">Product ID</label>
-            <input type="text" id="inputproductID" name="productId" class="form-control" placeholder="Student Id" required="true" value="<%=item.productId%>">
+            <input type="text" id="inputproductID" name="productId" class="form-control" placeholder="Student Id" required="true" value="<%=item.id%>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputproductName">Product Name</label>
@@ -25,7 +22,7 @@
         </fieldset>
         <fieldset class="form-group">
             <label for="inputType">Type</label>
-            <input type="text" id="inputType" name="type" class="form-control" placeholder="Type" required="true" value="<%=item.type%>">
+            <input type="text" id="inputType" name="type" class="form-control" placeholder="Type" required="true" value="<%=item.productType%>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputQty">Quantity</label>
@@ -42,11 +39,11 @@
     </div>
     <script>
         function saveChanges() {
-            var url = "<%=hostPath%>/edit/<%=item.id%>";
+            var url = "<%=hostPath%>/products/edit/<%=item.id%>";
             var newValues = {
                 productId: $("#inputproductID").val(),
                 productName: $("#inputproductName").val(),
-                type: $("#inputType").val(),
+                productType: $("#inputType").val(),
                 qty: $("#inputQty").val(),
                 price: $("inputPrice").val()
             }
@@ -58,7 +55,7 @@
                 contentType: "application/json",
                 success: function(result){
                     alert(" Product updated successfully");
-                    location.href = "<%=hostPath%>"
+                    location.href = "<%=hostPath%>/products"
                 },
                 error: function(result){
                     alert("Error updating product");
@@ -68,9 +65,10 @@
         }
 
         function discardChanges() {
-            location.href = "<%=hostPath%>"
+            location.href = "<%=hostPath%>/products"
         }
     </script>
+    <% include ../partials/footer %>
 </body>
 
 </html>

@@ -4,7 +4,6 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 // Import multer
 var multer = require('multer');
 var upload = multer({ dest: './public/uploads/', limits: { fileSize: 1500000, file: 1 } });
@@ -85,6 +84,13 @@ app.get('/logout', function (req, res) {
     res.redirect('/');
 });
 
+var productController = require("./server/controllers/productController");
+app.get("/products", productController.list);
+app.get("/products/edit/:id", productController.editRecord);
+app.post("/products/new", productController.insert);
+app.post("/products/edit/:id", productController.update);
+app.delete("/products/:id", productController.delete)
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -110,10 +116,3 @@ app.set('port', serverPort);
 var server = httpServer.listen(app.get('port'), function () {
     console.log('http server listening on port ' + server.address().port);
 });
-
-var productController = require("./server/controllers/productController");
-app.get("/products", productController.list);
-app.get("/products/edit/:id", productController.editRecord);
-app.post("/products/new", productController.insert);
-app.post("/products/edit/:id", productController.update);
-app.delete("/products/:id", productController.delete)
