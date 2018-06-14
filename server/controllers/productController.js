@@ -4,7 +4,7 @@ var SequelizeInstance = myDatabase.SequelizeInstance;
 
 exports.insert = function(req, res){
     var productData ={
-        productId: req.body.productId,
+        productID: req.body.productID,
         productName: req.body.productName,
         productType: req.body.productType,
         qty: req.body.qty,
@@ -15,15 +15,13 @@ exports.insert = function(req, res){
             return res.send(400, {
                 message: "error"
             });
-            
         }
         res.redirect("/products")
     })
 };
-
 exports.list = function(req, res){
     productModel.findAll({
-        attributes: ["id","productId", "productName", "productType", "qty","price"]
+        attributes: ["id","productID", "productName", "productType", "qty","price"]
     }).then(function(products){
         res.render("products", {
             title: "View Products",
@@ -53,7 +51,7 @@ exports.editRecord = function(req, res){
 exports.update = function(req, res){
     var record_num = req.params.id; 
     var updateData ={
-        productId: req.body.productId,
+        productID: req.body.productID,
         productName: req.body.productName,
         productType: req.body.productType,
         qty: req.body.qty,
@@ -68,8 +66,6 @@ exports.update = function(req, res){
         res.status(200).send({message: "Updated Product Record: " + record_num});
     })
 };
-
-
 exports.delete = function(req, res){
     var record_num = req.params.id;
     console.log("deleting" + record_num);

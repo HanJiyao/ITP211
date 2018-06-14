@@ -14,7 +14,7 @@
     <div class="modal-body">
         <fieldset class="form-group">
             <label for="inputproductID">Product ID</label>
-            <input type="text" id="inputproductID" name="productId" class="form-control" placeholder="Student Id" required="true" value="<%=item.id%>">
+            <input type="text" id="inputproductID" name="productId" class="form-control" placeholder="Student Id" required="true" value="<%=item.productID%>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputproductName">Product Name</label>
@@ -29,7 +29,7 @@
             <input type="text" id="inputQty" name="qty" class="form-control" placeholder="qty" required="true" value="<%=item.qty%>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputPrice">Quantity</label>
+            <label for="inputPrice">Price</label>
             <input type="text" id="inputPrice" name="price" class="form-control" placeholder="price" required="true" value="<%=item.price%>">
         </fieldset>
     </div>
@@ -41,11 +41,11 @@
         function saveChanges() {
             var url = "<%=hostPath%>/products/edit/<%=item.id%>";
             var newValues = {
-                productId: $("#inputproductID").val(),
+                productID: $("#inputproductID").val(),
                 productName: $("#inputproductName").val(),
                 productType: $("#inputType").val(),
                 qty: $("#inputQty").val(),
-                price: $("inputPrice").val()
+                price: $("#inputPrice").val()
             }
             $.ajax({
                 url: url,
