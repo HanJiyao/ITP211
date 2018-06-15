@@ -1,95 +1,65 @@
-// Import basic modules
 var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var app = express();
+var passport = require('passport');
+var session = require('express-session');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var path = require('path');
+
+// Warning flash
+var flash = require('connect-flash');
+app.use(flash());
+
 // Import multer
 var multer = require('multer');
 var upload = multer({ dest: './public/uploads/', limits: { fileSize: 1500000, file: 1 } });
 
-// Import home controller
-var index = require('./server/controllers/index');
-// Import login controller
-var auth = require('./server/controllers/auth');
+//For BodyParser cookieParser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Modules to store session
-var myDatabase = require('./server/controllers/database');
+var database = require('./server/controllers/database');
 var expressSession = require('express-session');
 var SessionStore = require('express-session-sequelize')(expressSession.Store);
 var sequelizeSessionStore = new SessionStore({
-    db: myDatabase.sequelize,
+    db: database.sequelize,
 });
-// Import Passport and Warning flash modules
-var passport = require('passport');
-var flash = require('connect-flash');
-
-var app = express();
-var serverPort = 3000;
-var httpServer = require('http').Server(app);
-
-// view engine setup
-app.set('views', path.join(__dirname, 'server/views/pages'));
-app.set('view engine', 'ejs');
-
-// Passport configuration
-require('./server/config/passport')(passport);
-
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-// Setup public directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-// required for passport
-// secret for session
+// Secret for Session
 app.use(expressSession({
-    secret: 'sometextgohere',
+    secret: 'sessionStore',
     store: sequelizeSessionStore,
     resave: false,
     saveUninitialized: false,
 }));
 
-// Init passport authentication
+// For Passport
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
 app.use(passport.initialize());
-// persistent login sessions
-app.use(passport.session());
-// flash messages
-app.use(flash());
+app.use(passport.session()); // persistent login sessions
 
-// Application Routes
-// Index Route
-app.get('/', index.show);
-app.get('/login', auth.signin);
-app.post('/login', passport.authenticate('local-login', {
-    //Success go to Profile Page / Fail go to login page
-    successRedirect: '/profile',
-    failureRedirect: '/login',
-    failureFlash: true
-}));
-app.get('/signup', auth.signup);
-app.post('/signup', passport.authenticate('local-signup', {
-    //Success go to Profile Page / Fail go to Signup page
-    successRedirect: '/profile',
-    failureRedirect: '/signup',
-    failureFlash: true
-}));
+//For View Engine
+app.set('views', path.join(__dirname, 'server/views/pages'));
+app.set('view engine', 'ejs');
 
-app.get('/profile', auth.isLoggedIn, auth.profile);
+//Models
+var models = require("./server/models");
 
-// Logout Page
-app.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
-});
+//Passport Routes
+var authRoute = require('./server/routes/auth.js')(app, passport);
 
-var productController = require("./server/controllers/productController");
-app.get("/products", productController.list);
-app.get("/products/edit/:id", productController.editRecord);
-app.post("/products/new", productController.insert);
-app.post("/products/edit/:id", productController.update);
-app.delete("/products/:id", productController.delete)
+//load passport strategies
+require('./server/config/passport.js')(passport, models.Users);
+
+// Setup public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Isolated Routes
+var indexRouter = require('./server/routes/index');
+app.use('/', indexRouter)
+//var productController = require("./server/controllers/product");
+var productRouter = require('./server/routes/product')
+app.use("/products", productRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -97,8 +67,6 @@ app.use(function (req, res, next) {
     err.status = 404;
     next(err);
 });
-
-
 // production error handler
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
@@ -111,8 +79,9 @@ app.use(function (err, req, res, next) {
 
 module.exports = app;
 
+var serverPort = 3000;
+var httpServer = require('http').Server(app);
 app.set('port', serverPort);
-
 var server = httpServer.listen(app.get('port'), function () {
-    console.log('http server listening on port ' + server.address().port);
+    console.log('http server listening on port: ' + server.address().port);
 });

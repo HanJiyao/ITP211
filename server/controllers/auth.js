@@ -1,32 +1,18 @@
-// get gravatar icon from email
-var gravatar = require('gravatar');
-var passport = require('passport');
-
-// Signin GET
-exports.signin = function(req, res) {
-    // List all Users and sort by Date
-    res.render('login', { title: 'Login Page', message: req.flash('loginMessage') });
-};
-// Signup GET
-exports.signup = function(req, res) {
-    // List all Users and sort by Date
+var exports = module.exports = {}
+exports.signup = function (req, res) {
     res.render('signup', { title: 'Signup Page', message: req.flash('signupMessage') });
+}
 
-};
-// Profile GET
-exports.profile = function(req, res) {
-    // List all Users and sort by Date
-    res.render('profile', { title: 'Profile Page', user : req.user, avatar: gravatar.url(req.user.email ,  {s: '100', r: 'x', d: 'retro'}, true) });
-};
-// Logout function
-exports.logout = function () {
-    req.logout();
-    res.redirect('/');
-};
+exports.login = function (req, res) {
+    res.render('login', { title: 'Login Page', message: req.flash('loginMessage') });
+}
 
-// check if user is logged in
-exports.isLoggedIn = function(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-    res.redirect('/login');
-};
+exports.profile = function (req, res) {
+    res.render('profile', {title: 'Profile Page',user: req.user});
+}
+
+exports.logout = function (req, res) {
+    req.session.destroy(function (err) {
+        res.redirect('/');
+    });
+}

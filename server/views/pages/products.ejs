@@ -88,15 +88,13 @@
   </table>
   <script>
     $(".editBtn").click(function () {
-      console.log('startedit');
       var record_num = $(this).closest("tr").data('id');
-      location.href = "<%=urlPath %>/edit/"+record_num;
+      location.href = "<%=urlPath %>edit/"+record_num;
     });
     $(".deleteBtn").click(function () {
-      console.log('delete');
       var record_num = $(this).closest("tr").data('id');
       $.ajax({
-        url: '<%=urlPath%>/' + record_num,
+        url: '<%=urlPath%>' + record_num,
         type: 'DELETE',
         success: function (result) {
           console.log(result.message);

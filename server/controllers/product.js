@@ -1,7 +1,7 @@
-var productModel = require('../models/ProductModel');
+var models = require("../models");
+var productModel = models.Products;
 var myDatabase = require("../controllers/database")
 var SequelizeInstance = myDatabase.SequelizeInstance;
-
 exports.insert = function(req, res){
     var productData ={
         productID: req.body.productID,
@@ -26,7 +26,7 @@ exports.list = function(req, res){
         res.render("products", {
             title: "View Products",
             itemList: products,
-            urlPath: req.protocol + "://" + req.get("host") + req.url
+            urlPath: req.protocol + "://" + req.get("host") +"/products"+ req.url
         });
     }).catch((err)=> {
         return res.status(400).send({

@@ -5,25 +5,53 @@
 </head>
 <body>
     <% include ../partials/header %>
-    <div class="container">
-        <% if (message.length > 0) { %>
-            <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>Oops!</strong> <%= message %>.
+    <div class="container mt-5">
+        <div class="card m-auto" style="max-width: 500px">
+            <div class="h1 text-center text-white p-5 mb-5" style="background-image:linear-gradient(40deg,#ffd86f,#fc6262)!important;">LOG IN</div>
+            <div class="card-body p-0">
+                <% if (message.length > 0) { %>
+                    <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Oops!</strong> <%= message %>.
+                    </div>
+                <% } %>
+                <form id="login" name="login" class="pl-lg-3 pr-lg-3" action="/login" method="post">
+                    <div class="pl-5 pr-5">
+                        <div class="md-form">
+                            <i class="prefix grey-text material-icons">
+                                email
+                            </i>
+                            <input type="email" id="email" name="email" class="form-control">
+                            <label for="email" class="font-weight-light">Your email</label>
+                        </div>
+                        <div class="md-form">
+                            <i class="prefix grey-text material-icons">
+                                lock
+                            </i>
+                            <input type="password" id="password" name="password" class="form-control">
+                            <label for="password" class="font-weight-light">Your password</label>
+                        </div>
+                        <p class="font-small grey-text d-flex justify-content-end">Forgot
+                            <a href="#" class="dark-grey-text ml-1 font-weight-bold"> Password?</a>
+                        </p>
+                        <div class="row d-flex align-items-center mb-5 mt-5">
+                            <div class="col-md-4 d-flex align-items-start">
+                                <div class="text-center">
+                                    <button type="submit" id="loginBtn" class="btn btn-warning btn-rounded z-depth-1a waves-effect waves-light" style="font-size:1rem;-webkit-border-radius:10em!important;border-radius:10em!important;">LOGIN</button>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <p class="font-small grey-text d-flex justify-content-end mt-3">Don't have an account ?
+                                    <a href="/signup" class="dark-grey-text ml-1 font-weight-bold"> Sign Up</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-	    <% } %>
-        <form class="form-signin" action="/login" method="post">
-            <h2 class="form-signin-heading">Welcome, Sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required="">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <br>
-            <p>Don't have an account? <a href="/signup">Signup</a> ,it's free.</p>
-        </form>
+        </div>
     </div>
     <% include ../partials/footer %>
 </body>
