@@ -1,7 +1,5 @@
 var models = require("../models");
 var productModel = models.Products;
-var myDatabase = require("../controllers/database")
-var SequelizeInstance = myDatabase.SequelizeInstance;
 exports.insert = function(req, res){
     var productData ={
         productID: req.body.productID,
@@ -20,13 +18,15 @@ exports.insert = function(req, res){
     })
 };
 exports.list = function(req, res){
+    var user = (req.session.passport) ? req.session.passport.user : false;
     productModel.findAll({
         attributes: ["id","productID", "productName", "productType", "qty","price"]
     }).then(function(products){
         res.render("products", {
             title: "View Products",
             itemList: products,
-            urlPath: req.protocol + "://" + req.get("host") +"/products"+ req.url
+            urlPath: req.protocol + "://" + req.get("host") +"/products"+ req.url,
+            user: user
         });
     }).catch((err)=> {
         return res.status(400).send({
@@ -35,12 +35,14 @@ exports.list = function(req, res){
     });
 };
 exports.editRecord = function(req, res){
+    var user = (req.session.passport) ? req.session.passport.user : false;
     var record_num = req.params.id;
     productModel.findById(record_num).then(function(productRecords){
         res.render("editProduct", {
             title: "Edit Product",
             item: productRecords,
-            hostPath: req.protocol + "://" + req.get("host")
+            hostPath: req.protocol + "://" + req.get("host"),
+            user: user
         });
     }).catch((err)=> {
         return res.status(400).send({

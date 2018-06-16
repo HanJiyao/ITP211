@@ -4,7 +4,7 @@ module.exports = function (passport, user) {
     var User = user;
     var LocalStrategy = require('passport-local').Strategy;
     passport.serializeUser(function (user, done) {
-        done(null, user.id);
+        done(null, user.id, user.username, user.email);
     });
     // used to deserialize the user
     passport.deserializeUser(function (id, done) {
@@ -29,16 +29,14 @@ module.exports = function (passport, user) {
             };
             User.findOne({ where: { email: email } }).then(function (user) {
                 if (user) {
-                    return done(null, false, { message: 'That email is already taken' });
+                    return done(null, false, req.flash('signupMessage', 'That email has been taken, try another one'));
                 }
                 else {
                     var userPassword = generateHash(password);
                     var data = {
                         username: req.body.username,
                         email: email,
-                        password: userPassword,
-                        firstname: req.body.firstname,
-                        lastname: req.body.lastname,
+                        password: userPassword
                     };
                     User.create(data).then(function (newUser, created) {
                         if (!newUser) {
@@ -49,10 +47,13 @@ module.exports = function (passport, user) {
                         }
                     });
                 }
+            }).catch(function (err) {
+                console.log("Error:", err);
+                return done(null, false, req.flash('signupMessage', 'Something went wrong with your Signup'));
             });
         }
     ));
-    //LOCAL SIGNIN
+    //LOCAL LOGIN
     passport.use('local-login', new LocalStrategy(
         {
             // by default, local strategy uses username and password, we will override with email
@@ -67,16 +68,16 @@ module.exports = function (passport, user) {
             }
             User.findOne({ where: { email: email } }).then(function (user) {
                 if (!user) {
-                    return done(null, false, { message: 'Email does not exist' });
+                    return done(null, false, req.flash('loginMessage', 'Email does not exist'), req.session.save());
                 }
                 if (!isValidPassword(user.password, password)) {
-                    return done(null, false, { message: 'Incorrect password.' });
+                    return done(null, false, req.flash('loginMessage', 'Incorrect password'), req.session.save());
                 }
                 var userinfo = user.get();
                 return done(null, userinfo);
             }).catch(function (err) {
                 console.log("Error:", err);
-                return done(null, false, { message: 'Something went wrong with your Signin' });
+                return done(null, false, req.flash('loginMessage', 'Something went wrong with your Login' ));
             });
         }
     ));

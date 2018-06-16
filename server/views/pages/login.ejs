@@ -9,16 +9,16 @@
         <div class="card m-auto" style="max-width: 500px">
             <div class="h1 text-center text-white p-5 mb-5" style="background-image:linear-gradient(40deg,#ffd86f,#fc6262)!important;">LOG IN</div>
             <div class="card-body p-0">
-                <% if (message.length > 0) { %>
-                    <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>Oops!</strong> <%= message %>.
-                    </div>
-                <% } %>
                 <form id="login" name="login" class="pl-lg-3 pr-lg-3" action="/login" method="post">
                     <div class="pl-5 pr-5">
+                        <% if (message.length > 0) { %>
+                            <div class="text-danger mb-5" role="alert">
+                                <i class="material-icons pr-2"  style="font-size: 1.8rem;vertical-align: -8px;">
+                                    error_outline
+                                </i>
+                                <%= message %>
+                            </div>
+                        <% } %>
                         <div class="md-form">
                             <i class="prefix grey-text material-icons">
                                 email

@@ -6,9 +6,9 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 
-// Warning flash
-var flash = require('connect-flash');
-app.use(flash());
+// log dev
+var morgan = require('morgan')
+app.use(morgan('dev'))
 
 // Import multer
 var multer = require('multer');
@@ -17,24 +17,42 @@ var upload = multer({ dest: './public/uploads/', limits: { fileSize: 1500000, fi
 //For BodyParser cookieParser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
-// Modules to store session
-var database = require('./server/controllers/database');
-var expressSession = require('express-session');
-var SessionStore = require('express-session-sequelize')(expressSession.Store);
-var sequelizeSessionStore = new SessionStore({
-    db: database.sequelize,
-});
-// Secret for Session
-app.use(expressSession({
-    secret: 'sessionStore',
-    store: sequelizeSessionStore,
-    resave: false,
-    saveUninitialized: false,
-}));
+// Flash Message
+var flash = require('connect-flash');
+app.use(flash());
+
+// Store session 
+// For Dev only, Still have Error with redirect before Flash
+var Sequelize = require('sequelize')
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+// create database, ensure 'sqlite3' in your package.json
+var sequelize = new Sequelize(
+    "itp211",
+    "root",
+    "mysql", {
+        "dialect": "mysql"
+    });
+
+// configure express
+app.use(session({
+    secret: 'keyboard cat',
+    store: new SequelizeStore({
+        db: sequelize
+    }),
+    resave: false, // we support the touch method so per the express-session docs this should be set to false
+    proxy: false, // if you do SSL outside of node.
+    saveUninitialized: true,
+}))
+
+var myStore = new SequelizeStore({
+    db: sequelize
+})
+myStore.sync();
 
 // For Passport
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
