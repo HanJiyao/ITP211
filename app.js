@@ -24,29 +24,23 @@ var flash = require('connect-flash');
 app.use(flash());
 
 // Store session 
-// For Dev only, Still have Error with redirect before Flash
-var Sequelize = require('sequelize')
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
-
-// create database, ensure 'sqlite3' in your package.json
-var sequelize = new Sequelize(
-    "itp211",
-    "root",
-    "mysql", {
-        "dialect": "mysql"
-    });
+var models = require("./server/models");
+var sequelize = models.sequelize
 
 // configure express
 app.use(session({
     secret: 'keyboard cat',
-    store: new SequelizeStore({
-        db: sequelize
-    }),
+    // For Dev only, Still have Error with redirect before Flash
+    // store: new SequelizeStore({
+    //     db: sequelize
+    // }),
     resave: false, // we support the touch method so per the express-session docs this should be set to false
     proxy: false, // if you do SSL outside of node.
     saveUninitialized: true,
 }))
 
+// Session store sync
 var myStore = new SequelizeStore({
     db: sequelize
 })
@@ -75,7 +69,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Isolated Routes
 var indexRouter = require('./server/routes/index');
 app.use('/', indexRouter)
-//var productController = require("./server/controllers/product");
 var productRouter = require('./server/routes/product')
 app.use("/products", productRouter)
 

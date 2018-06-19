@@ -29,7 +29,7 @@ module.exports = function (passport, user) {
             };
             User.findOne({ where: { email: email } }).then(function (user) {
                 if (user) {
-                    return done(null, false, req.flash('signupMessage', 'That email has been taken, try another one'));
+                    return done(null, false, req.flash('signupMessage', 'That email has been taken'));
                 }
                 else {
                     var userPassword = generateHash(password);
