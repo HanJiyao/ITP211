@@ -69,8 +69,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Isolated Routes
 var indexRouter = require('./server/routes/index');
 app.use('/', indexRouter)
-var productRouter = require('./server/routes/product')
+var productRouter = require('./server/routes/product');
 app.use("/products", productRouter)
+var paymentRouter = require('./server/routes/payment');
+app.use("/payment", paymentRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
