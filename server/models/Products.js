@@ -12,6 +12,7 @@ module.exports = function (sequelize, Sequelize) {
         productName: {
             type: Sequelize.STRING,
             allowNull: false,
+            trim: true,
         },
         productType: {
             type: Sequelize.STRING,
@@ -22,9 +23,13 @@ module.exports = function (sequelize, Sequelize) {
         },
         price: {
             type: Sequelize.FLOAT(10, 2)
-        }
+        },
+        userID: {
+            type: Sequelize.INTEGER,
+        },
     });
-    Products.sync({ force: true, logging: console.log }).then(() => {
+    Products.sync({ force: true, logging: console.log })
+    .then(() => {
         console.log("Products table synced");
         return Products.upsert({
             id: 0,
@@ -32,7 +37,8 @@ module.exports = function (sequelize, Sequelize) {
             productName: "Seagate 1TB 7200RPM (Blue)",
             productType: "Hard Disk",
             qty: 100,
-            price: 199.99
+            price: 199.99,
+            userID: 1,
         });
     });
     return Products;

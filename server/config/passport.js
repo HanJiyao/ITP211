@@ -4,11 +4,19 @@ module.exports = function (passport, user) {
     var User = user;
     var LocalStrategy = require('passport-local').Strategy;
     passport.serializeUser(function (user, done) {
-        done(null, user.id, user.username, user.email);
+        done(null, {
+            id:user.id, 
+            username:user.username, 
+            email:user.email, 
+            mobile:user.mobile,
+            avatar:user.avatar,
+            first_name: user.first_name,
+            last_name: user.last_name
+        });
     });
     // used to deserialize the user
-    passport.deserializeUser(function (id, done) {
-        User.findById(id).then(function (user) {
+    passport.deserializeUser(function (user, done) {
+        User.findById(user.id).then(function (user) {
             if (user) {
                 done(null, user.get());
             }

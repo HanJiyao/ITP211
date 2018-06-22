@@ -5,7 +5,7 @@ module.exports = function (sequelize, Sequelize) {
         email: { type: Sequelize.STRING, validate: { isEmail: true } },
         password: { type: Sequelize.STRING, allowNull: false },
         mobile: { type: Sequelize.INTEGER },
-        image: { type: Sequelize.TEXT },
+        avatar: { type: Sequelize.TEXT },
         last_login: { type: Sequelize.DATE },
         first_name: { type: Sequelize.TEXT },
         last_name: { type: Sequelize.TEXT },

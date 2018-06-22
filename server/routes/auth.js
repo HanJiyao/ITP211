@@ -8,17 +8,19 @@ module.exports = function (app, passport) {
             failureFlash: true
         }
     ));
-    app.get('/profile', isLoggedIn, authController.profile);
-    app.get('/logout', authController.logout);
     app.post('/login', passport.authenticate('local-login', {
             successRedirect: '/',
             failureRedirect: '/login',
             failureFlash: true
         }
     ));
+    app.get('/profile', isLoggedIn, authController.profile);
+    app.post('/profile', isLoggedIn, authController.profileUpdate);
+    app.get('/logout', authController.logout);
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
             return next();
         res.redirect('/login');
     }
+    app.post("/profile/delete", authController.accountDelete);
 }

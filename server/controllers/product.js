@@ -26,7 +26,8 @@ exports.list = function(req, res){
             title: "View Products",
             itemList: products,
             urlPath: req.protocol + "://" + req.get("host") +"/products"+ req.url,
-            user: user
+            user: user,
+            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
     }).catch((err)=> {
         return res.status(400).send({
@@ -42,7 +43,8 @@ exports.editRecord = function(req, res){
             title: "Edit Product",
             item: productRecords,
             hostPath: req.protocol + "://" + req.get("host"),
-            user: user
+            user: user,
+            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
     }).catch((err)=> {
         return res.status(400).send({
