@@ -1,5 +1,5 @@
 var models = require("../models");
-var paymentModel = models.Payments;
+var paymentModel = models.PaymentDetails;
 exports.insert = function (req, res) {
     var paymentDetailsData = {
         paymentDetailsID: req.body.paymentDetailsID,
@@ -22,8 +22,8 @@ exports.list = function(req, res) {
     paymentModel.findAll({
         attributes: ["id","paymentDetailsID","cardHolderName","cardNumber","securityCode","expiryDate"]
     }).then(function(payment) {
-        res.render("payment", {
-            title: "Payment Details",
+        res.render("createPaymentDetails", {
+            title: "Create Payment Details",
             itemList: payment,
             urlPath: req.protocol + "://" + req.get("host") + "/payment" + req.url,
             user: user

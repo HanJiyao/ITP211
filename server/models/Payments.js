@@ -1,5 +1,5 @@
 module.exports = function (sequelize, Sequelize) {
-    var paymentDetails = sequelize.define('PaymentDetails', {
+    var PaymentDetails = sequelize.define('PaymentDetails', {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -33,9 +33,9 @@ module.exports = function (sequelize, Sequelize) {
             //from when the user signed up with us (FK)?
         },
     });
-    paymentDetails.sync({force: true, logging: console.log}).then(() => {
+    PaymentDetails.sync({force: true, logging: console.log}).then(() => {
         console.log("Payment details synced");
-        return paymentDetails.upsert({
+        return PaymentDetails.upsert({
             //static test data
             id: 0,
             paymentDetailsID: 1,
@@ -46,5 +46,5 @@ module.exports = function (sequelize, Sequelize) {
             userID: 5
         });
     });
-    return paymentDetails;
+    return PaymentDetails;
 }
