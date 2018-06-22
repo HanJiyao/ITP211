@@ -34,3 +34,6 @@ exports.list = function(req, res) {
         });
     });
 };
+// edit payment details
+// update payment details
+// delete payment details

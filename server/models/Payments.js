@@ -1,5 +1,5 @@
 module.exports = function (sequelize, Sequelize) {
-    var paymentDetails = sequelize.define('Payment Details', {
+    var paymentDetails = sequelize.define('PaymentDetails', {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
