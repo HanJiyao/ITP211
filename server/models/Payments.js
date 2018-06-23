@@ -34,7 +34,7 @@ module.exports = function (sequelize, Sequelize) {
         },
     });
     PaymentDetails.sync({force: true, logging: console.log}).then(() => {
-        console.log("Payment details synced");
+        console.log("Payment details table synced");
         return PaymentDetails.upsert({
             //static test data
             id: 0,

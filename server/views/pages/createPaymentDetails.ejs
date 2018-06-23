@@ -15,19 +15,39 @@
                     <div class="p-5 text-left m-md-5">
                         <h1 class="font-weight-light mt-3 mb-5">
                             Create Your Payment Details
-                        </h1>
-                        <h2 class="">
-                            Cardholder Name
-                        </h2>
-                        <h2 class="">
-                            Card Number
-                        </h2>
-                        <h2 class="">
-                            Security Code
-                        </h2>
-                        <h2 class="">
-                            Expiry Date
-                        </h2>
+                        </h1>   
+                        <div class="form-body">
+                            <form method="post" id="paymentdetails" action="">
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label for="cardHolderName">Cardholder Name</label>
+                                        <input type="text" id="cardHolderName" name="cardHolderName" class="form-control" placeholder="" required="true">
+                                    </fieldset>
+                                </div>
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label for="cardNumber">Card Number</label>
+                                        <input type="text" id="cardNumber" name="cardNumber" class="form-control" placeholder="" required="true">
+                                    </fieldset>
+                                </div>
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label for="securityCode">Security Code</label>
+                                        <input type="text" id="securityCode" name="securityCode" class="form-control" placeholder="" required="true">
+                                    </fieldset>
+                                </div>
+                                <div class="form-group">
+                                    <fieldset class="form-group">
+                                        <label for="expiryDate">Expiry Date</label>
+                                        <input type="text" id="expiryDate" name="expiryDate" class="form-control" placeholder="" required="true">
+                                    </fieldset>
+                                </div>
+                                <button type="submit" value="submit" class="btn btn-primary btn-lg">Save</button>
+                                <button type="button" class="btn btn-submit btn-lg">
+                                    <a href="/profile">Return</a>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
