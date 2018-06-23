@@ -15,30 +15,28 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.3/js/mdb.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<div class="master-wrapper" style="background: #e0e0e0; min-height: 100vh;position: relative;height:100%;">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center pb-0 pt-0">
-        <div class="container justify-content-between" >
-            <a class="navbar-brand pr-5" href="/" style="font-size:36px;font-weight: 900">Silicon Zone</a>
+<div class="master-wrapper" style="background: #e0e0e0; min-height: 100vh;position: relative;height:100%; padding-top:100px">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark pb-0 pt-0">
+        <div class="container  justify-content-between" style="padding-left: 15px;padding-right: 15px">
+            <a class="navbar-brand pr-lg-4" href="/" style="font-size:36px;font-weight: 900">Silicon Zone</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col">
+                    <div class="row">
+                        <div class="col-lg-8 pl-lg-5 pr-lg-5">
                             <form class="row mt-3">
-                                <input class="col col-7 col-lg-9 border border-dark border-right-0 rounded-left " type="search" placeholder="Search" aria-label="Search" />
-                                <button class="col pr-1 pl-0 border border-dark border-left-0 rounded-right bg-white text-right" type="submit">
+                                <input class="col-10 border border-dark border-right-0 rounded-left" id="masterSearch" type="search" placeholder="Search" aria-label="Search" style="border-radius:10em 0 0 10rem!important;"/>
+                                <style>
+                                    #masterSearch:focus {
+                                        outline: 0;
+                                    }
+                                </style>
+                                <button class="col-2 p-0 border border-dark border-left-0 rounded-right bg-white text-right" type="submit" style="border-radius:0 10em 10rem 0!important;">
                                     <i class="material-icons" style="font-size: 42px;vertical-align:-12px;">search</i>
                                 </button>
-                                <a href="/cart">
-                                    <div class="col text-white text-center">
-                                        <i class="material-icons" style="font-size:30px;padding-top:8px;">
-                                            shopping_cart
-                                        </i>
-                                    </div>
-                                </a>
                             </form>
                             <div class="row text-lg-cente">
                                 <ul class="navbar-nav w-100" style="font-size:15px;">
@@ -65,54 +63,194 @@
                                 </ul>
                             </div>
                         </div>
-                        <% if (user) { %>
-                        <style>
-                            .dropdown-item i{
-                                vertical-align: -7px;
-                                padding-right: 25px;
-                            }
-                            #dropdownProfile:hover, #dropdownWishlist:hover, #dropdownReview:hover,#dropdownProduct:hover {
-                                color:#f80!important;
-                                background: #EEEEEE;
-                            }
-                            #dropdownLogout{
-                                color:#9e9e9e!important;
-                                background: #e0e0e0;
-                                text-align: center;
-                                font-size: 0.8rem;
-                            }
-                            #dropdownLogout:hover{
-                                color:red!important;
-                            }
-                        </style>
-                        <div class="col-lg-2 mt-4 text-center">
-                            <a href="#" id="gravatarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle p-0 mb-4" src="<%= avatar %>" alt="avatar" style="border:2px solid grey;height:60px;">
-                            </a>
-                            <div id="dropdownMenu" class="dropdown-menu pt-4 pb-0" aria-labelledby="navbarDropdownMenuLink" style="font-size: 1rem!important;left: -25px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); border: 0;">
-                                <a id="dropdownProfile" class="dropdown-item pl-4 pr-5" href="/profile"><i class="material-icons">account_circle</i> My Profile</a>
-                                <a id="dropdownWishlist" class="dropdown-item pl-4 pr-5" href="#"><i class="material-icons">favorite</i> My Wishlist</a>
-                                <a id="dropdownReview" class="dropdown-item pl-4 pr-5" href="#"><i class="material-icons">mode_comment</i> My Review</a>
-                                <a id="dropdownProduct" class="dropdown-item pl-4 pr-5" href="/products"><i class="material-icons">view_list</i> My Product</a>
-                                <a id="dropdownLogout" class="dropdown-item pl-4 pr-5 bg-light-grey" href="/logout"><i class="material-icons">power_settings_new</i> Logout</a>
+                        <div class="col-lg-4 p-0 pl-lg-3">
+                            <% if (user) { %>
+                            <div class="row m-0" id="desktopView">
+                                <a href="/cart" class="col-3 p-0">
+                                    <div class="text-white text-center">
+                                        <i class="material-icons" style="font-size:36px;padding-top: 30px">
+                                            shopping_cart
+                                        </i>
+                                    </div>
+                                </a>
+                                <a href="#" class="col-3 p-0">
+                                    <div class="text-white text-center">
+                                        <i class="material-icons" style="font-size:36px;padding-top: 30px">
+                                            chat
+                                        </i>
+                                    </div>
+                                </a>
+                                <style>
+                                    #dropdownMenu{
+                                        top:100px;
+                                        margin-left: -50px!important;
+                                        margin-right: -50px!important;
+                                        width: 240px;
+                                    }
+                                    .avatar{
+                                        border:2px solid lightgrey;
+                                        position: absolute;
+                                        z-index: 3000;
+                                        height:50px;
+                                        left:42px;
+                                        top:0;
+                                        box-shadow: 0 0 0 lightgrey;
+                                        transition: left 0.3s, top 0.3s, box-shadow 0.3s, height 0.3s
+                                    }
+                                    .avatar.active{
+                                        height:90px;
+                                        top:32px;
+                                        left:30px;
+                                        box-shadow: 0 0 30px #f80;
+                                    }
+                                    #mobileView{
+                                        display: none;
+                                    }
+                                    @media (max-width: 1200px) { 
+                                        #dropdownMenu{
+                                            width: 200px;
+                                        }
+                                        .avatar{
+                                            left: 25px;
+                                        }
+                                        .avatar.active{
+                                            left: 10px;
+                                        }
+                                    }
+                                    @media (max-width: 992px) { 
+                                        #dropdownMenu{
+                                            margin:0!important;
+                                            width: 100%!important;
+                                        }
+                                        .avatar{
+                                            left: 142px;
+                                        }
+                                        .avatar.active{
+                                            left: 130px;
+                                        }
+                                        #mobileView{
+                                            display: block;
+                                        }
+                                        #desktopView{
+                                            display: none;
+                                        }
+                                    }
+                                    #gravatarDropdown a i{
+                                        vertical-align: -7px;
+                                        padding-right: 20px;
+                                    }
+                                    #gravatarDropdown a{
+                                        display: block;
+                                        color:#495057;
+                                    }
+                                    #dropdownProfile:hover, #dropdownWishlist:hover, #dropdownReview:hover,#dropdownProduct:hover {
+                                        color:#f80!important;
+                                        background: #EEEEEE;
+                                    }
+                                    #dropdownLogout{
+                                        color:#9e9e9e!important;
+                                        background: #e0e0e0;
+                                        text-align: center;
+                                        font-size: 0.8rem;
+                                    }
+                                    #dropdownLogout:hover{
+                                        color:red!important;
+                                    }
+                                </style>
+                                <div class="col-6 text-center p-0" style="height: 100px;">
+                                    <div class="dropdown"  id="gravatarDropdown" >
+                                        <a href="/profile" data-toggle="dropdown" style="display:block;height:100px">
+                                            <img id="avatar" class="rounded-circle p-0 mt-4 mb-4 avatar" src="<%= avatar %>" alt="avatar" />
+                                        </a>
+                                        <ul id="dropdownMenu" class="dropdown-menu p-0 m-0 text-center" style="font-size:1rem!important;box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);border:0;min-width:0;">
+                                            <li class="pt-5">
+                                                <a id="dropdownProfile" class="p-3 mt-3" href="/profile">
+                                                    <div class="text-left m-auto" style="max-width: 150px">
+                                                        <i class="material-icons pr-xl-4">account_circle</i> My Profile
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a id="dropdownWishlist" class="p-3" href="#">
+                                                    <div class="text-left m-auto" style="max-width: 150px">
+                                                        <i class="material-icons pr-xl-4">favorite</i> My Wishlist
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a id="dropdownReview" class="p-3" href="#">
+                                                    <div class="text-left m-auto" style="max-width: 150px">
+                                                        <i class="material-icons pr-xl-4">reply_all</i> My Review
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <a id="dropdownProduct" class="p-3" href="/products">
+                                                <div class="text-left m-auto" style="max-width: 150px">
+                                                    <i class="material-icons pr-xl-4">view_list</i> My Product
+                                                </div>
+                                            </a>
+                                            <a id="dropdownLogout" class="p-3 bg-light-grey" href="/logout"><i class="material-icons pr-3">power_settings_new</i> Logout</a>
+                                        </ul>
+                                    </div>
+                                    <script>
+                                         $('#gravatarDropdown').hover(function() { 
+                                            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(300);
+                                            $('#avatar').delay(200).addClass("active");
+                                        }, 
+                                        function(){ 
+                                            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(300);
+                                            $('#avatar').delay(200).removeClass("active");
+                                        });
+                                    </script>
+                                </div>
                             </div>
-                            <script>
-                                // $('#gravatarDropdownMenuLink').mouseover(()=>{
-                                //     $('#dropdownMenu').addClass("show")
-                                // })
-                                // $('#gravatarDropdownMenuLink').mouseleave(() => {
-                                //     $('#dropdownMenu').removeClass("show")
-                                // })
-                            </script>
-                        </div>
-                        <% } else {  %>
-                        <div class="col-lg-4 mt-lg-4 mb-3 pr-0 pl-lg-4">
-                            <div class="row justify-content-end">
-                                <div class="col-3 pt-3 pl-1 font-weight-bold"><a class="text-white" href="/login">LOGIN</a></div>
-                                <a class="col" href="/signup"><button type="button" class="btn btn-warning btn-block rounded font-weight-bold waves-effect waves-light" style="font-size:1rem;-webkit-border-radius:10em!important;border-radius:10em!important;" href="/signup">SIGN UP</button></a>
+                            <div class="row m-0 text-white text-center" id="mobileView">
+                                <ul class="navbar-nav text-left">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">My review</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">My Products</a>
+                                    </li>
+                                </ul>
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-3">
+                                        <i class="material-icons" style="font-size:50px">
+                                            shopping_cart
+                                        </i>
+                                    </div>
+                                    <div class="col-3">
+                                        <i class="material-icons" style="font-size:50px">
+                                            chat
+                                        </i>
+                                    </div>
+                                    <div class="col-3">
+                                        <i class="material-icons" style="font-size:50px">
+                                            favorite
+                                        </i>
+                                    </div>
+                                    <div class="col-3">
+                                        <i class="material-icons" style="font-size:50px">
+                                            account_circle
+                                        </i>
+                                    </div>
+                                </div>
                             </div>
+                            <% } else {  %>
+                            <div class="container pt-4 pb-4">
+                                <div class="row justify-content-end">
+                                    <div class="col-3 pt-3 pl-0 font-weight-bold">
+                                        <a class="text-white" href="/login">LOGIN</a>
+                                    </div>
+                                    <a class="col pr-0" href="/signup">
+                                        <button type="button" class="btn btn-warning btn-block rounded font-weight-bold waves-effect waves-light" style="font-size:1rem;-webkit-border-radius:10em!important;border-radius:10em!important;"
+                                            href="/signup">SIGN UP</button>
+                                    </a>
+                                </div>
+                            </div>
+                            <% } %>
                         </div>
-                        <% } %>
                     </div>
                 </div>
             </div>
