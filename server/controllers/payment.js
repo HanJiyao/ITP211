@@ -26,7 +26,8 @@ exports.list = function(req, res) {
             title: "Create Payment Details",
             itemList: payment,
             urlPath: req.protocol + "://" + req.get("host") + "/payment" + req.url,
-            user: user
+            user: user,
+            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
     }).catch((err)=> {
         return res.status(400).send({
