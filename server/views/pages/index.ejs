@@ -5,11 +5,107 @@
 </head>
 <body>
     <% include ../partials/header %>
-    <div class="container">
-      <div class="page-header m-t-1">
-        <h1><%= title %></h1>
+    <div>
+      <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example-2" data-slide-to="1"></li>
+          <li data-target="#carousel-example-2" data-slide-to="2"></li>
+          <li data-target="#carousel-example-2" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <div class="carousel-item active">
+            <div class="view" style="height: 360px; width: 100%; overflow: hidden;">
+              <video class="w-100" autoplay loop >
+                <source class="w-100" src="https://mdbootstrap.com/img/video/animation-intro.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="carousel-caption">
+              <div class="animated fadeInDown">
+                <h3 class="h3-responsive">Welcome to <%=title%></h3>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="view">
+              <div class="d-block w-100" style="height: 360px; overflow: hidden;background-image: url('https://unlocked.newegg.com/sites/default/files/asus-miniitx-z270e-nzxt-build-55.jpeg');background-size:100% auto;"></div>
+              <div class="mask rgba-black-light h-50" style=" top:50%; background: linear-gradient(rgba(255,0,0,0), rgba(0,0,0,0.5));"></div>
+            </div>
+            <div class="carousel-caption">
+              <div class="animated fadeInDown">
+                <h3 class="h3-responsive">Awesome Build</h3>
+                <p>First text</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="view">
+              <div class="d-block w-100" style="height: 360px; overflow: hidden;background-image: url('https://i.ytimg.com/vi/NSNz6VVpWI8/maxresdefault.jpg');background-size:100% auto;"></div>
+              <div class="mask rgba-black-light h-50" style=" top:50%; background: linear-gradient(rgba(255,0,0,0), rgba(0,0,0,0.5));"></div>
+            </div>
+            <div class="carousel-caption">
+              <div class="animated fadeInDown">
+                <h3 class="h3-responsive">High Quality Specs</h3>
+                <p>Secondary text</p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="view">
+              <div class="d-block w-100" style="height: 360px; overflow: hidden;background-image: url('https://www.geforce.com/sites/default/files-world/attachments/diy-blueprint-2560x1600.jpg');background-size:100% auto;"></div>
+              <div class="mask rgba-black-light h-50"  style=" top:50%; background: linear-gradient(rgba(255,0,0,0), rgba(0,0,0,0.5));"></div>
+            </div>
+            <div class="carousel-caption">
+              <div class="animated fadeInDown">
+                <h3 class="h3-responsive">Professional Guide</h3>
+                <p>Third text</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
-      <p class="lead">Welcome to <%= title %></p>
+    </div>
+    <div class="container pt-5 pb-5 mb-5">
+      <h3 class="text-center p-3"> Most Popular</h3>
+      <div class="row">
+        <% for(var i=0; i < products.length; i++){ %>
+          <a class="col-lg-3 pt-4" id="">
+            <div class="card">
+              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" class="card-img-top" alt="photo">
+              <div class="card-body">
+                <div class="card-title"><%= products[i].productName %></div>
+                <h4 class="card-title text-warning">
+                  SGD <%= products[i].price %>
+                </h4>
+                <div class="card-text row">
+                  <div class="col-6">
+                    <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= products[i].userID %>
+                  </div>
+                  <div class="col-6 text-right">
+                  <%= products[i].productType %>
+                  </div>  
+                </div>
+                <div class="card-text pt-3">
+                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                </div>
+              </div>
+            </div>
+          </a>
+        <% } %>
+      </div>
     </div>
     <% include ../partials/footer %>
 </body>

@@ -40,7 +40,7 @@ module.exports = function (sequelize, Sequelize) {
         console.log("Payment details table synced");
         return PaymentDetails.upsert({
             //static test data
-            id: 0,
+            id: 1,
             paymentDetailsID: 1,
             cardHolderName: "Tan Yong Rui",
             cardNumber: "0000111122223333",

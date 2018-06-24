@@ -15,6 +15,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.3/js/mdb.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0/css/tempusdominus-bootstrap-4.min.css" />
 <div class="master-wrapper" style="background: #e0e0e0; min-height: 100vh;position: relative;height:100%; padding-top:100px">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark pb-0 pt-0">
         <div class="container  justify-content-between" style="padding-left: 15px;padding-right: 15px">
@@ -143,7 +146,7 @@
                                         display: block;
                                         color:#495057;
                                     }
-                                    #dropdownProfile:hover, #dropdownWishlist:hover, #dropdownReview:hover,#dropdownProduct:hover {
+                                    #dropdownProfile:hover, #dropdownWishlist:hover, #dropdownReview:hover,#dropdownProduct:hover, #dropdownPayment:hover{
                                         color:#f80!important;
                                         background: #EEEEEE;
                                     }
@@ -170,10 +173,10 @@
                                                     </div>
                                                 </a>
                                             </li>
-                                            <li class="pt-5">
-                                                <a id="dropdownPayment" class="p-3 mt-3" href="/payment">
+                                            <li>
+                                                <a id="dropdownPayment" class="p-3" href="/payment">
                                                     <div class="text-left m-auto" style="max-width: 150px">
-                                                        <i class="material-icons pr-xl-4">account_circle</i> My Payment
+                                                        <i class="material-icons pr-xl-4">account_balance_wallet</i> My Payment
                                                     </div>
                                                 </a>
                                             </li>
@@ -192,7 +195,7 @@
                                                 </a>
                                             </li>
                                             <li class="divider"></li>
-                                            <a id="dropdownProduct" class="p-3" href="/products">
+                                            <a id="dropdownProduct" class="p-3" href="/productsmanager">
                                                 <div class="text-left m-auto" style="max-width: 150px">
                                                     <i class="material-icons pr-xl-4">view_list</i> My Product
                                                 </div>
@@ -245,7 +248,7 @@
                                 </div>
                             </div>
                             <% } else {  %>
-                            <div class="container pt-4 pb-4">
+                            <div class="container pt-4 pb-4" style="height: 100px;">
                                 <div class="row justify-content-end">
                                     <div class="col-3 pt-3 pl-0 font-weight-bold">
                                         <a class="text-white" href="/login">LOGIN</a>

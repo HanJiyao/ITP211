@@ -7,6 +7,7 @@ exports.insert = function(req, res){
         productType: req.body.productType,
         qty: req.body.qty,
         price: req.body.price,
+        userID:req.session.passport.user.id
     }
     productModel.create(productData).then((newProduct, created)=> {
         if (!newProduct){
@@ -14,18 +15,17 @@ exports.insert = function(req, res){
                 message: "error"
             });
         }
-        res.redirect("/products")
+        res.redirect("/productsmanager")
     })
 };
 exports.list = function(req, res){
-    var user = (req.session.passport) ? req.session.passport.user : false;
-    productModel.findAll({
-        attributes: ["id","productID", "productName", "productType", "qty","price"]
-    }).then(function(products){
+    var user = req.session.passport.user;
+    models.sequelize.query('select p.id, p.productID, p.productName, p.productType, p.qty, p.price, u.email AS userID from Products p join Users u on p.userID = u.id', { model: models.Products })
+    .then(function(products){
         res.render("products", {
             title: "View Products",
             itemList: products,
-            urlPath: req.protocol + "://" + req.get("host") +"/products"+ req.url,
+            urlPath: req.protocol + "://" + req.get("host") +"/productsmanager"+ req.url,
             user: user,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
@@ -36,7 +36,7 @@ exports.list = function(req, res){
     });
 };
 exports.editRecord = function(req, res){
-    var user = (req.session.passport) ? req.session.passport.user : false;
+    var user = req.session.passport.user;
     var record_num = req.params.id;
     productModel.findById(record_num).then(function(productRecords){
         res.render("editProduct", {

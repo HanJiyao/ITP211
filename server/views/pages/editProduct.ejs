@@ -38,7 +38,7 @@
     </div>
     <script>
         function saveChanges() {
-            var url = "<%=hostPath%>/products/edit/<%=item.id%>";
+            var url = "<%=hostPath%>/productsmanager/edit/<%=item.id%>";
             var newValues = {
                 productID: $("#inputproductID").val(),
                 productName: $("#inputproductName").val(),
@@ -54,7 +54,7 @@
                 contentType: "application/json",
                 success: function(result){
                     alert(" Product updated successfully");
-                    location.href = "<%=hostPath%>/products"
+                    location.href = "<%=hostPath%>/productsmanager"
                 },
                 error: function(result){
                     alert("Error updating product");
@@ -63,7 +63,7 @@
             })
         }
         function discardChanges() {
-            location.href = "<%=hostPath%>/products"
+            location.href = "<%=hostPath%>/productsmanager"
         }
     </script>
     <% include ../partials/footer %>

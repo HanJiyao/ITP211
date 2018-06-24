@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+<body>
+    <% include ../partials/header %>
+        <div class="container mt-5">
+            <div class="card pl-3 pr-3">
+                <div class="row bg-primary text-white pt-4 pb-4 font-weight-bold">
+                    <div class="col-1">
+                        ID
+                    </div>
+                    <div class="col-2">
+                        Username
+                    </div>
+                    <div class="col-3">
+                        Email
+                    </div>
+                    <div class="col-2">
+                        Created DateTime
+                    </div>
+                    <div class="col-2">
+                        Last Login DateTime
+                    </div>
+                    <div class="col-2">
+                    </div>
+                </div>
+                <% for(var i=0; i < userData.length; i++){ %>
+                <div class="row pt-3 pb-3" id="<%=userData[i].id%>">
+                    <div class="col-1">
+                        <%=userData[i].id%>
+                    </div>
+                    <div class="col-2">
+                        <%=userData[i].username%>
+                    </div>
+                    <div class="col-3">
+                        <%=userData[i].email%>
+                    </div>
+                    <div class="col-2 createdAt">
+                    </div>
+                    <script>
+                        dateString = new Date("<%=userData[i].createdAt%>").toUTCString();
+                        $(".createdAt")[<%=i%>].innerText = moment(dateString).format("YYYY-MM-DD hh:mm:ss");
+                    </script>
+                    <div class="col-2 last_login">
+                        N/A
+                    </div>
+                    <%if(userData[i].last_login!=null){%>
+                    <script>
+                        console.log("<%=userData[i].last_login%>")
+                        dateString = new Date("<%=userData[i].last_login%>").toUTCString();
+                        $(".last_login")[<%=i%>].innerText = moment(dateString).format("YYYY-MM-DD hh:mm:ss");
+                    </script>
+                    <%}%>
+                    <div class="col-1 text-right">
+                        <a class=""><i class="material-icons"  data-toggle="modal" data-target="#editModal<%=userData[i].id%>">edit</i></a>
+                    </div>
+                    <div class="modal fade" id="editModal<%=userData[i].id%>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <form class="modal-content" action="/admin/<%=userData[i].id%>" method="post">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel<%=userData[i].id%>">Edit Account Info</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body p-5">
+                                        <div class="text-left justify-content-center">
+                                            <div class="md-form">
+                                                <i class="prefix material-icons mr-3">
+                                                    account_circle
+                                                </i>
+                                                <input type="text" id="username" name="username" value="<%= userData[i].username %>" class="form-control ">
+                                                <label for="username" class="font-weight-light">Username</label>
+                                            </div>
+                                            <div class="md-form">
+                                                <i class="prefix material-icons">
+                                                    email
+                                                </i>
+                                                <input type="email" id="email" name="email" value="<%= userData[i].email %>" class="form-control ">
+                                                <label for="email" class="font-weight-light ">Email</label>
+                                            </div>
+                                            <div class="md-form">
+                                                <i class="prefix material-icons ">
+                                                    phone
+                                                </i>
+                                                <input type="text" id="mobile" name="mobile" value="<%= userData[i].mobile %>" class="form-control ">
+                                                <label for="mobile" class="font-weight-light ">Mobile</label>
+                                            </div>
+                                            <div>
+                                                <button id="changePassword" class="btn btn-light btn-rounded btn-block z-depth-1a waves-effect waves-light mt-5 mr-auto ml-auto"
+                                                    style="font-size:1rem;-webkit-border-radius:10em!important;border-radius:10em!important;">Change Password</button>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-1 text-left">
+                        <a data-toggle="modal" data-target="#modalConfirmDelete<%=userData[i].id%>">
+                            <i class="material-icons">delete_outline</i>
+                        </a>
+                    </div>
+                    <div class="modal fade" id="modalConfirmDelete<%=userData[i].id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+                            <div class="modal-content text-center">
+                                <div class="modal-header d-flex justify-content-center">
+                                    <p class="heading">Are you sure to Delete Account User ID <%=userData[i].id%>?</p>
+                                </div>
+                                <div class="modal-body">
+                                    <i class="fa fa-times fa-4x animated rotateIn"></i>
+                                </div>
+                                <div class="modal-footer flex-center">
+                                    <a class="btn btn-light waves-effect " data-dismiss="modal" style="-webkit-border-radius:10em!important;border-radius:10em!important;">No</a>
+                                    <a class="deleteBtn btn btn-danger waves-effect" data-dismiss="modal" style="-webkit-border-radius:10em!important;border-radius:10em!important;" data-id="<%=userData[i].id%>">Yes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <script>
+            $(".deleteBtn").click(function () {
+                var id = $(this).data('id');
+                if (id=="<%=user.id%>"){
+                    alert("Please delete your own account at Your Profile Page")
+                } else{
+                    $.ajax({
+                        url: '<%=urlPath%>/' + id,
+                        type: 'DELETE',
+                        success: function (result) {
+                            console.log(result.message);
+                            var itemToRemove = document.getElementById(id);
+                            $(itemToRemove).remove();
+                        },
+                        error: function (result) {
+                            alert("Unable to delete user account.");
+                            console.log(result.message);
+                        }
+                    });
+                }   
+            });
+        </script>
+    <% include ../partials/footer %>
+</body>
+</html>

@@ -16,6 +16,13 @@ module.exports = function (sequelize, Sequelize) {
     });
     Users.sync({ force: false, logging: console.log }).then(() => {
         console.log("Users table synced");
+        Users.upsert({
+            //static test data
+            id: 1,
+            username:"Default Test User",
+            password:"",
+            email:"i@default.user",
+        });
     });
     return Users;
 }

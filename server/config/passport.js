@@ -87,6 +87,9 @@ module.exports = function (passport, user) {
                 console.log("Error:", err);
                 return done(null, false, req.flash('loginMessage', 'Something went wrong with your Login' ));
             });
+            var moment = require('moment')
+            var now = moment().format("YYYY-MM-DD hh:mm:ss")
+            User.update({ last_login: now }, { where: { email: email } })
         }
     ));
 }

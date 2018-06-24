@@ -22,5 +22,8 @@ module.exports = function (app, passport) {
             return next();
         res.redirect('/login');
     }
-    app.post("/profile/delete", authController.accountDelete);
+    app.post("/profile/delete", isLoggedIn, authController.accountDelete);
+    app.get("/admin", isLoggedIn, authController.adminListAccount);
+    app.post("/admin/:id", isLoggedIn, authController.adminEditAccount);
+    app.delete("/admin/:id", isLoggedIn, authController.adminDeleteAccount);
 }
