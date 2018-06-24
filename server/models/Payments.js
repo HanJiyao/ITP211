@@ -7,7 +7,7 @@ module.exports = function (sequelize, Sequelize) {
         },
         paymentDetailsID: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
         cardHolderName: {
             type: Sequelize.STRING,
@@ -29,8 +29,11 @@ module.exports = function (sequelize, Sequelize) {
         },
         userID: {
             type: Sequelize.INTEGER,
-            //allowNull: false,
-            //from when the user signed up with us (FK)?
+            allowNull: false,
+            references: {
+                model: 'Users',
+                key: 'id'
+            }
         },
     });
     PaymentDetails.sync({force: true, logging: console.log}).then(() => {
@@ -43,7 +46,7 @@ module.exports = function (sequelize, Sequelize) {
             cardNumber: "0000111122223333",
             securityCode: "555",
             expiryDate: "03/95",
-            userID: 5
+            userID: 1
         });
     });
     return PaymentDetails;

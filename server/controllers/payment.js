@@ -2,11 +2,11 @@ var models = require("../models");
 var paymentModel = models.PaymentDetails;
 exports.insert = function (req, res) {
     var paymentDetailsData = {
-        paymentDetailsID: req.body.paymentDetailsID,
         cardHolderName: req.body.cardHolderName,
         cardNumber: req.body.cardNumber,
         securityCode: req.body.securityCode,
         expiryDate: req.body.expiryDate,
+        userID:req.session.passport.user.id
     }
     paymentModel.create(paymentDetailsData).then((newPaymentDetails, created) => {
         if (!newPaymentDetails) {
@@ -18,7 +18,7 @@ exports.insert = function (req, res) {
     })
 };
 exports.list = function(req, res) {
-    var user = (req.session.passport) ? req.session.passport.user : false;
+    var user = req.session.passport.user;
     paymentModel.findAll({
         attributes: ["id","paymentDetailsID","cardHolderName","cardNumber","securityCode","expiryDate"]
     }).then(function(payment) {
