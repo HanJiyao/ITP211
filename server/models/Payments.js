@@ -29,7 +29,7 @@ module.exports = function (sequelize, Sequelize) {
         },
         userID: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+            //allowNull: false,
             //from when the user signed up with us (FK)?
         },
     });

@@ -44,7 +44,7 @@
                                 </div>
                                 <button type="submit" value="submit" class="btn btn-primary btn-lg">Save</button>
                                 <button type="button" class="btn btn-submit btn-lg">
-                                    <a href="/profile">Return</a>
+                                    <a href="/profile">Back to my profile</a>
                                 </button>
                             </form>
                         </div>
@@ -52,6 +52,36 @@
                 </div>
             </div>
         </form>
+        <table class="table">
+            <thead>
+                <tr>
+                <th>Cardholder Name</th>
+                <th>Card Number</th>
+                <th>Security Code</th>
+                <th>Expiry Date</th>
+                </tr>
+                <% for(var i=0; i < itemList.length; i++){ %>
+                <tr class="rowRecord" data-id="<%= itemList[i].id %>">
+                    <td>
+                    <%= itemList[i].cardHolderName %>
+                    </td>
+                    <td>
+                    <%= itemList[i].cardNumber %>
+                    </td>
+                    <td>
+                    <%= itemList[i].securityCode %>
+                    </td>
+                    <td>
+                    <%= itemList[i].expiryDate %>
+                    </td>
+                    <!--<td>
+                    <input type="button" class="editBtn" value="Edit">
+                    <input type="button" class="deleteBtn"  value="Delete">
+                    </td>-->
+                </tr>
+                <% } %>
+            </thead>
+        </table>
     </div>
     <% include ../partials/footer %>
 </body>
