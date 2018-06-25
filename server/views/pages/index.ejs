@@ -82,17 +82,15 @@
             <div class="card">
               <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" class="card-img-top" alt="photo">
               <div class="card-body">
-                <div class="card-title"><%= products[i].productName %></div>
+                <div class="card-title mb-1"><%= products[i].productName %></div>
+                <div class="card-text pb-2">
+                  <%= products[i].productType %>
+                </div>
                 <h4 class="card-title text-warning">
                   SGD <%= products[i].price %>
                 </h4>
-                <div class="card-text row">
-                  <div class="col-6">
-                    <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= products[i].userID %>
-                  </div>
-                  <div class="col-6 text-right">
-                  <%= products[i].productType %>
-                  </div>  
+                <div class="card-text">
+                  <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= products[i].userID %>
                 </div>
                 <div class="card-text pt-3">
                   <i class="material-icons text-warning" style="font-size: 1rem">star</i>

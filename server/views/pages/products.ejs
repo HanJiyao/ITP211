@@ -62,6 +62,7 @@
         <th>Price</th>
       </tr>
       <% for(var i=0; i < itemList.length; i++){ %>
+        <% if (itemList[i].userID==user.email){ %>
         <tr class="rowRecord" data-id="<%= itemList[i].id %>">
           <td>
             <%= itemList[i].productID %>
@@ -84,6 +85,7 @@
           </td>
         </tr>
         <% } %>
+      <% } %>
     </thread>
   </table>
   <script>
