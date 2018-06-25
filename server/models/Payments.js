@@ -36,9 +36,9 @@ module.exports = function (sequelize, Sequelize) {
             }
         },
     });
-    PaymentDetails.sync({force: false, logging: console.log}).then(() => {
+    PaymentDetails.sync({force: true, logging: console.log}).then(() => {
         console.log("Payment details table synced");
-        return PaymentDetails.upsert({
+        PaymentDetails.upsert({
             //static test data
             id: 1,
             paymentDetailsID: 1,
@@ -48,6 +48,15 @@ module.exports = function (sequelize, Sequelize) {
             expiryDate: "03/95",
             userID: 1
         });
+        PaymentDetails.upsert({
+            id: 2,
+            paymentDetailsID: 2,
+            cardHolderName: "Lim Yong Ming",
+            cardNumber: "9999111122223333",
+            securityCode: "666",
+            expiryDate: "03/15",
+            userID: 1
+        })
     });
     return PaymentDetails;
 }
