@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 
-// log dev
+
+// log devn
 var morgan = require('morgan')
 app.use(morgan('dev'))
 
@@ -22,7 +23,7 @@ app.use(cookieParser());
 // Flash Message
 var flash = require('connect-flash');
 app.use(flash());
-
+ 
 // Store session 
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var models = require("./server/models");
@@ -32,9 +33,9 @@ var sequelize = models.sequelize
 app.use(session({
     secret: 'keyboard cat',
     // For Dev only, Still have Error with redirect before Flash
-    // store: new SequelizeStore({
-    //     db: sequelize
-    // }),
+    store: new SequelizeStore({
+        db: sequelize
+    }),
     resave: false, // we support the touch method so per the express-session docs this should be set to false
     proxy: false, // if you do SSL outside of node.
     saveUninitialized: true,
@@ -57,6 +58,7 @@ app.set('view engine', 'ejs');
 //Models
 var models = require("./server/models");
 
+
 //Passport Routes
 var authRoute = require('./server/routes/auth.js')(app, passport);
 
@@ -70,9 +72,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 var indexRouter = require('./server/routes/index');
 app.use('/', indexRouter)
 var productRouter = require('./server/routes/product');
+<<<<<<< Updated upstream
 app.use("/productsmanager", productRouter)
 var paymentRouter = require('./server/routes/payment');
 app.use("/payment", paymentRouter)
+=======
+app.use("/products", productRouter)
+// var paymentRouter = require('./server/routes/payment');
+// app.use("/payment", paymentRouter)
+
+
+
+//reviews routing
+var reviewsRouter=require("./server/routes/reviews");
+app.use("/reviews",reviewsRouter)
+>>>>>>> Stashed changes
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -90,6 +104,13 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
+
+//import wishlist controller
+var wishlist=require('./server/controllers/wishlist');
+//setup routes for Wishlists
+//app.get("/wishlist",wishlist.hasAuthorization,wishlist.list);
+//app.post("/wishlist",wishlist.hasAuthorization,wishlist.create);
+//app.delete("/wishlist/:wishlist_id",wishlist.hasAuthorization,wishlist.delete);
 
 module.exports = app;
 
