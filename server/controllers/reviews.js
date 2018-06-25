@@ -5,25 +5,22 @@ var Reviews=models.Reviews;
 var sequelize=models.sequelize;
 //list reviews
 exports.list=function(req,res){
-    var user = (req.session.passport) ? req.session.passport.user : false;
+    var user = req.session.passport.user;
     //list all users and sort by date
     sequelize.query("select r.rating,r.id,r.title,r.content,u.email AS user_id from Reviews r join Users u on r.user_id=u.id",{model:Reviews })
     .then((reviews)=>{
 
     res.render("reviews",{
-        title:"Reviews Page",
-        reviews:reviews,
-        gravatar:gravatar.url(reviews.user_id, {s:"80",r:"x",d:"retro"},true),
-        urlPath:req.protocol+"://" + req.get("host")+req.url,
-        user:user
+            title:"Reviews Page",
+            reviews:reviews,
+            gravatar:gravatar.url(reviews.user_id, {s:"80",r:"x",d:"retro"},true),
+            urlPath:req.protocol+"://" + req.get("host")+req.url,
+            user:user,
+            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         })
     }).catch((err)=>{
         return res.status(400).send({
             message:err
-
-
-
-
         });
     });
 };
