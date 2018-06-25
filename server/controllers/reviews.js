@@ -7,7 +7,7 @@ var sequelize=models.sequelize;
 exports.list=function(req,res){
     var user = req.session.passport.user;
     //list all users and sort by date
-    sequelize.query("select r.rating,r.id,r.title,r.content,u.email AS user_id from Reviews r join Users u on r.user_id=u.id",{model:Reviews })
+    sequelize.query("select r.rating,r.id,r.title,r.content,r.created ,u.email AS user_id from Reviews r join Users u on r.user_id=u.id",{model:Reviews })
     .then((reviews)=>{
 
     res.render("reviews",{
@@ -32,9 +32,9 @@ exports.list=function(req,res){
             title:req.body.title,
             content:req.body.content,
             user_id:req.user.id ,
-            rating:req.body.star,
+            rating:req.body.rating,
             helpfulness:req.body.helpfulness,
-            dateofreview:req.body.date,
+            
         }
         Reviews.create(reviewsData).then((newReviews,created)=>{
             if (!newReviews){
