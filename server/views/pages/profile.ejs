@@ -61,19 +61,19 @@
                                 </style>
                                 <script>
                                     $("#accountDelete").click(function () {
-                                            $.ajax({
-                                                url: '<%=urlPath%>/delete',
-                                                type: 'POST',
-                                                success: function (result) {
-                                                    console.log(result.message);
-                                                    window.location.href = '/logout';
-                                                },
-                                                error: function (result) {
-                                                    alert("Unable to delete User Account.");
-                                                    console.log(result.message);
-                                                }
-                                            });
+                                        $.ajax({
+                                            url: '<%=urlPath%>/delete',
+                                            type: 'POST',
+                                            success: function (result) {
+                                                console.log(result.message);
+                                                window.location.href = '/logout';
+                                            },
+                                            error: function (result) {
+                                                alert("Unable to delete User Account.");
+                                                console.log(result.message);
+                                            }
                                         });
+                                    });
                                 </script>
                             </div>
                         </div>

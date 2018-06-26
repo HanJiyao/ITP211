@@ -41,7 +41,7 @@ exports.profileUpdate = function (req, res) {
         postal_code: req.body.postal_code
     }
     userModel.update(updateData, { where: { id: id } }).then((updatedUser) => {
-        if (!updatedUser || updatedUser == 0) {
+        if (!updatedUser) {
             return res.send(400, {
                 message: "error"
             });

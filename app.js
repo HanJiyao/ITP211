@@ -32,9 +32,9 @@ var sequelize = models.sequelize
 app.use(session({
     secret: 'keyboard cat',
     // For Dev only, Still have Error with redirect before Flash
-    // store: new SequelizeStore({
-    //     db: sequelize
-    // }),
+    store: new SequelizeStore({
+        db: sequelize
+    }),
     resave: false, // we support the touch method so per the express-session docs this should be set to false
     proxy: false, // if you do SSL outside of node.
     saveUninitialized: true,
