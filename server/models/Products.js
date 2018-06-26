@@ -18,6 +18,10 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.STRING,
             trim: true,
         },
+        productDesc:{
+            type: Sequelize.STRING,
+            trim: true,
+        },
         qty: {
             type: Sequelize.INTEGER,
         },
@@ -43,31 +47,6 @@ module.exports = function (sequelize, Sequelize) {
             qty: 100,
             price: 199.99,
             userID: 1,
-        });
-        Products.upsert({
-            id: 2,
-            productID: 1002,
-            productName: "G.Skill RipJaws DDR3",
-            productType: "RAM",
-            qty: 100,
-            price: 99.90,
-            userID: 1, 
-        }); Products.upsert({
-            id: 3,
-            productID: 1003,
-            productName: "MSI H270 Gaming M3",
-            productType: "Motherboard",
-            qty: 50,
-            price: 100.00,
-            userID: 1, 
-        }); Products.upsert({
-            id: 4,
-            productID: 1004,
-            productName: "Intel Processor I5-4900K",
-            productType: "Processor",
-            qty: 80,
-            price: 120.00,
-            userID: 1, 
         });
         return console.log("Products table synced");
     });

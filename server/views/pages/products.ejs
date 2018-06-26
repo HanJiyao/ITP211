@@ -36,6 +36,10 @@
               <input type="text" id="productType" name="productType" class="form-control" placeholder="Product Type" required="true">
             </fieldset>
             <fieldset class="form-group">
+              <label for="productDesc">Product Description</label>
+              <input type="text" id="productDesc" name="productDesc" class="form-control" placeholder="Product Description" required="true">
+            </fieldset>
+            <fieldset class="form-group">
               <label for="quantity">Quantity</label>
               <input type="text" id="quantity" name="qty" class="form-control" placeholder="Quantity" required="true">
             </fieldset>
@@ -58,6 +62,7 @@
         <th>Product ID</th>
         <th>Product Name</th>
         <th>Product Type</th>
+        <th>Product Description</th>
         <th>Quantity</th>
         <th>Price</th>
       </tr>
@@ -72,6 +77,9 @@
           </td>
           <td>
             <%= itemList[i].productType %>
+          </td>
+          <td>
+            <%=itemList[i].productDesc %>
           </td>
           <td>
             <%= itemList[i].qty %>

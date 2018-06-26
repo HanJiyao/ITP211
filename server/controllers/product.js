@@ -5,6 +5,7 @@ exports.insert = function(req, res){
         productID: req.body.productID,
         productName: req.body.productName,
         productType: req.body.productType,
+        productDesc: req.body.productDesc,
         qty: req.body.qty,
         price: req.body.price,
         userID:req.session.passport.user.id
@@ -58,6 +59,7 @@ exports.update = function(req, res){
         productID: req.body.productID,
         productName: req.body.productName,
         productType: req.body.productType,
+        productDesc: req.body.productDesc,
         qty: req.body.qty,
         price: req.body.price
     }
