@@ -37,7 +37,7 @@ module.exports = function (sequelize, Sequelize) {
             }
         }
     });
-    Products.sync({ force: true, logging: console.log })
+    Products.sync({ force: false, logging: console.log })
     .then(() => {
         Products.upsert({
             id: 1,
