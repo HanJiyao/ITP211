@@ -83,6 +83,28 @@
             </thead>
         </table>
     </div>
+    <script>
+        $(".editBtn").click(function () {
+            var detail_num = $(this).closest("tr").data('id');
+            location.href = "<%=urlPath %>editDetails/"+detail_num;
+        });
+        $(".deleteBtn").click(function () {
+            var detail_num = $(this).closest("tr").data('id');
+            $.ajax({
+                url: '<%=urlPath%>' + detail_num,
+                type: 'DELETE',
+                success: function (result) {
+                    console.log(result.message);
+                    var detailsToRemove = '.rowRecord[data-id=' + detail_num + ']';
+                    $(detailsToRemove).remove();
+                },
+                error: function (result) {
+                    alert("Unable to delete payment details.");
+                    console.log(result.message);
+                }
+            });
+        });
+    </script>
     <% include ../partials/footer %>
 </body>
 </html>
