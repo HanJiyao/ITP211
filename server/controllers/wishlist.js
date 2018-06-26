@@ -5,7 +5,7 @@ exports.insert=function(req,res){
         productID:req.body.productID,
         productName: req.body.productName,
         productType: req.body.productType,
-        qty: req.body.qty,
+        quantity: req.body.quantity,
         price: req.body.price,
     }
     wishlistsmodel.create(wishlistsdata).then((newProduct,created)=>{
@@ -20,7 +20,7 @@ exports.insert=function(req,res){
 exports.list=function(req,res){
     var user=(req.session.passport) ? req.session.passport.user :false;
     wishlistsmodel.findAll({
-        attributes:["id","productID","productName","productType","qty","price"]
+        attributes:["id","productID","productName","productType","quantity","price"]
     }).then(function(products){
         res.render("wishlist",{
             title:"Wishlist Page",
@@ -56,7 +56,7 @@ exports.update=function(req,res){
         productID:req.body.productID,
         productName:req.body.productName,
         productType:req.body.productType,
-        qty:req.body.qty,
+        quantity:req.body.quantity,
         price:req.body.price
     }
     wishlistsmodel.update(updateData,{where:{id:wishlists_num}}).then((updatedWishlist)=>{

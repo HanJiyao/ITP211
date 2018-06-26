@@ -6,7 +6,7 @@ exports.insert = function(req, res){
         productName: req.body.productName,
         productType: req.body.productType,
         productDesc: req.body.productDesc,
-        qty: req.body.qty,
+        quantity: req.body.quantity,
         price: req.body.price,
         userID:req.session.passport.user.id
     }
@@ -21,7 +21,7 @@ exports.insert = function(req, res){
 };
 exports.list = function(req, res){
     var user = req.session.passport.user;
-    models.sequelize.query('select p.id, p.productID, p.productName, p.productType, p.qty, p.price, u.email AS userID from Products p join Users u on p.userID = u.id', { model: models.Products })
+    productModel.findAll({where:{userID:user.id}})
     .then(function(products){
         res.render("products", {
             title: "View Products",
@@ -60,7 +60,7 @@ exports.update = function(req, res){
         productName: req.body.productName,
         productType: req.body.productType,
         productDesc: req.body.productDesc,
-        qty: req.body.qty,
+        quantity: req.body.quantity,
         price: req.body.price
     }
     productModel.update(updateData, {where: {id: record_num}}).then((updatedProduct)=> {

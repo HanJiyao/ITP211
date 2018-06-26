@@ -22,7 +22,7 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.STRING,
             trim: true,
         },
-        qty: {
+        quantity: {
             type: Sequelize.INTEGER,
         },
         price: {
@@ -44,7 +44,7 @@ module.exports = function (sequelize, Sequelize) {
             productID: 1001,
             productName: "Seagate 1TB 7200RPM (Blue)",
             productType: "Hard Disk",
-            qty: 100,
+            quantity: 100,
             price: 199.99,
             userID: 1,
         });Products.upsert({
@@ -52,7 +52,7 @@ module.exports = function (sequelize, Sequelize) {
             productID: 1002,
             productName: "G.Skill RipJaws DDR3",
             productType: "RAM",
-            qty: 100,
+            quantity: 100,
             price: 99.90,
             userID: 1,
         }); Products.upsert({
@@ -60,7 +60,7 @@ module.exports = function (sequelize, Sequelize) {
             productID: 1003,
             productName: "MSI H270 Gaming M3",
             productType: "Motherboard",
-            qty: 50,
+            quantity: 50,
             price: 100.00,
             userID: 1,
         }); Products.upsert({
@@ -68,7 +68,7 @@ module.exports = function (sequelize, Sequelize) {
             productID: 1004,
             productName: "Intel Processor I5-4900K",
             productType: "Processor",
-            qty: 80,
+            quantity: 80,
             price: 120.00,
             userID: 1,
         }); 

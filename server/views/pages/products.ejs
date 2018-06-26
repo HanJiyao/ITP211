@@ -7,121 +7,122 @@
 </head>
 <body>
   <% include ../partials/header %>
-  <div class="col-lg-5">
-    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createStudent">
-      New Product
-    </button>
-  </div>
-  <div class="modal fade" id="createStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <form action="/productsmanager/new" method="post">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Create New Product</h4>
-          </div>
-          <div class="modal-body">
-            <fieldset class="form-group">
-              <label for="productID">Product ID</label>
-              <input type="text" id="productID" name="productID" class="form-control" placeholder="Product Id" required="true">
-            </fieldset>
-            <fieldset class="form-group">
-              <label for="productName">Product Name</label>
-              <input type="text" id="productName" name="productName" class="form-control" placeholder="Product Name" required="true">
-            </fieldset>
-            <fieldset class="form-group">
-              <label for="productType">Product Type</label>
-              <input type="text" id="productType" name="productType" class="form-control" placeholder="Product Type" required="true">
-            </fieldset>
-            <fieldset class="form-group">
-              <label for="productDesc">Product Description</label>
-              <input type="text" id="productDesc" name="productDesc" class="form-control" placeholder="Product Description" required="true">
-            </fieldset>
-            <fieldset class="form-group">
-              <label for="quantity">Quantity</label>
-              <input type="text" id="quantity" name="qty" class="form-control" placeholder="Quantity" required="true">
-            </fieldset>
-            <fieldset>
-              <label for ="price">Price</label>
-              <input type = "text" id = "price" name ="price" class ="form-control" placeholder="Price"  required= "true">
-            </fieldset>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Add Record</button>
-          </div>
-        </form>
+  <div class="container">
+    <div class="col-lg-12">
+      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createStudent">
+        New Product
+      </button>
+    </div>
+    <div class="modal fade" id="createStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form action="/productsmanager/new" method="post">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Create New Product</h4>
+            </div>
+            <div class="modal-body">
+              <fieldset class="form-group">
+                <label for="productID">Product ID</label>
+                <input type="text" id="productID" name="productID" class="form-control" placeholder="Product Id" required="true">
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="productName" class="form-control" placeholder="Product Name" required="true">
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="productType">Product Type</label>
+                <input type="text" id="productType" name="productType" class="form-control" placeholder="Product Type" required="true">
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="productDesc">Product Description</label>
+                <input type="text" id="productDesc" name="productDesc" class="form-control" placeholder="Product Description" required="true">
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="text" id="quantity" name="quantity" class="form-control" placeholder="Quantity" required="true">
+              </fieldset>
+              <fieldset>
+                <label for ="price">Price</label>
+                <input type = "text" id = "price" name ="price" class ="form-control" placeholder="Price"  required= "true">
+              </fieldset>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Add Record</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  <table class="table">
-    <thread>
-      <tr>
-        <th>S/N</th>
-        <th>Product ID</th>
-        <th>Product Name</th>
-        <th>Product Type</th>
-        <th>Product Description</th>
-        <th>Quantity</th>
-        <th>Price</th>
-      </tr>
-      <% for(var i=0; i < itemList.length; i++){ %>
-        <% if (itemList[i].userID==user.email){ %>
-        <tr class="rowRecord" data-id="<%= itemList[i].id %>">
-          <td>
-            <%=i%>
-          </td>
-          <td>
-            <%= itemList[i].productID %>
-          </td>
-          <td>
-            <%= itemList[i].productName %>
-          </td>
-          <td>
-            <%= itemList[i].productType %>
-          </td>
-          <td>
-            <%=itemList[i].productDesc %>
-          </td>
-          <td>
-            <%= itemList[i].qty %>
-          </td>
-          <td>
-            <%= itemList[i].price %>
-          </td>
-          <td>
-            <input type="button" class="editBtn" value="Edit">
-            <input type="button" class="deleteBtn"  value="Delete">
-          </td>
+    <table class="table">
+      <thread>
+        <tr>
+          <th>S/N</th>
+          <th>Product ID</th>
+          <th>Product Name</th>
+          <th>Product Type</th>
+          <th>Product Description</th>
+          <th>Quantity</th>
+          <th>Price</th>
         </tr>
+        <% for(var i=0; i < itemList.length; i++){ %>
+          <tr class="rowRecord" data-id="<%= itemList[i].id %>">
+            <td>
+              <%=i+1%>
+            </td>
+            <td>
+              <%= itemList[i].productID %>
+            </td>
+            <td>
+              <%= itemList[i].productName %>
+            </td>
+            <td>
+              <%= itemList[i].productType %>
+            </td>
+            <td>
+              <%=itemList[i].productDesc %>
+            </td>
+            <td>
+              <%= itemList[i].quantity %>
+            </td>
+            <td>
+              <%= itemList[i].price %>
+            </td>
+            <td>
+              <input type="button" class="editBtn" value="Edit">
+              <input type="button" class="deleteBtn"  value="Delete">
+            </td>
+          </tr>
         <% } %>
-      <% } %>
-    </thread>
-  </table>
-  <script>
-    $(".editBtn").click(function () {
-      var record_num = $(this).closest("tr").data('id');
-      location.href = "<%=urlPath %>edit/"+record_num;
-    });
-    $(".deleteBtn").click(function () {
-      var record_num = $(this).closest("tr").data('id');
-      $.ajax({
-        url: '<%=urlPath%>' + record_num,
-        type: 'DELETE',
-        success: function (result) {
-          console.log(result.message);
-          var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
-          $(itemToRemove).remove();
-        },
-        error: function (result) {
-          alert("Unable to delete student record.");
-          console.log(result.message);
-        }
+      </thread>
+    </table>
+    <script>
+      $(".editBtn").click(function () {
+        var record_num = $(this).closest("tr").data('id');
+        location.href = "<%=urlPath %>edit/"+record_num;
       });
-    });
-  </script>
+      $(".deleteBtn").click(function () {
+        var record_num = $(this).closest("tr").data('id');
+        $.ajax({
+          url: '<%=urlPath%>' + record_num,
+          type: 'DELETE',
+          success: function (result) {
+            console.log(result.message);
+            var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+            $(itemToRemove).remove();
+            window.location.href="/productsmanager"
+          },
+          error: function (result) {
+            alert("Unable to delete student record.");
+            console.log(result.message);
+          }
+        });
+      });
+    </script>
+  </div>
   <% include ../partials/footer %>
 </body>
 </html>
