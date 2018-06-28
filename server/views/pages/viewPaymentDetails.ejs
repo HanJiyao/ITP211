@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+</head>
+<body>
+    <% include ../partials/header %>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0/css/tempusdominus-bootstrap-4.min.css"/>
+    <div class="container mt-5">
+        <div class="card pl-3 pr-3">
+        <div class="row bg-primary text-white pt-4/pb-4 font-weight-bold">
+            <div class="col-3">
+                Cardholder Name
+            </div>
+            <div class="col-4">
+                Card Number
+            </div>
+            <div class="col-1">
+                Security Code
+            </div>
+            <div class="col-2">
+                Expiry Date
+            </div>
+        </div>
+        <% for(var i=0; i < itemList.length; i++){ %>
+        <div class="row pt-3 pb-4" id="<%= itemList[i].userID %>">
+            <div class="col-3">
+                <%= itemList[i].cardHolderName %>
+            </div>
+            <div class="col-4">
+                <%= itemList[i].cardNumber %>
+            </div>
+            <div class="col-1">
+                <%= itemList[i].securityCode %>
+            </div>
+            <div class="col-2">
+                <%= itemList[i].expiryDate %>
+            </div>
+            <div class="col-1">
+            <a class="editBtn">
+                <i class="material-icons">edit</i>
+            </a>
+            </div>
+            <div class="col-1">
+            <a class="deleteBtn">
+                <i class="material-icons">delete_outline</i>
+            </a>
+            </div>
+        </div>
+        <% } %>
+        </div>
+    </div>
+    <script>
+        $(".editBtn").click(function () {
+            var detail_num = $(this).data('id');
+            location.href = "<%=urlPath %>editDetails/"+detail_num;
+        });
+        $(".deleteBtn").click(function () {
+            var detail_num = $(this).data('id');
+            $.ajax({
+                url: '<%=urlPath%>' + detail_num,
+                type: 'DELETE',
+                success: function (result) {
+                    console.log(result.message);
+                    // var detailsToRemove = document.getElementById(id);
+                    var detailsToRemove = '.rowRecord[data-id=' + detail_num + ']';
+                    $(detailsToRemove).remove();
+                },
+                error: function (result) {
+                    alert("Unable to delete payment details.");
+                    console.log(result.message);
+                }
+            });
+        });
+    </script>
+    <% include ../partials/footer %>
+</body>
+</html>

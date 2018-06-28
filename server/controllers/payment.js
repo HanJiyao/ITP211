@@ -9,12 +9,23 @@ exports.insert = function (req, res) {
         userID:req.session.passport.user.id
     }
     paymentModel.create(paymentDetailsData).then((newPaymentDetails, created) => {
+        res.render("viewPaymentDetails", {
+            title: "View Payment Details",
+            itemList: payment,
+            hostPath: req.protocol + "://" + req.get("host"),
+            user: user,
+            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
+        });
+    }).catch((err)=> {
+        return res.status(400).send({
+            message: err
+        });
         if (!newPaymentDetails) {
             return res.send(400, {
                 message: "error"
             });
         }
-        res.redirect("/payment")
+        // res.redirect("/payment")
     })
 };
 exports.list = function(req, res) {
