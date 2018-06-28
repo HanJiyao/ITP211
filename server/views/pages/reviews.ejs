@@ -37,15 +37,15 @@
 
                                 <fieldset class="form-group">
                                     <label for="inputitle">Title</label>
-                                    <input type="text" id="inputitle" name="title" class="form-control" placeholder="Review Title" required="">
+                                    <input type="text" id="inputitle" name="title" class="form-control" placeholder="Review Title" required>
                                 </fieldset>
                                 <fieldset class="form-group">
                                     <label for="rating">From 1-5,please rate this product</label>
-                                    <input type="integer" id="rating" name="rating" class="form-control" placeholder="Product Rating" required="">
+                                    <input type="number" id="rating" name="rating" class="form-control" placeholder="Product Rating" required min="1" max="5">
                                 </fieldset>
                                 <fieldset class="form-group">
                                     <label for="inputContent">Content</label>
-                                    <textarea id="inputContent" name="content" rows="8" cols="40" class="form-control" placeholder="Review Description" required=""></textarea>
+                                    <textarea id="inputContent" name="content" rows="8" cols="40" class="form-control" placeholder="Review Description" required></textarea>
                                 </fieldset>
 
                             </div>
@@ -84,6 +84,7 @@
                                        
                                         <%= reviews.content %>
                                         </p>
+                                    
                                     <small class="text-muted">By:
                                         <%= reviews.user_id %>
                                     </small>

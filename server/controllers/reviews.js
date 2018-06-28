@@ -33,7 +33,7 @@ exports.list=function(req,res){
             content:req.body.content,
             user_id:req.user.id ,
             rating:req.body.rating,
-            helpfulness:req.body.helpfulness,
+           
             
         }
         Reviews.create(reviewsData).then((newReviews,created)=>{

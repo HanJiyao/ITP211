@@ -35,10 +35,7 @@ module.exports=function(sequelize,Sequelize){
             allowNull:true,
             defaultValue:0,
         },
-        helpfulnessrating:{
-            type:Sequelize.INTEGER,
-            
-        }
+        
 
     });
 
