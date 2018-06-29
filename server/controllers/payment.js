@@ -1,5 +1,18 @@
 var models = require("../models");
 var paymentModel = models.PaymentDetails;
+exports.create=(req,res)=>{
+    var user = req.session.passport.user;
+    res.render("createPaymentDetails", {
+        title: "Create Payment Details",
+        hostPath: req.protocol + "://" + req.get("host"),
+        user: user,
+        avatar: require('gravatar').url(user.email, {
+            s: '100',
+            r: 'x',
+            d: 'retro'
+        }, true)
+    });
+}
 exports.insert = function (req, res) {
     var paymentDetailsData = {
         cardHolderName: req.body.cardHolderName,
@@ -8,9 +21,9 @@ exports.insert = function (req, res) {
         expiryDate: req.body.expiryDate,
         userID:req.session.passport.user.id
     }
-    paymentModel.create(paymentDetailsData).then((newPaymentDetails, created) => {
-        res.render("viewPaymentDetails", {
-            title: "View Payment Details",
+    paymentModel.create(paymentDetailsData).then(() => {
+        res.render("createPaymentDetails", {
+            title: "Create Payment Details",
             itemList: payment,
             hostPath: req.protocol + "://" + req.get("host"),
             user: user,
@@ -25,16 +38,16 @@ exports.insert = function (req, res) {
                 message: "error"
             });
         }
-        // res.redirect("/payment")
-    })
+    });
+    res.redirect("/payment")
 };
 exports.list = function(req, res) {
     var user = req.session.passport.user;
     paymentModel.findAll({
         attributes: ["id","paymentDetailsID","cardHolderName","cardNumber","securityCode","expiryDate"]
-    }).then(function(payment) {
-        res.render("createPaymentDetails", {
-            title: "Create Payment Details",
+    }, { where: { userID: user.id } }).then(function(payment) {
+        res.render("viewPaymentDetails", {
+            title: "View Payment Details",
             itemList: payment,
             urlPath: req.protocol + "://" + req.get("host") + "/payment" + req.url,
             user: user,
