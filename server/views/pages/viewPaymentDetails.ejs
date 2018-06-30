@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+</head>
+<body>
+    <% include ../partials/header %>
+    <div class="container mt-5">
+        <div class="card pl-3 pr-3">
+        <div class="p-5 text-left m-md-5">
+            <h1 class="font-weight-light mt-3 mb-5">
+                View Your Payment Details
+            </h1>
+        <div class="row bg-primary text-white pt-4/pb-4 font-weight-bold">
+            <div class="col-3">
+                Cardholder Name
+            </div>
+            <div class="col-3">
+                Card Number
+            </div>
+            <div class="col-2">
+                Security Code
+            </div>
+            <div class="col-2">
+                Expiry Date
+            </div>
+        </div>
+        <% for(var i=0; i < itemList.length; i++){ %>
+        <div class="row pt-3 pb-4" id="<%= itemList[i].id %>">
+            <div class="col-3">
+                <%= itemList[i].cardHolderName %>
+            </div>
+            <div class="col-4">
+                <%= itemList[i].cardNumber %>
+            </div>
+            <div class="col-1">
+                <%= itemList[i].securityCode %>
+            </div>
+            <div class="col-2">
+                <%= itemList[i].expiryDate %>
+            </div>
+            <div class="col-1">
+                <a class="editBtn" data-id="<%= itemList[i].id %>">
+                    <i class="material-icons">edit</i>
+                </a>
+            </div>
+            <div class="col-1">
+                <a class="deleteBtn" data-id="<%= itemList[i].id %>">
+                    <i class="material-icons" >delete_outline</i>
+                </a>
+            </div>
+        </div>
+        <% } %>
+        <button type="button" class="btn btn-submit btn-lg">
+            <a href="/payment/createPaymentDetails">Create New Payment Details</a>
+        </button>
+        </div>
+        </div>
+    </div>
+    <script>
+        $(".editBtn").click(function () {
+            var detail_num = $(this).data("id");
+            console.log(detail_num)
+            location.href = "<%=urlPath %>editDetails/"+detail_num;
+        });
+        $(".deleteBtn").click(function () {
+            var detail_num = $(this).data("id");
+            $.ajax({
+                url: '<%=urlPath%>' + detail_num,
+                type: 'DELETE',
+                success: function (result) {
+                    console.log(result.message);
+                    // var detailsToRemove = document.getElementById(id);
+                    var detailsToRemove = $('#'+detail_num + '');
+                    $(detailsToRemove).remove();
+                },
+                error: function (result) {
+                    alert("Unable to delete payment details.");
+                    console.log(result.message);
+                }
+            });
+        });
+    </script>
+    <% include ../partials/footer %>
+</body>
+</html>
