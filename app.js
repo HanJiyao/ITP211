@@ -79,6 +79,10 @@ app.use("/reviews", reviewsRouter)
 // //Wishlist Routing
 // var wishlistRouter=require("./server/routes/wishlist")
 // app.use("/", wishlistRouter)
+// product Detail
+var productDetailRouter = require("./server/routes/productDetail")
+app.use("/product", productDetailRouter) 
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

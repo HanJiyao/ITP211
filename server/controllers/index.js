@@ -9,6 +9,7 @@ exports.show = function (req, res) {
                 user : user,
                 avatar : avatar,
                 products: products,
+                hostPath: req.protocol + "://" + req.get("host"),
             })
         })
 };
