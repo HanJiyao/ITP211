@@ -16,69 +16,73 @@
                 <div class="col-lg-6">
                     <h4 class="text-muted">Wishlist</h4>
                 </div>
-                <div class="col-lg-6">
-                    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createPost">
-                        Create Wishlist
-                    </button>
+                <div class="row">
+                    <% for(var i=0; i < products.length; i++){ %>
+                      <style>
+                        .productCard{
+                          transition: box-shadow 0.3s, border 0.3s;
+                          border: thin solid rgba(0, 0, 0, 0);
+                        }
+                        .productCard:hover{
+                          border: thin solid #f80;
+                          box-shadow: 0 0 10px #f80;
+                        }
+                      </style>
+                      <a class="col-lg-3 pb-4">
+                        <div class="card productCard">
+                          <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" class="card-img-top" alt="photo">
+                          <div class="card-body">
+                            <div class="card-title mb-1"><%= products[i].productName %></div>
+                            <div class="card-text pb-2">
+                              <%= products[i].productType %>
+                            </div>
+                            <h4 class="card-title text-warning">
+                              SGD <%= products[i].price %>
+                            </h4>
+                            <div class="card-text">
+                              <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= products[i].userID %>
+                            </div>
+                            <div class="card-text pt-3">
+                              <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                              <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                              <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                              <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                              <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    <% } %>
+                  </div>
                 </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <form action="/wishlist" method="post">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Create Wishlist</h4>
-                            </div>
+                <h2>Basic HTML Table</h2>
 
-                            <div class="modal-body">
-
-                                <fieldset class="form-group">
-                                    <label for="inputitle">Title</label>
-                                    <input type="text" id="inputitle" name="title" class="form-control" placeholder="Wishlist Title" required="">
-                                </fieldset>
-                                <fieldset class="form-group">
-                                    <label for="inputContent">Content</label>
-                                    <textarea id="inputContent" name="content" rows="8" cols="40" class="form-control" placeholder="Wishlist Description" required=""></textarea>
-                                </fieldset>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="lead">
-                <div class="list-group">
-                    <% wishlist.forEach(function(wishlist){ %>
-                        <a href="#" class="list-group-item" data-id="<%= wishlist.id%>">
-                            <img src="<%= gravatar %>" alt="" style="float: left; margin-right: 10px">
-                            <div class="wishlist">
-                                <form action="/wishlist" method="delete">
-                                    <h4 class="list-group-item-heading">
-                                        <%= wishlist.title %>
-                                            <button class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= wishlist.id%>">Delete</button>
-                                    </h4>
-                                    <p class="list-group-item-text">
-                                        <%= wishlist.content %>
-                                    </p>
-                                    <small class="text-muted">By:
-                                        <%= wishlist.user_id %>
-                                    </small>
-                                </form>
-                            </div>
-                        </a>
-                        <% }); %>
-                </div>
-            </div>
-        </div>
+<table style="width:100%">
+  <tr>
+    <th>Product ID</th>
+    <th>Product Name</th> 
+    <th>Product quantity</th>
+    <th>Product Price</th>
+    <th>Product Type</th>
+    <th>Seller</th>
+    <th>Average Rating</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+  <tr>
+    <td>John</td>
+    <td>Doe</td>
+    <td>80</td>
+  </tr>
+</table>
         <% include ../partials/footer %>
         <script>
             $('.deleteBtn').click(function() {
