@@ -1,5 +1,6 @@
 var models = require("../models");
 var paymentModel = models.PaymentDetails;
+//GET create page
 exports.create=(req,res)=>{
     var user = req.session.passport.user;
     res.render("createPaymentDetails", {
@@ -13,6 +14,7 @@ exports.create=(req,res)=>{
         }, true)
     });
 }
+//POST create page
 exports.insert = function (req, res) {
     var paymentDetailsData = {
         cardHolderName: req.body.cardHolderName,
@@ -22,13 +24,7 @@ exports.insert = function (req, res) {
         userID:req.session.passport.user.id
     }
     paymentModel.create(paymentDetailsData).then(() => {
-        res.render("createPaymentDetails", {
-            title: "Create Payment Details",
-            itemList: payment,
-            hostPath: req.protocol + "://" + req.get("host"),
-            user: user,
-            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
-        });
+        res.redirect("/payment");
     }).catch((err)=> {
         return res.status(400).send({
             message: err
@@ -39,7 +35,6 @@ exports.insert = function (req, res) {
             });
         }
     });
-    res.redirect("/payment")
 };
 exports.list = function(req, res) {
     var user = req.session.passport.user;
