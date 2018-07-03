@@ -15,9 +15,13 @@
             <label for="inputproductID">Product ID</label>
             <input type="text" id="inputproductID" name="productId" class="form-control" placeholder="Student Id" required="true" value="<%=item.productID%>">
         </fieldset>
+        <fieldset class = "form-group">
+            <label for ="inputproductImage">Product Image:</label>
+            <input type ="file" id = "inputproductImage" name ="productImage" class = "form-control" placeholder="Product Image" required = "true" value=" <%=item.productImage%>"
+        </fieldset>
         <fieldset class="form-group">
             <label for="inputproductName">Product Name</label>
-            <input type="text" id="inputproductName" name="productName" class="form-control" placeholder="Student Name" required="true" value="<%=item.productName%>">
+            <input type="text" id="inputproductName" name="productName" class="form-control" placeholder="Product Name" required="true" value="<%=item.productName%>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputType">Type</label>
@@ -41,6 +45,7 @@
             var url = "<%=hostPath%>/productsmanager/edit/<%=item.id%>";
             var newValues = {
                 productID: $("#inputproductID").val(),
+                productImage:$("#inputproductImage").val(),
                 productName: $("#inputproductName").val(),
                 productType: $("#inputType").val(),
                 quantity: $("#inputquantity").val(),

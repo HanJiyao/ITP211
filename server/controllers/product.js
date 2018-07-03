@@ -1,8 +1,8 @@
-var models = require("../models");
 var productModel = models.Products;
 exports.insert = function(req, res){
     var productData ={
         productID: req.body.productID,
+        productImage: req.body.productImage,
         productName: req.body.productName,
         productType: req.body.productType,
         productDesc: req.body.productDesc,
@@ -57,6 +57,7 @@ exports.update = function(req, res){
     var record_num = req.params.id; 
     var updateData ={
         productID: req.body.productID,
+        productImage: req.body.productImage,
         productName: req.body.productName,
         productType: req.body.productType,
         productDesc: req.body.productDesc,

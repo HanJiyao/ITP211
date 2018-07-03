@@ -9,6 +9,9 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.STRING,
             allowNull: false,
         },
+        productImage:{
+            type: Sequelize.STRING,
+        },
         productName: {
             type: Sequelize.STRING,
             allowNull: false,
