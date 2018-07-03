@@ -50,6 +50,7 @@ module.exports = function (sequelize, Sequelize) {
             productType: "Hard Disk", 
             quantity: 100, 
             price: 199.99, 
+            userID: 1,
         });Products.upsert({
             id: 2,
             productID: 1002, 
@@ -58,6 +59,7 @@ module.exports = function (sequelize, Sequelize) {
             productType: "RAM", 
             quantity: 100, 
             price: 99.90, 
+            userID: 1,
         }); Products.upsert({
             id: 3,
             productID: 1003, 
