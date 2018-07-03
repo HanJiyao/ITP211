@@ -1,5 +1,6 @@
 var models = require("../models");
 var paymentModel = models.PaymentDetails;
+// GET create page
 exports.create=(req,res)=>{
     var user = req.session.passport.user;
     res.render("createPaymentDetails", {
@@ -13,6 +14,7 @@ exports.create=(req,res)=>{
         }, true)
     });
 }
+// POST create page
 exports.insert = function (req, res) {
     var paymentDetailsData = {
         cardHolderName: req.body.cardHolderName,
@@ -26,7 +28,8 @@ exports.insert = function (req, res) {
             return res.send(400, {
                 message: "error"
             });
-        }res.redirect("/payment")
+        }
+        res.redirect("/payment")
     });
     
 };

@@ -4,4 +4,5 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
     })
+    return Wallet;
 }
