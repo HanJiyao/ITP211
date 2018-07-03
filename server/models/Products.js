@@ -45,6 +45,7 @@ module.exports = function (sequelize, Sequelize) {
         Products.upsert({
             id: 1,
             productID: 1001, 
+            productImage:"Null",
             productName: "Seagate 1TB 7200RPM (Blue)", 
             productType: "Hard Disk", 
             quantity: 100, 
@@ -52,6 +53,7 @@ module.exports = function (sequelize, Sequelize) {
         });Products.upsert({
             id: 2,
             productID: 1002, 
+            productImage:"Null",
             productName: "G.Skill RipJaws DDR3", 
             productType: "RAM", 
             quantity: 100, 
@@ -59,6 +61,7 @@ module.exports = function (sequelize, Sequelize) {
         }); Products.upsert({
             id: 3,
             productID: 1003, 
+            productImage:"Null",
             productName: "MSI H270 Gaming M3", 
             productType: "Motherboard", 
             quantity: 50, 
@@ -67,6 +70,7 @@ module.exports = function (sequelize, Sequelize) {
         }); Products.upsert({
             id: 4,
             productID: 1004, 
+            productImage:"Null",
             productName: "Intel Processor I5-4900K", 
             productType: "Processor", 
             quantity: 80, 
