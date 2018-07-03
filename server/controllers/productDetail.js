@@ -1,6 +1,6 @@
 var models = require("../models");
 exports.show = function (req, res) {
-    var user = req.session.passport.user;
+    var user = (req.session.passport) ? req.session.passport.user : false;
     var avatar = require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true);
     var id = req.params.id
     models.sequelize.query(
@@ -11,11 +11,10 @@ exports.show = function (req, res) {
         where p.id = '+id+'', 
         { model: models.Products }).then(function (product) {
         res.render('productDetail', {
-            title: product.productName,
+            title: product[0].productName,
             user: user,
             avatar: avatar,
-            product: product,
+            product: product[0],
         });
-        console.log(product)
     })
 };

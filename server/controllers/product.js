@@ -1,3 +1,4 @@
+var models = require("../models");
 var productModel = models.Products;
 exports.insert = function(req, res){
     var productData ={

@@ -8,7 +8,23 @@
 <body>
 <% include ../partials/header %>
     <div class="container">
-        <%=product%>
+        <div class="card mt-5">
+            <div class="row">
+                <style>
+                    .imgContainer{
+                        background-image: url("https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg") ; 
+                        height: 100%;
+                        padding-top: 100%;
+                    }
+                </style>
+                <div class="col-lg-5">
+                    <div class="imgContainer"></div>
+                </div>
+                <div class="col-lg-5">
+                    <%=product.productName%>
+                </div>
+            </div>
+        </div>
     </div>
 <% include ../partials/footer %>
 </body>
