@@ -76,9 +76,13 @@ app.use("/payment", paymentRouter)
 //reviews routing 
 var reviewsRouter = require("./server/routes/reviews");
 app.use("/reviews", reviewsRouter) 
-// //Wishlist Routing
-// var wishlistRouter=require("./server/routes/wishlist")
-// app.use("/", wishlistRouter)
+//Wishlist Routing
+var wishlistRouter=require("./server/routes/wishlist");
+app.use("/", wishlistRouter)
+
+//Order History Routing
+var orderhistoryRouter= require("./server/routes/orderhistory");
+app.use("/orderhistory",orderhistoryRouter);
 // product Detail
 var productDetailRouter = require("./server/routes/productDetail")
 app.use("/product", productDetailRouter) 

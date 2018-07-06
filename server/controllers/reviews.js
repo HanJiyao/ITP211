@@ -62,16 +62,12 @@ exports.list=function(req,res){
     }
 
         //comments authorization middleware
-        exports.hasAuthorization=function (req,res,next){
-            if (req.isAuthenticated())
-                return next();
-            res.redirect("/login");
-        };
-
         exports.hasAuthorization=function(req,res,next){
             if (req.isAuthenticated())
                 return next();
             res.redirect("/login");
         };
+
+        
       
 

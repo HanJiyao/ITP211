@@ -1,6 +1,5 @@
-
 module.exports = function (sequelize, Sequelize) {
-    var Orderhistory = sequelize.define("Orderhistory", {
+    var Wishlist = sequelize.define("Wishlist", {
         order_id: {
             autoIncrement: true,
             primaryKey: true,
@@ -31,11 +30,11 @@ module.exports = function (sequelize, Sequelize) {
         },
 
     });
-    Orderhistory.sync({
+    Wishlist.sync({
         force: false,
         logging: console.log
     }).then(() => {
-        console.log("Order History table synced");
+        console.log("Wishlist table synced");
     });
-    return Orderhistory;
+    return Wishlist;
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+</head>
+<style>
+    #orderdetails {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#orderdetails td, #orderdetails th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#orderdetails tr:nth-child(even){background-color: #f2f2f2;}
+
+#orderdetails tr:hover {background-color: #ddd;}
+
+#orderdetails th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+<body>
+    <% include ../partials/header %>
+    <table id="orderdetails">
+            <tr>
+              <th>Date of Purchase</th>
+              <th>Order ID</th>
+              <th>Seller Name</th>
+              <th>Product Name</th>
+              <th>Product Quantity</th>
+              <th>Product Price</th>
+              <th>Total Price</th>
+            </tr>
+            <tr>
+              <td><%= orderhistory.created %></td>
+              <td><%= orderhistory.order_id %></td>
+              <td><%= orderhistory.seller_name %></td>
+              <td><%= orderhistory.product_quantity %></td>
+              <td><%= orderhistory.product_price %></td>
+              <td><%= orderhistory.total_price %></td>
+            </tr>
+            
+          </table>
+          
+            <% include ../partials/footer %>
+
+</body>
+</html>

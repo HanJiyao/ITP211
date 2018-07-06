@@ -1,108 +1,137 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>
-        <%= title %>
-    </title>
-    <% include ../partials/stylesheet %>
-    <% include ../partials/javascript %>
+  <title>
+    <%= title %>
+  </title>
 </head>
-
 <body>
-    <% include ../partials/header %>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h4 class="text-muted">Wishlist</h4>
-                </div>
-                <div class="row">
-                    <% for(var i=0; i < products.length; i++){ %>
-                      <style>
-                        .productCard{
-                          transition: box-shadow 0.3s, border 0.3s;
-                          border: thin solid rgba(0, 0, 0, 0);
-                        }
-                        .productCard:hover{
-                          border: thin solid #f80;
-                          box-shadow: 0 0 10px #f80;
-                        }
-                      </style>
-                      <a class="col-lg-3 pb-4">
-                        <div class="card productCard">
-                          <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" class="card-img-top" alt="photo">
-                          <div class="card-body">
-                            <div class="card-title mb-1"><%= products[i].productName %></div>
-                            <div class="card-text pb-2">
-                              <%= products[i].productType %>
-                            </div>
-                            <h4 class="card-title text-warning">
-                              SGD <%= products[i].price %>
-                            </h4>
-                            <div class="card-text">
-                              <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= products[i].userID %>
-                            </div>
-                            <div class="card-text pt-3">
-                              <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                              <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                              <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                              <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                              <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    <% } %>
-                  </div>
-                </div>
-                <h2>Basic HTML Table</h2>
-
-<table style="width:100%">
-  <tr>
-    <th>Product ID</th>
-    <th>Product Name</th> 
-    <th>Product quantity</th>
-    <th>Product Price</th>
-    <th>Product Type</th>
-    <th>Seller</th>
-    <th>Average Rating</th>
-  </tr>
-  <tr>
-    <td>Jill</td>
-    <td>Smith</td>
-    <td>50</td>
-  </tr>
-  <tr>
-    <td>Eve</td>
-    <td>Jackson</td>
-    <td>94</td>
-  </tr>
-  <tr>
-    <td>John</td>
-    <td>Doe</td>
-    <td>80</td>
-  </tr>
-</table>
-        <% include ../partials/footer %>
-        <script>
-            $('.deleteBtn').click(function() {
-                var wishlist_id = $(this).data('id');      
-                $.ajax({
-                        url: '<%-urlPath%>'+'/'+wishlist_id,
-                        type: 'DELETE',
-                        success: function(result) {
-                            console.log(result.message);
-                            var itemToRemove = '.list-group-item[data-id='+wishlist_id+']';
-                            $(itemToRemove).remove();
-                        },
-                        error: function(result){
-                            alert("Unable to delete wishlist.");
-                            console.log(result.message);
-                        } 
-                    });  
-            });
-           
-        </script>
+  <% include ../partials/header %>
+  <div class="container">
+    <div class="col-lg-12">
+      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createStudent">
+        New Wishlist
+      </button>
+    </div>
+    <div class="modal fade" id="createStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form action="/wishlist/new" method="post">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Create New Wishlist</h4>
+            </div>
+            <div class="modal-body">
+              <fieldset class="form-group">
+                <label for="orderID">Order ID</label>
+                <input type="text" id="orderID" name="orderID" class="form-control" placeholder="Order Id" required="true">
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="seller_name">Seller Name</label>
+                <input type="text" id="seller_name" name="seller_name" class="form-control" placeholder="Seller Name" required="true">
+              </fieldset>
+              <fieldset class = "form-group">
+                <label for ="productName">Product Name</label>
+                <input type = "file" id ="productName" name = "productName" class ="form-control" placeholder="Product Name" required ="true">
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="productQuantity">Product Quantity</label>
+                <input type="text" id="productQuantity" name="productQuantity" class="form-control" placeholder="Product Quantity" required="true">
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="productPrice">Product Price</label>
+                <input type="text" id="productPrice" name="productPrice" class="form-control" placeholder="Product Price" required="true">
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="productTotalprice">Total Price</label>
+                <input type="text" id="productTotalprice" name="productTotalprice" class="form-control" placeholder="Total Price" required="true">
+              </fieldset>
+              
+            
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Add Wishlist</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <table class="table">
+      <thread>
+        <tr>
+          <th>S/N</th>
+          <th>Order ID</th>
+          <th>Seller Name</th>
+          <th>Product Name</th>
+          <th>Product Quantity</th>
+          <th>Product Price</th>
+          <th>Total Price</th>
+          
+        </tr>
+        <!-- order_id:req.body.order_id,
+                seller_name:req.body.seller_name,
+                product_name:req.body.product_name,
+                product_quantity:req.body.product_quantity,
+                product_price:req.body.product_price,
+                total_price:req.body.total_price,
+                seller_name:req.body.seller_name,
+                created:req.body.created,
+            } -->
+        <% for(var i=0; i < itemList.length; i++){ %>
+          <tr class="rowRecord" data-id="<%= itemList[i].id %>">
+            <td>
+              <%=i+1%>
+            </td>
+            <td>
+              <%= itemList[i].order_id %>
+            </td>
+            <td>
+              <%=itemList[i].seller_name%>
+            </td>
+            <td>
+              <%= itemList[i].product_quantity %>
+            </td>
+            <td>
+              <%= itemList[i].product_price %>
+            </td>
+            <td>
+              <%=itemList[i].total_price %>
+            </td>
+            <td>
+              <input type="button" class="editBtn" value="Edit">
+              <input type="button" class="deleteBtn"  value="Delete">
+            </td>
+          </tr>
+        <% } %>
+      </thread>
+    </table>
+    <script>
+      $(".editBtn").click(function () {
+        var record_num = $(this).closest("tr").data('id');
+        location.href = "<%=urlPath %>edit/"+record_num;
+      });
+      $(".deleteBtn").click(function () {
+        var record_num = $(this).closest("tr").data('id');
+        $.ajax({
+          url: '<%=urlPath%>' + record_num,
+          type: 'DELETE',
+          success: function (result) {
+            console.log(result.message);
+            var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+            $(itemToRemove).remove();
+            window.location.href="/wishlist"
+          },
+          error: function (result) {
+            alert("Unable to delete wishlist record.");
+            console.log(result.message);
+          }
+        });
+      });
+    </script>
+  </div>
+  <% include ../partials/footer %>
 </body>
-
 </html>
