@@ -16,7 +16,7 @@
     <div class="modal fade" id="createStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form action="/productsmanager/new" method="post">
+          <form action="/productsmanager/new" method="post" enctype="multipart/form-data">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -30,7 +30,7 @@
               </fieldset>
               <fieldset class = "form-group">
                 <label for ="productImage">Product Image</label>
-                <input type = "file" id ="productImage" name = "productImage" class ="form-control" placeholder="Product Image" required ="true">
+                <input type = "file" id ="productImage" name = "productImage">
               </fieldset>
               <fieldset class="form-group">
                 <label for="productName">Product Name</label>

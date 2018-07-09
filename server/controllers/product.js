@@ -1,5 +1,8 @@
 var models = require("../models");
 var productModel = models.Products;
+var fs = require('fs');
+var mime = require('mime');
+var image_type = ['image/jpg','image/jpeg', 'image/png'];
 exports.insert = function(req, res){
     var productData ={
         productID: req.body.productID,
@@ -11,13 +14,35 @@ exports.insert = function(req, res){
         price: req.body.price,
         userID:req.session.passport.user.id
     }
-    productModel.create(productData).then((newProduct, created)=> {
-        if (!newProduct){
-            return res.send(400, {
-                message: "error"
+    var src;
+    var dest;
+    var targetPath;
+    var tempPath = req.file.path;
+    console.log(req.file);
+    var type = mime.lookup(req.file.mimetype);
+    var extension = req.file.path.spilt(/[. ]+/).pop();
+    if (image_type.indexOf(type)== -1){
+        return res.status(415).send('supported image formats: jpeg, jpg, png,')
+    }
+    targetPath = '../../public/uploads' + req.file.originalname;
+    src = fs.createReadStream(tempPath);
+    dest = fs.createWriteStream(targetPath);
+    src.pipe(dest);
+    src.on('error', function (err){
+        if (err){
+            return res.status(500).send({
+                message: error
             });
         }
-        res.redirect("/productsmanager")
+    });
+    src.on('end', function(){
+        productModel.create(productData).then((newProduct, created)=> {
+            if (!newProduct){
+                return res.send(400, {
+                    message: "error"
+                });
+            }
+        })
     })
 };
 exports.list = function(req, res){
@@ -86,3 +111,9 @@ exports.delete = function(req, res){
         res.status(200).send({message: "Delete Product record: " + record_num});
     });
 }
+
+exports.hasAuthorization = function (req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.redirect('/login');
+};  
