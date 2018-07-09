@@ -20,11 +20,10 @@ exports.insert = function(req, res){
     var tempPath = req.file.path;
     console.log(req.file);
     var type = mime.lookup(req.file.mimetype);
-    var extension = req.file.path.spilt(/[. ]+/).pop();
     if (image_type.indexOf(type)== -1){
         return res.status(415).send('supported image formats: jpeg, jpg, png,')
     }
-    targetPath = '../../public/uploads' + req.file.originalname;
+    targetPath = './public/images/product/' + req.file.originalname;
     src = fs.createReadStream(tempPath);
     dest = fs.createWriteStream(targetPath);
     src.pipe(dest);
@@ -43,6 +42,13 @@ exports.insert = function(req, res){
                 });
             }
         })
+        //remove from temp folder
+        fs.unlink(tempPath, function(err){
+            if(err){
+                return res.status(500).send('Error happened during clear');
+            }
+            res.redirect('/productsmanager');
+        });
     })
 };
 exports.list = function(req, res){
