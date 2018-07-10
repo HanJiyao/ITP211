@@ -10,10 +10,6 @@ var path = require('path');
 var morgan = require('morgan')
 app.use(morgan('dev'))
 
-// Import multer
-var multer = require('multer');
-var upload = multer({ dest: './public/uploads/', limits: { fileSize: 1500000, file: 1 } });
-
 //For BodyParser cookieParser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
