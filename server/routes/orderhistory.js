@@ -7,5 +7,5 @@ var orderhistoryController=require("../controllers/orderhistory");
 // module.exports=reviewsRouter;
 orderhistoryRouter.get("/",orderhistoryController.hasAuthorization,orderhistoryController.list);
 orderhistoryRouter.post("/",orderhistoryController.hasAuthorization,orderhistoryController.create);
-orderhistoryRouter.delete("/:order_id",orderhistoryController.hasAuthorization,orderhistoryController.delete);
+orderhistoryRouter.delete("/:id",orderhistoryController.hasAuthorization,orderhistoryController.delete);
 module.exports=orderhistoryRouter;

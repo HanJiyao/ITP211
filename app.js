@@ -74,7 +74,7 @@ var reviewsRouter = require("./server/routes/reviews");
 app.use("/reviews", reviewsRouter) 
 //Wishlist Routing
 var wishlistRouter=require("./server/routes/wishlist");
-app.use("/", wishlistRouter)
+app.use("/wishlistmanager", wishlistRouter)
 
 //Order History Routing
 var orderhistoryRouter= require("./server/routes/orderhistory");
