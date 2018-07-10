@@ -8,7 +8,7 @@ var upload = multer({ dest: './public/uploads/', limits: { fileSize: 10000000 , 
 productRouter.get("/", isLoggedIn, productController.list);
 productRouter.get("/edit/:id", isLoggedIn, productController.editRecord);
 productRouter.post("/new", isLoggedIn, upload.single('productImage'), productController.insert);
-productRouter.post("/edit/:id", isLoggedIn, productController.update);
+productRouter.post("/edit/:id", isLoggedIn, upload.single('productImage'), productController.update);
 productRouter.delete("/:id", isLoggedIn, productController.delete);
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())

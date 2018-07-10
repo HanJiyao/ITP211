@@ -10,10 +10,10 @@
     <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Edit Product Record</h4>
     </div>
-    <div class="modal-body">
+    <form action="/productsmanager/edit/<%=item.productID%>" method="post" enctype="multipart/form-data">
         <fieldset class="form-group">
             <label for="inputproductID">Product ID</label>
-            <input type="text" id="inputproductID" name="productId" class="form-control" placeholder="Student Id" required="true" value="<%=item.productID%>">
+            <input type="text" id="inputproductID" name="productID" class="form-control" placeholder="Product Id" required="true" value="<%=item.productID%>">
         </fieldset>
         <fieldset class = "form-group">
             <label for ="inputproductImage">Product Image:</label>
@@ -39,9 +39,9 @@
             <label for="inputPrice">Price</label>
             <input type="text" id="inputPrice" name="price" class="form-control" placeholder="price" required="true" value="<%=item.price%>">
         </fieldset>
-    </div>
+    </form>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" onclick=saveChanges()>Save Changes</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
         <button type="button" class="btn btn-secondary" onclick=discardChanges()>Cancel</button>
     </div>
     <script>
