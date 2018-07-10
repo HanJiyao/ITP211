@@ -89,20 +89,49 @@ exports.update = function(req, res){
     var record_num = req.params.id; 
     var updateData ={
         productID: req.body.productID,
-        productImage: req.body.productImage,
+        productImage: req.file.originalname,
         productName: req.body.productName,
         productType: req.body.productType,
         productDesc: req.body.productDesc,
         quantity: req.body.quantity,
         price: req.body.price
     }
-    productModel.update(updateData, {where: {id: record_num}}).then((updatedProduct)=> {
-        if (!updatedProduct || updatedProduct==0){
-            return res.send(400, {
-                message: "error"
-            });   
+    var src;
+    var dest;
+    var targetPath;
+    var tempPath = req.file.path;
+    console.log(req.file);
+    var type = mime.lookup(req.file.mimetype);
+    if (image_type.indexOf(type)== -1){
+        return res.status(415).send('supported image formats: jpeg, jpg, png,')
+    }
+    targetPath = './public/images/product/' + req.file.originalname;
+    src = fs.createReadStream(tempPath);
+    dest = fs.createWriteStream(targetPath);
+    src.pipe(dest);
+    src.on('error', function (err){
+        if (err){
+            return res.status(500).send({
+                message: error
+            });
         }
-        res.status(200).send({message: "Updated Product Record: " + record_num});
+    });
+    src.on('end', function(){
+        productModel.update(updateData, {where: {id: record_num}}).then((updatedProduct)=> {
+            if (!updatedProduct || updatedProduct==0){
+                return res.send(400, {
+                    message: "error"
+                });   
+            }
+            res.status(200).send({message: "Updated Product Record: " + record_num});
+        })
+        //remove from temp folder
+        fs.unlink(tempPath, function(err){
+            if(err){
+                return res.status(500).send('Error happened during clear');
+            }
+            res.redirect('/productsmanager');
+        });
     })
 };
 exports.delete = function(req, res){
