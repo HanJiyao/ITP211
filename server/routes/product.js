@@ -3,7 +3,7 @@ var productRouter = express.Router();
 var productController = require("../controllers/product");
 // Import multer
 var multer = require('multer');
-var upload = multer({ dest: './public/uploads/', limits: { fileSize: 1500000, file: 1 } });
+var upload = multer({ dest: './public/uploads/', limits: { fileSize: 10000000 , file: 1 } });
 // define the home page route
 productRouter.get("/", isLoggedIn, productController.list);
 productRouter.get("/edit/:id", isLoggedIn, productController.editRecord);
