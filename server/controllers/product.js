@@ -6,7 +6,7 @@ var image_type = ['image/jpg','image/jpeg', 'image/png'];
 exports.insert = function(req, res){
     var productData ={
         productID: req.body.productID,
-        productImage: req.body.productImage,
+        productImage: req.file.originalname,
         productName: req.body.productName,
         productType: req.body.productType,
         productDesc: req.body.productDesc,
