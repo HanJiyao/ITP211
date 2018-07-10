@@ -1,7 +1,7 @@
 
 module.exports = function (sequelize, Sequelize) {
     var Orderhistory = sequelize.define("Orderhistory", {
-        order_id: {
+        id: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER

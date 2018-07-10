@@ -19,32 +19,55 @@
                     }
                 </style>
                 <div class="col-lg-5">
-                    <div class="m-5">
+                    <div class="p-3">
                         <div class="imgContainer"></div>
                     </div>
                 </div>
-                <div class="col-lg-7 p-5">
+                <div class="col-lg-7 pt-5">
                     <div class="container">
-                        <h3 class="pb-4"><%=product.productName%></h2>
-                        <div class="row text-center" style="background:#fff3e0">
-                            <div class="col-sm-6 p-3">
-                                <h2 class="text-danger font-weight-normal mt-3 mb-3">SGD <%=product.price%></h2>
-                            </div>
-                            <div class="col-sm-3 pt-4">
-                                <div>Ratings</div>
-                                <h4 class="grey-text pt-2">0</h4>
-                            </div>
-                            <div class="col-sm-3 pt-4">
-                                <div>Sales</div>
-                                <h4 class="grey-text pt-2">0</h4>
-                            </div>
+                        <h3 class="font-weight-normal pb-3"><%=product.productName%></h2>
+                        <a class="pb-3">
+                            <span class="text-warning">    
+                                <% for(var i=0; i < 5; i++){ %>
+                                    <i class="material-icons" style="vertical-align:-7px">stars</i>
+                                <% } %>
+                            </span>
+                            <span><small class="grey-text"> (19 reviews) </small></span>
+                        </a>
+                        <div class="pt-3 pb-3 grey-text">
+                            <i class="material-icons" style="vertical-align:-5px">store</i> <%=product.userID%>
                         </div>
-                        <div class="row pt-5">
-                            <h5 class="col-md-3 pt-2 mt-1">Quantity</h5>
-                            <div class="col-md-5">
+                        <h1 class="text-danger font-weight-normal pt-4 pb-4 mt-3 mb-3 mr-5" style="border-top:thin solid #e0e0e0;border-bottom:thin solid #e0e0e0">SGD <%=product.price%></h1>
+                        <div class="row mt-5 mr-5">
+                            <h5 class="col-sm-3">
+                                Description
+                            </h5>
+                            <h5 class="col font-weight-normal">
+                                <%=product.productDesc%>
+                            </h5>
+                        </div>
+                        <div class="row mt-2 mr-5">
+                            <h5 class="col-sm-3">
+                                Type
+                            </h5>
+                            <h5 class="col font-weight-normal">
+                                <%=product.productType%>
+                            </h5>
+                        </div>
+                        <div class="row mt-2 mr-5">
+                            <h5 class="col-sm-3">
+                                Availability
+                            </h5>
+                            <h5 class="col font-weight-normal">
+                                <%=product.quantity%> in stock
+                            </h5>
+                        </div>
+                        <div class="row mt-2 mr-5 pb-5">
+                            <h5 class="col-sm-3">Quantity</h5>
+                            <div class="col">
                                 <div class="btn-group number-spinner">
                                     <span class="input-prepend data-dwn">
-                                        <button class="btn btn-light p-0" data-dir="dwn"style="border-radius:50%!important;width: 50px;height: 50px;" disabled>
+                                        <button class="btn btn-light p-0" data-dir="dwn"style="border-radius:50%!important;width:36px;height:36px;" disabled>
                                             <i class="material-icons" style="vertical-align: -7px;">remove</i>
                                         </button>
                                     </span>
@@ -55,18 +78,17 @@
                                             text-align: center;
                                             font-size: 1.2rem;
                                             width: 100%;
-                                            max-width: 120px;
+                                            max-width: 50px;
                                         }
                                     </style>
                                     <input type="text" name="quantity" id="quantity" value="1" min="1" max="<%=product.quantity%>">
                                     <span class="input-append data-up">
-                                        <button class="btn btn-light p-0" data-dir="up"style="border-radius:50%!important;width: 50px;height: 50px;">
+                                        <button class="btn btn-light p-0" data-dir="up"style="border-radius:50%!important;width:36px;height:36px;">
                                             <i class="material-icons" style="vertical-align: -7px;">add</i>
                                         </button>
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-4 pt-3"><small class="grey-text">(<%=product.quantity%> items in stock)</small></div>
                         </div>
                         <script>
                             $(function () {
@@ -92,6 +114,9 @@
                                 })
                             });
                         </script>
+                        <a class="col pr-0" href="#">
+                            <button type="button" class="btn btn-warning btn-block rounded font-weight-bold waves-effect waves-light" style="font-size:1rem;-webkit-border-radius:10em!important;border-radius:10em!important;" href="/signup">SIGN UP</button>
+                        </a>
                     </div>
                 </div>
             </div>

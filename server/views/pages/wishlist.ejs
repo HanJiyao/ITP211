@@ -16,7 +16,7 @@
     <div class="modal fade" id="createStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form action="/wishlist/new" method="post">
+          <form action="/wishlistmanager/new" method="post">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -32,21 +32,25 @@
                 <label for="seller_name">Seller Name</label>
                 <input type="text" id="seller_name" name="seller_name" class="form-control" placeholder="Seller Name" required="true">
               </fieldset>
+              <fieldset class="form-group">
+                  <label for="product_id">Product ID</label>
+                  <input type="text" id="product_id" name="product_id" class="form-control" placeholder="Product ID" required="true">
+              </fieldset>
               <fieldset class = "form-group">
-                <label for ="productName">Product Name</label>
-                <input type = "file" id ="productName" name = "productName" class ="form-control" placeholder="Product Name" required ="true">
+                <label for ="product_name">Product Name</label>
+                <input type = "text" id ="product_name" name = "product_name" class ="form-control" placeholder="Product Name" required ="true">
               </fieldset>
               <fieldset class="form-group">
-                <label for="productQuantity">Product Quantity</label>
-                <input type="text" id="productQuantity" name="productQuantity" class="form-control" placeholder="Product Quantity" required="true">
+                <label for="product_quantity">Product Quantity</label>
+                <input type="text" id="product_quantity" name="product_quantity" class="form-control" placeholder="Product Quantity" required="true">
               </fieldset>
               <fieldset class="form-group">
-                <label for="productPrice">Product Price</label>
-                <input type="text" id="productPrice" name="productPrice" class="form-control" placeholder="Product Price" required="true">
+                <label for="product_price">Product Price</label>
+                <input type="text" id="product_price" name="product_price" class="form-control" placeholder="Product Price" required="true">
               </fieldset>
               <fieldset class="form-group">
-                <label for="productTotalprice">Total Price</label>
-                <input type="text" id="productTotalprice" name="productTotalprice" class="form-control" placeholder="Total Price" required="true">
+                <label for="total_price">Total Price</label>
+                <input type="text" id="total_price" name="total_price" class="form-control" placeholder="Total Price" required="true">
               </fieldset>
               
             
@@ -62,34 +66,30 @@
     <table class="table">
       <thread>
         <tr>
-          <th>S/N</th>
+          
           <th>Order ID</th>
           <th>Seller Name</th>
+          <th>Product ID</th>
           <th>Product Name</th>
           <th>Product Quantity</th>
           <th>Product Price</th>
           <th>Total Price</th>
           
         </tr>
-        <!-- order_id:req.body.order_id,
-                seller_name:req.body.seller_name,
-                product_name:req.body.product_name,
-                product_quantity:req.body.product_quantity,
-                product_price:req.body.product_price,
-                total_price:req.body.total_price,
-                seller_name:req.body.seller_name,
-                created:req.body.created,
-            } -->
+        
         <% for(var i=0; i < itemList.length; i++){ %>
-          <tr class="rowRecord" data-id="<%= itemList[i].id %>">
+          <tr class="rowRecord" data-id="<%=itemList[i].id%>">
             <td>
-              <%=i+1%>
-            </td>
-            <td>
-              <%= itemList[i].order_id %>
+              <%= itemList[i].id %>
             </td>
             <td>
               <%=itemList[i].seller_name%>
+            </td>
+            <td>
+              <%=itemList[i].product_id %>
+            </td>
+            <td>
+              <%=itemList[i].product_name %>
             </td>
             <td>
               <%= itemList[i].product_quantity %>
@@ -101,7 +101,7 @@
               <%=itemList[i].total_price %>
             </td>
             <td>
-              <input type="button" class="editBtn" value="Edit">
+             
               <input type="button" class="deleteBtn"  value="Delete">
             </td>
           </tr>
@@ -109,10 +109,7 @@
       </thread>
     </table>
     <script>
-      $(".editBtn").click(function () {
-        var record_num = $(this).closest("tr").data('id');
-        location.href = "<%=urlPath %>edit/"+record_num;
-      });
+    
       $(".deleteBtn").click(function () {
         var record_num = $(this).closest("tr").data('id');
         $.ajax({
@@ -122,7 +119,7 @@
             console.log(result.message);
             var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
             $(itemToRemove).remove();
-            window.location.href="/wishlist"
+            window.location.href="/wishlistmanager"
           },
           error: function (result) {
             alert("Unable to delete wishlist record.");

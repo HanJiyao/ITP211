@@ -1,18 +1,24 @@
 module.exports = function (sequelize, Sequelize) {
     var Wishlist = sequelize.define("Wishlist", {
-        order_id: {
+        id: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
         },
         seller_name: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            trim: true,
         },
         product_id: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        userID: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'Products',
+                model: 'Users',
                 key: 'id'
             }
         },

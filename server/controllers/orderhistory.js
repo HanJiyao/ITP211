@@ -3,7 +3,7 @@ var Orderhistory=models.sequelize;
 exports.list=function(req,res){
     var user=req.session.passport;
     //list all orders and sort by date
-    sequelize.query("select o.order_id,o.created,o.seller_name,o.product_name,o.product_quantity,o.product_price,o.total_price,o.seller_name from Orderhistory o ",{model:Orderhistory})
+    sequelize.query("select o.id,o.created,o.seller_name,o.product_name,o.product_quantity,o.product_price,o.total_price,o.seller_name from Orderhistory o ",{model:Orderhistory})
     .then((orderhistory)=>{
         res.render("orderhistory",{
             title:"Order History page",
@@ -23,7 +23,7 @@ exports.create=function (req,res){
     console.log("creating orderhistory")
 
     var orderhistoryData={
-        order_id:req.body.order_id,
+        id:req.body.id,
         seller_name:req.body.seller_name,
         product_name:req.body.product_name,
         product_quantity:req.body.product_quantity,
@@ -42,7 +42,7 @@ exports.create=function (req,res){
     })
 };
 exports.delete=function(req,res){
-    var record_num=req.params.order_id;
+    var record_num=req.params.id;
     console.log('deleting Order History' +record_num);
     Orderhistory.destroy({where:{id:record_num}}).then((deletedOrderhistory)=>{
         if (!deletedOrderhistory){
