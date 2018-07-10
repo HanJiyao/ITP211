@@ -3,15 +3,19 @@ var walletModel = models.Wallet;
 // GET view page
 exports.view = (req,res) => {
     var user = req.session.passport.user;
-    res.render("viewWallet", {
-        title: "My Silicon Wallet",
-        hostPath: req.protocol + "://" + req.get("host"),
-        user: user,
-        avatar: require('gravatar').url(user.email, {
-            s: '100',
-            r: 'x',
-            d: 'retro'
-        }, true)
+    walletModel.findAll({ where: { userID: user.id } }).then(function(wallet) {
+        console.log(wallet);
+        res.render("viewWallet", {
+            title: "My Silicon Wallet",
+            itemList: wallet,
+            urlPath: req.protocol + "://" + req.get("host") + "/payment" + req.url,
+            user: user,
+            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
+        });
+    }).catch((err)=> {
+        return res.status(400).send({
+            message: "error"
+        });
     });
 }
 // POST view page
@@ -26,7 +30,7 @@ exports.insert = function (req,res) {
                 message: "error"
             });
         }
-        res.redirect("/payment/viewWallet")
+        res.redirect("/Wallet")
     });
 };
 exports.list = function (req,res) {

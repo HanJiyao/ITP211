@@ -69,13 +69,14 @@ var productRouter = require('./server/routes/product');
 app.use("/productsmanager", productRouter)
 var paymentRouter = require('./server/routes/payment');
 app.use("/payment", paymentRouter)
+var walletRouter = require('./server/routes/wallet');
+app.use("/Wallet", walletRouter)
 //reviews routing 
 var reviewsRouter = require("./server/routes/reviews");
 app.use("/reviews", reviewsRouter) 
 //Wishlist Routing
 var wishlistRouter=require("./server/routes/wishlist");
 app.use("/", wishlistRouter)
-
 //Order History Routing
 var orderhistoryRouter= require("./server/routes/orderhistory");
 app.use("/orderhistory",orderhistoryRouter);

@@ -1,7 +1,7 @@
 module.exports = function (sequelize, Sequelize) {
     var Wallet = sequelize.define('Wallet', {
         balance: {
-            type: Sequelize.INTEGER
+            type: Sequelize.FLOAT(10, 2),
         },
         //need any other attributes?
         userID: {
@@ -17,8 +17,8 @@ module.exports = function (sequelize, Sequelize) {
         console.log("Wallet table synced");
         Wallet.upsert({
             //test data
-            balance: 500.00,
-            userID: 1
+            balance: 499.50,
+            userID: 2
         })
     });
     return Wallet;

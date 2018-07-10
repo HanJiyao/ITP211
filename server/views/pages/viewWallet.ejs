@@ -7,16 +7,26 @@
     <% include ../partials/header %>
     <div class="container mt-5">
         <div class="card pl-3 pr-3">
-        <div class="p-5 text-left m-md-5">
+        <div class="p-5 text-center m-md-5">
             <h1 class="font-weight-light mt-3 mb-5">
-                My Silicon Wallet
+                <strong>My Silicon Wallet</strong>
             </h1>
             <div class="container pl-1 pr-1">
-                <img class="wallet-image" src="..../public/images/silicon_wallet.png">
+                <img class="wallet-image" src="images/silicon_wallet.png">
             </div>
-            <h2 class="font-weight-light mt-3 mb-5">
-                Current Balance : <%= itemList[i].balance %>
+            <h2 class="font-weight-light pt-3 pb-3 mt-5 mb-5">
+                Current Balance : $ <%= itemList[0].balance %>
             </h2>
+            <a href="">
+                <button type="button" class="btn btn-success btn-lg">
+                Top Up My Wallet
+                </button>
+            </a>
+            <a href="/payment">
+                <button type="button" class="btn btn-info btn-lg">
+                Go To My Payment Details
+                </button>
+            </a>
         </div>
         </div>
     </div>
