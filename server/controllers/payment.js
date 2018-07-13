@@ -50,9 +50,8 @@ exports.list = function(req, res) {
     }).then((data) => {
         cartNum = data[0].dataValues.cartNum
     });
-    paymentModel.findAll({
-        attributes: ["id","paymentDetailsID","cardHolderName","cardNumber","securityCode","expiryDate"]
-    }, { where: { userID: user.id } }).then(function(payment) {
+    paymentModel.findAll(
+        { where: { userID: user.id } }).then(function(payment) {
         res.render("viewPaymentDetails", {
             title: "View Payment Details",
             itemList: payment,

@@ -18,7 +18,7 @@ module.exports = function (sequelize, Sequelize) {
         Wallet.upsert({
             //test data
             balance: 499.50,
-            userID: 2
+            userID: 1
         })
     });
     return Wallet;
