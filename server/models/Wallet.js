@@ -1,6 +1,7 @@
 module.exports = function (sequelize, Sequelize) {
     var Wallet = sequelize.define('Wallet', {
         balance: {
+            defaultValue: 0,
             type: Sequelize.FLOAT(10, 2),
         },
         //need any other attributes?

@@ -6,7 +6,7 @@ exports.view = (req,res) => {
     // get cart num
     var cartNum = 0;
     models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
-    walletModel.findAll({ where: { userID: user.id } }).then(function(wallet) {
+    walletModel.findOrCreate({ where: { userID: user.id } }).then(function(wallet) {
         console.log(wallet);
         res.render("viewWallet", {
             title: "My Silicon Wallet",
