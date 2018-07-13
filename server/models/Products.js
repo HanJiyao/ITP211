@@ -29,7 +29,8 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.INTEGER,
         },
         price: {
-            type: Sequelize.FLOAT(10, 2)
+            type: Sequelize.FLOAT(10, 2),
+            allowNull: false,
         },
         userID: {
             type: Sequelize.INTEGER,
@@ -45,7 +46,7 @@ module.exports = function (sequelize, Sequelize) {
         Products.upsert({
             id: 1,
             productID: 1001, 
-            productImage:"Null",
+            productImage: "seagate_stdr2000102_backup_plus_2tb_portable_1017872.jpg",
             productName: "Seagate 1TB 7200RPM (Blue)", 
             productType: "Hard Disk", 
             productDesc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.",
@@ -55,7 +56,7 @@ module.exports = function (sequelize, Sequelize) {
         });Products.upsert({
             id: 2,
             productID: 1002, 
-            productImage:"Null",
+            productImage: "61svh7xo0kl._sl1200__4.jpg",
             productName: "G.Skill RipJaws DDR3", 
             productType: "RAM", 
             productDesc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.",
@@ -65,7 +66,7 @@ module.exports = function (sequelize, Sequelize) {
         }); Products.upsert({
             id: 3,
             productID: 1003, 
-            productImage:"Null",
+            productImage: "msi-z270_gaming_pro_carbon-overview-hero.jpg",
             productName: "MSI H270 Gaming M3", 
             productType: "Motherboard", 
             productDesc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.",
@@ -75,7 +76,7 @@ module.exports = function (sequelize, Sequelize) {
         }); Products.upsert({
             id: 4,
             productID: 1004, 
-            productImage:"Null",
+            productImage: "LD0004618347_2.jpg",
             productName: "Intel Processor I5-4900K", 
             productType: "Processor", 
             productDesc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.",

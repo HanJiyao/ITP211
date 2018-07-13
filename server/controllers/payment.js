@@ -3,10 +3,18 @@ var paymentModel = models.PaymentDetails;
 // GET create page
 exports.create=(req,res)=>{
     var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    });
     res.render("createPaymentDetails", {
         title: "Create Payment Details",
         hostPath: req.protocol + "://" + req.get("host"),
         user: user,
+        cartNum: cartNum,
         avatar: require('gravatar').url(user.email, {
             s: '100',
             r: 'x',
@@ -35,6 +43,13 @@ exports.insert = function (req, res) {
 };
 exports.list = function(req, res) {
     var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    });
     paymentModel.findAll({
         attributes: ["id","paymentDetailsID","cardHolderName","cardNumber","securityCode","expiryDate"]
     }, { where: { userID: user.id } }).then(function(payment) {
@@ -43,6 +58,7 @@ exports.list = function(req, res) {
             itemList: payment,
             urlPath: req.protocol + "://" + req.get("host") + "/payment" + req.url,
             user: user,
+            cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
     }).catch((err)=> {
@@ -54,6 +70,13 @@ exports.list = function(req, res) {
 // edit payment details
 exports.edit = function(req, res) {
     var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    });
     var detail_num = req.params.id;
     paymentModel.findById(detail_num).then(function(paymentDetails){
         res.render("editPaymentDetails", {
@@ -61,6 +84,7 @@ exports.edit = function(req, res) {
             item: paymentDetails,
             hostPath: req.protocol + "://" + req.get("host"),
             user: user,
+            cartNum: cartNum,
             avatar: require('gravatar').url(user.email, {s: '100', r: 'x', d: 'retro'}, true)
         });
     }).catch((err)=> {

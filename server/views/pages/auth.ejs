@@ -43,7 +43,7 @@
                     </div>
                     <script>
                         dateString = new Date("<%=userData[i].createdAt%>").toUTCString();
-                        $(".createdAt")[<%=i%>].innerText = moment(dateString).format("YYYY-MM-DD hh:mm:ss");
+                        $(".createdAt")[`<%=i%>`].innerText = moment(dateString).format("YYYY-MM-DD hh:mm:ss");
                     </script>
                     <div class="col-2 last_login">
                         N/A
@@ -52,7 +52,7 @@
                     <script>
                         console.log("<%=userData[i].last_login%>")
                         dateString = new Date("<%=userData[i].last_login%>").toUTCString();
-                        $(".last_login")[<%=i%>].innerText = moment(dateString).format("YYYY-MM-DD hh:mm:ss");
+                        $(".last_login")[`<%=i%>`].innerText = moment(dateString).format("YYYY-MM-DD hh:mm:ss");
                     </script>
                     <%}%>
                     <div class="col-1 text-right">

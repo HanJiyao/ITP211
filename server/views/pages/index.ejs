@@ -90,7 +90,17 @@
           </style>
           <a class="col-lg-3 pb-4" href="<%=hostPath%>/product/<%=products[i].id%>"</a>
             <div class="card productCard">
-              <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" class="card-img-top" alt="photo">
+              <div class="p-3">
+                <div class="prodImgContainer" 
+                  style=
+                    "background-image: url(<%=hostPath%>/images/products/<%=products[i].productImage%>);
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    width: 100%;
+                    padding-top: 75%;">
+                </div>
+              </div>
               <div class="card-body">
                 <div class="card-title mb-1"><%= products[i].productName %></div>
                 <div class="card-text pb-2">

@@ -3,9 +3,17 @@ var gravatar = require('gravatar');
 var models=require("../models");
 var Reviews=models.Reviews;
 var sequelize=models.sequelize;
+
 //list reviews
 exports.list=function(req,res){
     var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    })
     //list all users and sort by date
     sequelize.query("select r.rating,r.id,r.title,r.content,r.created ,u.email AS user_id from Reviews r join Users u on r.user_id=u.id",{model:Reviews })
     .then((reviews)=>{
@@ -16,7 +24,8 @@ exports.list=function(req,res){
             gravatar:gravatar.url(reviews.user_id, {s:"80",r:"x",d:"retro"},true),
             urlPath:req.protocol+"://" + req.get("host")+req.url,
             user:user,
-            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
+            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true),
+            cartNum: cartNum,
         })
     }).catch((err)=>{
         return res.status(400).send({

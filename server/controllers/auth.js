@@ -5,7 +5,6 @@ var productModel = models.Products;
 var paymentModel = models.PaymentDetails;
 exports.signup = function (req, res) {
     (req.session.passport) ? res.redirect('/profile') : res.render('signup', { title: 'Signup Page', message: req.flash('signupMessage')});
-   
 }
 exports.login = function (req, res) {
     (req.session.passport) ? res.redirect('/profile') : res.render('login', { title: 'Login Page', message: req.flash('loginMessage')});
@@ -13,10 +12,19 @@ exports.login = function (req, res) {
 var models = require("../models");
 var userModel = models.Users;
 exports.profile = function (req, res) {
-    userModel.findById(req.session.passport.user.id).then(function (userData) {
+    var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    });
+    userModel.findById(user.id).then(function (userData) {
         res.render("profile", {
             title: "Profile Page",
             user: userData,
+            cartNum: cartNum,
             avatar: require('gravatar').url(userData.email, { s: '100', r: 'x', d: 'retro' }, true),
             urlPath: req.protocol + "://" + req.get("host") + "/profile"
         });
@@ -71,6 +79,13 @@ exports.accountDelete = function(req, res) {
 }
 exports.adminListAccount = function (req, res) {
     var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    });
     userModel.findAll({ 
         attributes: ["id", "email", "username", "password", "last_login","createdAt"] 
     }).then(function (userData) {
@@ -78,6 +93,7 @@ exports.adminListAccount = function (req, res) {
             title: "Admin Console",
             userData: userData,
             user: user,
+            cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true),
             urlPath: req.protocol + "://" + req.get("host") + "/admin"
         });

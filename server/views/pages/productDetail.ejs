@@ -7,67 +7,70 @@
 </head>
 <body>
 <% include ../partials/header %>
-    <div class="container">
+    <div class="container"  style="margin-bottom:100px;">
         <div class="card mt-5 mb-5">
             <div class="row">
                 <style>
-                    .imgContainer{
-                        background-image: url("https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg");
-                        background-size: cover;
-                        height: 100%;
+                    .prodImgContainer{
+                        background-image: url("<%=hostPath%>/images/products/<%=product.productImage%>") ;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        width: 100%;
                         padding-top: 100%;
                     }
                 </style>
                 <div class="col-lg-5">
-                    <div class="p-3">
-                        <div class="imgContainer"></div>
+                    <div class="pt-lg-5 pl-lg-5">
+                        <div class="prodImgContainer"></div>
                     </div>
                 </div>
                 <div class="col-lg-7 pt-5">
-                    <div class="container">
-                        <h3 class="font-weight-normal pb-3"><%=product.productName%></h2>
+                    <div class="pt-0 pl-4 pr-4 mr-lg-5 ">
+                        <h3 class="font-weight-normal pb-3"><%=product.productName%></h3>
                         <a class="pb-3">
-                            <span class="text-warning">    
+                            <span class="text-warning">
                                 <% for(var i=0; i < 5; i++){ %>
                                     <i class="material-icons" style="vertical-align:-7px">stars</i>
                                 <% } %>
                             </span>
                             <span><small class="grey-text"> (19 reviews) </small></span>
                         </a>
-                        <div class="pt-3 pb-3 grey-text">
+                        <div class="pt-3 grey-text">
                             <i class="material-icons" style="vertical-align:-5px">store</i> <%=product.userID%>
                         </div>
-                        <h1 class="text-danger font-weight-normal pt-4 pb-4 mt-3 mb-3 mr-5" style="border-top:thin solid #e0e0e0;border-bottom:thin solid #e0e0e0">SGD <%=product.price%></h1>
-                        <div class="row mt-5 mr-5">
-                            <h5 class="col-sm-3">
+                        <h1 class="text-danger font-weight-normal pt-4 pb-4 mt-4 mb-4" style="border-top:thin solid #e0e0e0;border-bottom:thin solid #e0e0e0">SGD <%=product.price%></h1>
+                        <div class="row mt-5">
+                            <h6 class="col-sm-3">
                                 Description
-                            </h5>
-                            <h5 class="col font-weight-normal">
+                            </h6>
+                            <h6 class="col font-weight-normal">
                                 <%=product.productDesc%>
-                            </h5>
+                            </h6>
                         </div>
-                        <div class="row mt-2 mr-5">
-                            <h5 class="col-sm-3">
+                        <div class="row mt-3">
+                            <h6 class="col-sm-3">
                                 Type
-                            </h5>
-                            <h5 class="col font-weight-normal">
+                            </h6>
+                            <h6 class="col font-weight-normal">
                                 <%=product.productType%>
-                            </h5>
+                            </h6>
                         </div>
-                        <div class="row mt-2 mr-5">
-                            <h5 class="col-sm-3">
+                        <div class="row mt-3">
+                            <h6 class="col-sm-3">
                                 Availability
-                            </h5>
-                            <h5 class="col font-weight-normal">
+                            </h6>
+                            <h6 class="col font-weight-normal">
                                 <%=product.quantity%> in stock
-                            </h5>
+                            </h6>
                         </div>
-                        <div class="row mt-2 mr-5 pb-5">
-                            <h5 class="col-sm-3">Quantity</h5>
+                        <% if (product.quantity!=0) {%>
+                        <div class="row mt-3 pb-5">
+                            <h6 class="col-sm-3">Quantity</h6>
                             <div class="col">
                                 <div class="btn-group number-spinner">
                                     <span class="input-prepend data-dwn">
-                                        <button class="btn btn-light p-0" data-dir="dwn"style="border-radius:50%!important;width:36px;height:36px;" disabled>
+                                        <button id="numDown" class="btn btn-light p-0" data-dir="dwn"style="border-radius:50%!important;width:36px;height:36px;" disabled>
                                             <i class="material-icons" style="vertical-align: -7px;">remove</i>
                                         </button>
                                     </span>
@@ -83,7 +86,7 @@
                                     </style>
                                     <input type="text" name="quantity" id="quantity" value="1" min="1" max="<%=product.quantity%>">
                                     <span class="input-append data-up">
-                                        <button class="btn btn-light p-0" data-dir="up"style="border-radius:50%!important;width:36px;height:36px;">
+                                        <button id="numUp" class="btn btn-light p-0" data-dir="up"style="border-radius:50%!important;width:36px;height:36px;">
                                             <i class="material-icons" style="vertical-align: -7px;">add</i>
                                         </button>
                                     </span>
@@ -112,11 +115,133 @@
                                         }
                                     }
                                 })
+                                $("#quantity").blur(()=>{
+                                    if ($("#quantity").val() <= 0 || $("#quantity").val() >`<%=product.quantity%>` || !Number.isInteger(parseInt($("#quantity").val()))){
+                                        alert("Please enter an valid number : 0 - <%= product.quantity%>");
+                                        $("#quantity").val(1);
+                                    };
+                                    if ($("#quantity").val() == `<%=product.quantity%>`){
+                                        $("#numUp").attr("disabled", true)
+                                    } else {
+                                        $("#numUp").attr("disabled", false)
+                                    } 
+                                    if ($("#quantity").val()==1){
+                                        $("#numDown").attr("disabled", true)
+                                    } else {
+                                        $("#numDown").attr("disabled", false)
+                                    }
+                                })
                             });
                         </script>
-                        <a class="col pr-0" href="#">
-                            <button type="button" class="btn btn-warning btn-block rounded font-weight-bold waves-effect waves-light" style="font-size:1rem;-webkit-border-radius:10em!important;border-radius:10em!important;" href="/signup">SIGN UP</button>
-                        </a>
+                        <div class="row pb-5">
+                            <a class="col pr-0" href="#">
+                                <button type="button" id="addCart" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="font-size:1.2rem;-webkit-border-radius:10em!important;border-radius:10em!important;" data-toggle="modal" data-target="#modalAbandonedCart">
+                                    <i class="material-icons text-white pr-2" style="vertical-align:-10px;font-size:2rem;">add_shopping_cart</i> Add to Cart
+                                </button>
+                                <button disabled type="button" id="addCartSuccess" class="btn btn-light btn-block sr-only" style="font-size:1.2rem;color:#00C851!important;-webkit-border-radius:10em!important;border-radius:10em!important;">
+                                    <i class="material-icons text-white pr-2" style="vertical-align:-10px;font-size:2rem;color:#00C851!important;">done_outline</i> Add Successfully
+                                </button>
+                            </a>
+                            <% if (user) { %>
+                            <div class="modal fade" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+                                <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-warning">
+                                            <p class="heading"><%=product.productName%> in the Cart
+                                            </p>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" class="white-text">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <p class="text-center">
+                                                        <i class="fa fa-shopping-cart fa-4x text-warning"></i>
+                                                    </p>
+                                                </div>
+                                                <div class="col-9">
+                                                    <p>Do you need more time to make a purchase decision?</p>
+                                                    <p>No pressure, your product will be waiting for you in the cart.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" style="border-radius:10em!important;" class="btn btn-warning waves-effect waves-light">Go to cart</button>
+                                            <button type="button" style="border-radius:10em!important;" class="btn btn-light waves-effect" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $("#addCart").click(()=>{
+                                    $("#carNum").removeClass("sr-only");
+                                    $("#carNum")[0].innerText = parseInt($("#carNum")[0].innerText)+1;
+                                    $("#addCart").addClass("sr-only");
+                                    $("#addCartSuccess").removeClass("sr-only");
+                                    var url = "<%=hostPath%>/cart/add/<%=product.id%>";
+                                    var addCart = {
+                                        productID:"<%=product.id%>",
+                                        userID:"<%=user.id%>",
+                                        quantity:$("#quantity").val()
+                                    }
+                                    $.ajax({
+                                        url: url,
+                                        type: "POST",
+                                        data: JSON.stringify(addCart),
+                                        dataType: "json",
+                                        contentType: "application/json",
+                                    })
+                                })
+                            </script>
+                            <% } else { %>
+                            <div class="modal fade" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-notify modal-info" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-warning">
+                                            <p class="heading">Please Login 
+                                            </p>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" class="white-text">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <p class="text-center">
+                                                        <i class="fa fa-sign-in fa-2x text-warning"></i>
+                                                    </p>
+                                                </div>
+                                                <div class="col-9 text-center pt-1">
+                                                    <p>Please login first then save to your cart</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <a href="/login">
+                                                <button type="button" style="border-radius:10em!important;" class="btn btn-lg btn-warning waves-effect waves-light">Login</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                        <%} else {%>
+                            <div class="row mt-3 pb-5">
+                                <h6 class="col-sm-3">Quantity</h6>
+                                <div class="col">Sorry, this item is temporarily unavailable</div>
+                            </div>
+                            <div class="row pb-5">
+                            <a class="col pr-0" href="#">
+                                <button disabled type="button" id="addCart" class="btn btn-light btn-block" style="font-size:1.2rem;-webkit-border-radius:10em!important;border-radius:10em!important;" data-toggle="modal" data-target="#modalAbandonedCart">
+                                    <i class="material-icons text-white pr-2" style="vertical-align:-10px;font-size:2rem;">add_shopping_cart</i> Add to Cart
+                                </button>
+                            </a>
+                        <% } %>
+                            <a class="col-3 text-center">
+                                <i class="material-icons text-light" style="vertical-align:-36px;font-size:3rem;">favorite</i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

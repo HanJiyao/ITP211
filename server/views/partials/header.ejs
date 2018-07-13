@@ -36,9 +36,20 @@
                                     #masterSearch:focus {
                                         outline: 0;
                                     }
+                                    #searchIcon{
+                                        transition: color 0.3s;
+                                    }
                                 </style>
+                                <script>
+                                    $("#masterSearch").focus(()=>{
+                                        $("#searchIcon").addClass("text-warning")
+                                    })
+                                    $("#masterSearch").blur(()=>{
+                                        $("#searchIcon").removeClass("text-warning")
+                                    })
+                                </script>
                                 <button class="col-2 p-0 border border-dark border-left-0 rounded-right bg-white text-right" type="submit" style="border-radius:0 10em 10rem 0!important;">
-                                    <i class="material-icons" style="font-size: 42px;vertical-align:-12px;">search</i>
+                                    <i id="searchIcon" class="material-icons" style="font-size: 42px;vertical-align:-12px;">search</i>
                                 </button>
                             </form>
                             <div class="row text-lg-cente">
@@ -74,6 +85,11 @@
                                         <i class="material-icons" style="font-size:36px;padding-top: 30px">
                                             shopping_cart
                                         </i>
+                                        <% if (cartNum==0) { %>
+                                        <small class="text-white bg-warning font-weight-bold sr-only" id="carNum" style="height:20px;width:20px;border-radius:100%;position:absolute;top:20px;right:10px;"><%=cartNum%></small>
+                                        <% } else { %>
+                                        <small class="text-white bg-warning font-weight-bold" id="carNum" style="height:20px;width:20px;border-radius:100%;position:absolute;top:20px;right:10px;"><%=cartNum%></small>
+                                        <% } %>
                                     </div>
                                 </a>
                                 <a href="#" class="col-3 p-0">

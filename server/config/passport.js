@@ -11,7 +11,7 @@ module.exports = function (passport, user) {
             mobile:user.mobile,
             avatar:user.avatar,
             first_name: user.first_name,
-            last_name: user.last_name
+            last_name: user.last_name,
         });
     });
     // used to deserialize the user

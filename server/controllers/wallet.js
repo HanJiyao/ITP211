@@ -10,6 +10,7 @@ exports.view = (req,res) => {
             itemList: wallet,
             urlPath: req.protocol + "://" + req.get("host") + "/payment" + req.url,
             user: user,
+            cartNum:cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
     }).catch((err)=> {
@@ -35,6 +36,13 @@ exports.insert = function (req,res) {
 };
 exports.list = function (req,res) {
     var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    });
     walletModel.findAll({
         attributes: ["balance"]
     }, { where: { userID: user.id } }).then(function(wallet) {
@@ -43,6 +51,7 @@ exports.list = function (req,res) {
             itemList: payment,
             urlPath: req.protocol + "://" + req.get("host") + "/payment" + req.url,
             user: user,
+            cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
     }).catch((err)=> {

@@ -65,6 +65,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Isolated Routes
 var indexRouter = require('./server/routes/index');
 app.use('/', indexRouter)
+var cartRouter = require('./server/routes/cart');
+app.use('/cart', cartRouter)
+//Product routing
 var productRouter = require('./server/routes/product');
 app.use("/productsmanager", productRouter)
 var paymentRouter = require('./server/routes/payment');

@@ -32,6 +32,7 @@ exports.list = function(req, res){
             itemList: wishlist,
             urlPath: req.protocol + "://" + req.get("host") +"/wishlistmanager"+ req.url,
             user: user,
+            cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
     }).catch((err)=> {
@@ -49,6 +50,7 @@ exports.editRecord = function(req, res){
             item: wishlistRecords,
             hostPath: req.protocol + "://" + req.get("host"),
             user: user,
+            cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
     }).catch((err)=> {

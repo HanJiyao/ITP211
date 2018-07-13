@@ -23,7 +23,7 @@ exports.insert = function(req, res){
     if (image_type.indexOf(type)== -1){
         return res.status(415).send('supported image formats: jpeg, jpg, png,')
     }
-    targetPath = './public/images/product/' + req.file.originalname;
+    targetPath = './public/images/products/' + req.file.originalname;
     src = fs.createReadStream(tempPath);
     dest = fs.createWriteStream(targetPath);
     src.pipe(dest);
@@ -53,6 +53,13 @@ exports.insert = function(req, res){
 };
 exports.list = function(req, res){
     var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    });
     productModel.findAll({where:{userID:user.id}})
     .then(function(products){
         res.render("products", {
@@ -60,6 +67,7 @@ exports.list = function(req, res){
             itemList: products,
             urlPath: req.protocol + "://" + req.get("host") +"/productsmanager"+ req.url,
             user: user,
+            cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
     }).catch((err)=> {
@@ -70,6 +78,13 @@ exports.list = function(req, res){
 };
 exports.editRecord = function(req, res){
     var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    });
     var record_num = req.params.id;
     productModel.findById(record_num).then(function(productRecords){
         res.render("editProduct", {
@@ -77,7 +92,8 @@ exports.editRecord = function(req, res){
             item: productRecords,
             hostPath: req.protocol + "://" + req.get("host"),
             user: user,
-            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
+            cartNum: cartNum,
+            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true),
         });
     }).catch((err)=> {
         return res.status(400).send({
@@ -105,7 +121,7 @@ exports.update = function(req, res){
     if (image_type.indexOf(type)== -1){
         return res.status(415).send('supported image formats: jpeg, jpg, png,')
     }
-    targetPath = './public/images/product/' + req.file.originalname;
+    targetPath = './public/images/products/' + req.file.originalname;
     src = fs.createReadStream(tempPath);
     dest = fs.createWriteStream(targetPath);
     src.pipe(dest);
@@ -118,18 +134,17 @@ exports.update = function(req, res){
     });
     src.on('end', function(){
         productModel.update(updateData, {where: {id: record_num}}).then((updatedProduct)=> {
-            if (!updatedProduct || updatedProduct==0){
-                return res.send(400, {
+            if (!updatedProduct){
+                return res.status(400).send({
                     message: "error"
                 });   
             }
-            res.status(200).send({message: "Updated Product Record: " + record_num});
         })
         //remove from temp folder
         fs.unlink(tempPath, function(err){
             if(err){
                 return res.status(500).send('Error happened during clear');
-            }
+            };
             res.redirect('/productsmanager');
         });
     })

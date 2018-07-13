@@ -10,7 +10,7 @@
     <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Edit Product Record</h4>
     </div>
-    <form action="/productsmanager/edit/<%=item.productID%>" method="post" enctype="multipart/form-data">
+    <form action="/productsmanager/edit/<%=item.id%>" method="post" enctype="multipart/form-data">
         <fieldset class="form-group">
             <label for="inputproductID">Product ID</label>
             <input type="text" id="inputproductID" name="productID" class="form-control" placeholder="Product Id" required="true" value="<%=item.productID%>">
