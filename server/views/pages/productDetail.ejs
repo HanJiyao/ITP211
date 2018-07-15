@@ -117,7 +117,7 @@
                                 })
                                 $("#quantity").blur(()=>{
                                     if ($("#quantity").val() <= 0 || $("#quantity").val() >`<%=product.quantity%>` || !Number.isInteger(parseInt($("#quantity").val()))){
-                                        alert("Please enter an valid number : 0 - <%= product.quantity%>");
+                                        alert("Please enter an valid number : 1 - <%= product.quantity%>");
                                         $("#quantity").val(1);
                                     };
                                     if ($("#quantity").val() == `<%=product.quantity%>`){

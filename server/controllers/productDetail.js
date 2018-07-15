@@ -11,7 +11,7 @@ exports.show = function (req, res) {
         cartNum = data[0].dataValues.cartNum
     })
     models.sequelize.query(
-        'select *, u.username AS userID\
+        'select p.productImage productImage, p.productName productName, p.quantity quantity, p.price price, p.id id, p.productType productType, u.username AS userID\
         from Products p\
         join Users u\
         on p.userID = u.id\
