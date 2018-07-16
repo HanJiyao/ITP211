@@ -10,9 +10,9 @@ module.exports = function (sequelize, Sequelize) {
             allowNull: false,
             trim: true,
         },
-        product_id: {
+        productID: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         userID: {
             type: Sequelize.INTEGER,

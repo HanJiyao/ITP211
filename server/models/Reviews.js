@@ -7,6 +7,10 @@ module.exports=function(sequelize,Sequelize){
             autoIncrement: true,
             primaryKey: true
         },
+        productID: {            
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
         created: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
@@ -35,6 +39,10 @@ module.exports=function(sequelize,Sequelize){
             allowNull:true,
             defaultValue:0,
         },
+        helpfulness:{
+            type:Sequelize.INTEGER,
+            defaultValue:0,
+        }
         
 
     });

@@ -10,7 +10,7 @@ exports.insert = function(req, res){
         seller_name:req.body.seller_name,
         created:req.body.created,
         userID:req.session.passport.user.id,
-        product_id:req.body.product_id
+        productID:req.body.productID
     }
     wishlistModel.create(Wishlistdata).then((newWishlist,created)=>{
         if (!newWishlist){
@@ -77,6 +77,7 @@ exports.update = function(req, res){
         total_price:req.body.total_price,
         seller_name:req.body.seller_name,
         created:req.body.created,
+        productID:req.body.productID,
     }
     wishlistModel.update(UpdateData, {where: {id: record_num}}).then((updatedWishlist)=> {
         if (!updatedWishlist || updatedWishlist==0){

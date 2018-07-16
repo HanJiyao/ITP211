@@ -5,7 +5,7 @@
     <title>
         <%= title %>
     </title>
-   
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
@@ -34,7 +34,10 @@
                             </div>
 
                             <div class="modal-body">
-
+                                <fieldset class="form-group">
+                                    <label for="productID">ProductID</label>
+                                    <input type="text" id="productID" name="productID" class="form-control" placeholder="Product ID" required>
+                                </fieldset>
                                 <fieldset class="form-group">
                                     <label for="inputitle">Title</label>
                                     <input type="text" id="inputitle" name="title" class="form-control" placeholder="Review Title" required>
@@ -65,9 +68,9 @@
                             <img src="<%= gravatar %>" alt="" style="float: left; margin-right: 10px">
                             <div class="reviews">
                                 <form action="/reviews" method="delete">
-                                   
-
-                                    
+                                    <h4 class="list-group-item-heading">
+                                        Product ID: <%= reviews.productID %>
+                                    </h4>
                                     <h4 class="list-group-item-heading">
                                         <%= reviews.title %>
                                             <button class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= reviews.id%>">Delete</button>
@@ -91,6 +94,10 @@
                                     <br>
                                     <small class="text-muted">
                                         <%= reviews.created %>
+                                    </small>
+                                    <br>
+                                    <small class="text">
+                                        <i class="material-icons">favorite</i> <%= reviews.helpfulness %>  people liked this review
                                     </small>
                                 </form>
                             </div>
