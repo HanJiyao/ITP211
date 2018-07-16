@@ -54,6 +54,7 @@
             <div class="col-lg-8">
                 <div class="mt-5">
                     <div class="card mt-5 mb-5">
+                        <% if (cartData.length!=0) {%>
                         <div class="row pt-3 pb-3 grey-text text-center">
                             <div class="col-md-1">
                                 <div class="custom-control custom-checkbox ml-md-4">
@@ -74,6 +75,11 @@
                                 Del
                             </div>
                         </div>
+                        <%} else {%>
+                            <div class="row pt-3 pb-3 grey-text justify-content-center">
+                                <h3 class="p-3">Your cart is empty</h3>
+                            </div>
+                        <%}%>
                         <% for(var i=0; i<cartData.length; i++){ %>
                         <div class="row pt-3 pb-3 text-center" style="border-top:solid thin #e0e0e0" id="cartRow<%=cartData[i].dataValues.id%>">
                             <div class="col-md-1">
@@ -243,7 +249,11 @@
                         </div>
                         <div class="col pt-5">
                             <div class="pr-4">
-                                <button type="button" class=" btn btn-md btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;">Apply</button>
+                                <% if (cartData.length!=0) {%>
+                                    <button type="button" class=" btn btn-md btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;">Apply</button>
+                                <% } else { %>
+                                    <button type="button" disabled class="btn btn-md btn-warning btn-block font-weight-bold" style="border-radius:10em!important;">Apply</button>
+                                <%}%>
                             </div>
                         </div>
                     </div>
@@ -257,7 +267,11 @@
                     </div>
                     <div class="row p-3">
                         <div class="col p-4 mb-4">
-                            <button type="button" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;font-size: 1rem">Proceed Checkout</button>
+                            <% if (cartData.length!=0) {%>
+                                <button type="button" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;font-size: 1rem" onclick="checkout()">Proceed Checkout</button>
+                            <% } else { %>
+                                <button disabled type="button" class="btn btn-warning btn-block font-weight-bold" style="border-radius:10em!important;font-size: 1rem">Proceed Checkout</button>
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -320,6 +334,23 @@
         updateTotal=()=>{
             document.getElementById("cartSubTotal").innerText=parseFloat(total).toFixed(2);
             document.getElementById("cartTotal").innerText=parseFloat(total).toFixed(2);
+        }
+        checkout=()=>{
+            var url = "<%=hostPath%>/checkout/add/"+id;
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: JSON.stringify({
+                    quantity:quantity
+                }),
+                dataType: "json",
+                contentType: "application/json",
+                success: ()=>{
+                },
+                error: (result)=>{
+                    alert("Error procceding checkout");
+                }
+            })
         }
     </script>
     <% include ../partials/footer %>

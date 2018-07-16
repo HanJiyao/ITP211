@@ -15,32 +15,32 @@
                 <h2 class="font-weight-light mt-3 mb-3">
                     Please select the amount to top up your wallet
                 </h2>
-                <a class="editBtn" data-id="<%= itemList[i].id %>">
+                <a class="editBtn" data-id="<%= item.id %>">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $5
                     </button>
                 </a>
-                <a class="editBtn" data-id="<%= itemList[i].id %>">
+                <a class="editBtn" data-id="<%= item.id %>">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $10
                     </button>
                 </a>
-                <a class="editBtn" data-id="<%= itemList[i].id %>">
+                <a class="editBtn" data-id="<%= item.id %>">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $50
                     </button>
                 </a>
-                <a class="editBtn" data-id="<%= itemList[i].id %>">
+                <a class="editBtn" data-id="<%= item.id %>">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $100
                     </button>
                 </a>
-                <a class="editBtn" data-id="<%= itemList[i].id %>">
+                <a class="editBtn" data-id="<%= item.id %>">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $500
                     </button>
                 </a>
-                <a class="editBtn" data-id="<%= itemList[i].id %>">
+                <a class="editBtn" data-id="<%= item.id %>">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $1000
                     </button>
@@ -51,9 +51,8 @@
     </div>
     <script>
         $(".editBtn").click(function () {
-            // var balance_num = $(this).data("id");
+            var balance_num = $(this).data("id");
             console.log(balance_num)
-            location.href = "<%=urlPath %>";
         });
     </script>
     <% include ../partials/footer %>

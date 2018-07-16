@@ -21,6 +21,10 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
         },
+        checked:{
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
+        },
         userID: {
             type: Sequelize.INTEGER,
             allowNull: false,

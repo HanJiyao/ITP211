@@ -78,24 +78,17 @@ exports.edit = function(req, res) {
     var user = req.session.passport.user;
     // get cart num
     var cartNum = 0;
-    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
-        model: models.Cart
-    }).then((data) => {
-        cartNum = data[0].dataValues.cartNum
-    });
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => { cartNum = data[0].dataValues.cartNum});
     var balance_num = req.params.id;
-    walletModel.findById(balance_num).then(function(updateBalance){
+    models.sequelize.query('select * from Wallets where userID =' + user.id + '', {model: models.Wallet}).then(function (wallet) {
+        console.log(wallet)
         res.render("topupWallet", {
             title: "Top Up My Wallet",
-            item: wallet,
+            item: wallet[0].dataValues,
             hostPath: req.protocol + "://" + req.get("host"),
             user: user,
             cartNum: cartNum,
             avatar: require('gravatar').url(user.email, {s: '100', r: 'x', d: 'retro'}, true)
         });
-    }).catch((err)=> {
-        return res.status(400).send({
-            message: err
-        });
-    });
+    })
 }
