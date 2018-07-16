@@ -25,6 +25,13 @@ exports.insert = function(req, res){
     
 exports.list = function(req, res){
     var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    });
     wishlistModel.findAll({where:{userID:user.id}})
     .then(function(wishlist){
         res.render("wishlist", {
@@ -35,7 +42,7 @@ exports.list = function(req, res){
             cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
-    }).catch((err)=> {
+    }).catch((err) => {
         return res.status(400).send({
             message: err
         });
