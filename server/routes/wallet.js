@@ -6,7 +6,7 @@ var walletController = require("../controllers/wallet");
 walletRouter.get("/", isLoggedIn, walletController.view);
 walletRouter.post("/", isLoggedIn, walletController.insert);
 walletRouter.get("/", isLoggedIn, walletController.list);
-walletRouter.get("/", isLoggedIn, walletController.edit);
+walletRouter.get("/topup", isLoggedIn, walletController.edit);
 walletRouter.post("/topup", isLoggedIn, walletController.update);
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())

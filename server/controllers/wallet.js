@@ -85,8 +85,8 @@ exports.edit = function(req, res) {
     });
     var balance_num = req.params.id;
     walletModel.findById(balance_num).then(function(updateBalance){
-        res.render("viewWallet", {
-            title: "My Silicon Wallet",
+        res.render("topupWallet", {
+            title: "Top Up My Wallet",
             item: wallet,
             hostPath: req.protocol + "://" + req.get("host"),
             user: user,
