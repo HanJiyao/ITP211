@@ -95,6 +95,7 @@
                         </div>
                         <script>
                             $(function () {
+                                var quantity = parseInt("<%=product.quantity%>")
                                 $(".number-spinner button").mousedown(function () {
                                     btn = $(this);
                                     input = btn.closest('.number-spinner').find('input');
@@ -116,16 +117,18 @@
                                     }
                                 })
                                 $("#quantity").blur(()=>{
-                                    if ($("#quantity").val() <= 0 || $("#quantity").val() >`<%=product.quantity%>` || !Number.isInteger(parseInt($("#quantity").val()))){
+                                    var quantityInput = parseInt($("#quantity").val());
+                                    console.log(quantityInput)
+                                    if (quantityInput <= 0 || quantityInput > quantity || !Number.isInteger(parseInt($("#quantity").val().trim()))){
                                         alert("Please enter an valid number : 1 - <%= product.quantity%>");
                                         $("#quantity").val(1);
                                     };
-                                    if ($("#quantity").val() == `<%=product.quantity%>`){
+                                    if (quantityInput == quantity){
                                         $("#numUp").attr("disabled", true)
                                     } else {
                                         $("#numUp").attr("disabled", false)
                                     } 
-                                    if ($("#quantity").val()==1){
+                                    if (quantityInput == 1){
                                         $("#numDown").attr("disabled", true)
                                     } else {
                                         $("#numDown").attr("disabled", false)

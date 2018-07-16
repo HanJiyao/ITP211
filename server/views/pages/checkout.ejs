@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>
         <%= title %>
     </title>
 </head>
-
 <body>
     <% include ../partials/header %>
     <style>
@@ -35,7 +33,7 @@
                                 Price (S$)
                             </div>
                         </div>
-                        <% for(var i=0; i<ordersData.length; i++){ %>
+                        <% for(var i=0; i<cartData.length; i++){ %>
                         <div class="row pt-3 pb-3 text-center" style="border-top:solid thin #e0e0e0" id="cartRow<%=cartData[i].dataValues.id%>">
                             <div class="col-md-6 text-left">
                                 <div class="row">
@@ -71,8 +69,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 mt-2 pt-4"></div>
-                            <div class="col-md-2 text-weight-normal mt-2 pt-4 pr-0 pl-0" style="font-size:1.5rem">
+                            <div class="col-md-3 mt-2 pt-4">
+                                <h5><span style="font-size: 1.5rem; font-weight: 400"><%=cartData[i].dataValues.quantity%></span></h5>
+                            </div>
+                            <div class="col-md-3 text-weight-normal mt-2 pt-4 pr-0 pl-0" style="font-size:1.5rem">
                                 <span id="cartPrice<%=cartData[i].dataValues.id%>"></span>
                                 <script>
                                     document.getElementById("cartPrice<%=cartData[i].dataValues.id%>").innerText = parseFloat(parseInt("<%=cartData[i].dataValues.quantity%>") * parseFloat("<%=cartData[i].dataValues.price%>")).toFixed(2)
@@ -85,7 +85,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="card mt-lg-5 mb-5 bg-dark text-white">
-                    <h3 class="pl-4 pt-5 pb-4 mt-5" style="border-bottom:solid thin grey">SUMMARY</h3>
+                    <h3 class="pl-4 pt-5 pb-4 mt-5" style="border-bottom:solid thin grey">Check Out</h3>
                     <div class="row">
                         <div class="col">
                             <h5 class="pl-4 pt-4">Subtotal</h5>
@@ -104,29 +104,6 @@
                             <h6 class="font-weight-normal pt-2">Free</h6>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col pt-3">
-                            <style>
-                                #voucher:focus {
-                                    border-bottom: #FF8800 solid thin !important;
-                                    box-shadow: none;
-                                }
-                            </style>
-                            <div class="md-form pl-3 pt-2">
-                                <input type="text" id="voucher" name="voucher" class="form-control" style="font-weight: 500;color:white">
-                                <label class="pl-4 text-light" for="voucher" class="">Voucher Code</label>
-                            </div>
-                        </div>
-                        <div class="col pt-5">
-                            <div class="pr-4">
-                                <% if (cartData.length!=0) {%>
-                                    <button type="button" class=" btn btn-md btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;">Apply</button>
-                                <% } else { %>
-                                    <button type="button" disabled class="btn btn-md btn-warning btn-block font-weight-bold" style="border-radius:10em!important;">Apply</button>
-                                <% } %>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row pt-3 pb-3">
                         <div class="col">
                             <h3 class="pl-4 pt-3 text-weight-normal">Total</h3>
@@ -140,9 +117,9 @@
                     <div class="row p-3">
                         <div class="col p-4 mb-4">
                             <% if (cartData.length!=0) {%>
-                                <button type="button" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;font-size: 1rem">Proceed Checkout</button>
+                                <button type="button" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;font-size: 1rem">Confirm Checkout</button>
                             <% } else { %>
-                                <button disabled type="button" class="btn btn-warning btn-block font-weight-bold" style="border-radius:10em!important;font-size: 1rem">Proceed Checkout</button>
+                                <button disabled type="button" class="btn btn-warning btn-block font-weight-bold" style="border-radius:10em!important;font-size: 1rem">Confirm Checkout</button>
                             <% } %>
                         </div>
                     </div>
@@ -150,6 +127,19 @@
             </div>
         </div>
     </div>
+    <script>
+        var total=0;
+        var cartIDarr =[];
+        `<% for(var i=0; i<cartData.length; i++){ %>`
+        cartIDarr.push("<%=cartData[i].dataValues.id%>");
+        `<% } %>`
+        for (var i=0;i<cartIDarr.length;i++){
+            $("#cartCheck"+cartIDarr[i]).prop('checked','checked');
+            total+=parseFloat(document.getElementById("cartPrice"+cartIDarr[i]).innerText);
+        };
+        document.getElementById("cartSubTotal").innerText=parseFloat(total).toFixed(2);
+        document.getElementById("cartTotal").innerText=parseFloat(total).toFixed(2);
+    </script>
     <% include ../partials/footer %>
 </body>
 </html>

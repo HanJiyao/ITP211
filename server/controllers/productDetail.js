@@ -13,8 +13,7 @@ exports.show = function (req, res) {
     models.sequelize.query(
         'select p.productImage productImage, p.productName productName, p.quantity quantity, p.price price, p.id id, p.productType productType, u.username AS userID\
         from Products p\
-        join Users u\
-        on p.userID = u.id\
+        join Users u on p.userID = u.id\
         where p.id = '+id+'', 
         { model: models.Products }).then(function (product) {
         res.render('productDetail', {

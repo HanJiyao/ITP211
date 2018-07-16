@@ -66,7 +66,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 var indexRouter = require('./server/routes/index');
 app.use('/', indexRouter)
 var cartRouter = require('./server/routes/cart');
-app.use('/cart', cartRouter)
+app.use('/cart', cartRouter);
+var checkoutRouter = require('./server/routes/checkout');
+app.use('/checkout', checkoutRouter)
 //Product routing
 var productRouter = require('./server/routes/product');
 app.use("/productsmanager", productRouter)

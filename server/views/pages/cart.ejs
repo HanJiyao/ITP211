@@ -291,11 +291,37 @@
                 for (var i=0;i<cartIDarr.length;i++){
                     $("#cartCheck"+cartIDarr[i]).prop('checked','checked');
                     total+=parseFloat(document.getElementById("cartPrice"+cartIDarr[i]).innerText);
+                    $.ajax({
+                        url: "<%=hostPath%>/cart/check",
+                        type: "POST",
+                        data: JSON.stringify({
+                            id: cartIDarr[i],
+                            checked: true,
+                        }),
+                        dataType: "json",
+                        contentType: "application/json",
+                        error: function(result){
+                            alert("Error updating cart");
+                        }
+                    })
                 }
-            } else{
+            } else {
                 total=0;
                 for (var i=0;i<cartIDarr.length;i++){
                     $("#cartCheck"+cartIDarr[i]).prop('checked','');  
+                    $.ajax({
+                        url: "<%=hostPath%>/cart/check",
+                        type: "POST",
+                        data: JSON.stringify({
+                            id: cartIDarr[i],
+                            checked: false,
+                        }),
+                        dataType: "json",
+                        contentType: "application/json",
+                        error: function(result){
+                            alert("Error updating cart");
+                        }
+                    })
                 }
             }
             updateTotal();
@@ -326,31 +352,47 @@
         sumAdd=(id)=>{
             total+=parseFloat(document.getElementById("cartPrice"+id).innerText)
             updateTotal();
+            $.ajax({
+                url: "<%=hostPath%>/cart/check",
+                type: "POST",
+                data: JSON.stringify({
+                    id: id,
+                    checked: true,
+                }),
+                dataType: "json",
+                contentType: "application/json",
+                error: function(result){
+                    alert("Error updating cart");
+                }
+            })
         }
         sumRemove=(id)=>{
             total-=parseFloat(document.getElementById("cartPrice"+id).innerText)
             updateTotal();
+            $.ajax({
+                url: "<%=hostPath%>/cart/check",
+                type: "POST",
+                data: JSON.stringify({
+                    id: id,
+                    checked: false,
+                }),
+                dataType: "json",
+                contentType: "application/json",
+                error: function(result){
+                    alert("Error updating cart");
+                }
+            })
         }
         updateTotal=()=>{
             document.getElementById("cartSubTotal").innerText=parseFloat(total).toFixed(2);
             document.getElementById("cartTotal").innerText=parseFloat(total).toFixed(2);
         }
         checkout=()=>{
-            var url = "<%=hostPath%>/checkout/add/"+id;
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: JSON.stringify({
-                    quantity:quantity
-                }),
-                dataType: "json",
-                contentType: "application/json",
-                success: ()=>{
-                },
-                error: (result)=>{
-                    alert("Error procceding checkout");
-                }
-            })
+            if(parseFloat(document.getElementById("cartSubTotal").innerText)==0){
+                alert("Please select at least one product")
+            } else {
+                window.location.href = "/checkout"
+            }
         }
     </script>
     <% include ../partials/footer %>

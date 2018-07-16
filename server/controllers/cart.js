@@ -36,9 +36,28 @@ exports.show = (req, res) => {
         });
     });
 }
-exports.edit = function (req, res) {
+exports.check = (req,res) => {
+    var cartID = req.body.id;
+    var updateCart = {
+        checked: req.body.checked
+    };
+    Cart.update(updateCart, {
+        where: {
+            id: cartID
+        }
+    }).then((updateCart) => {
+        if (!updateCart) {
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        res.status(200).send({
+            message: "Updated Cart id: " + cartID
+        });
+    })
+}
+exports.edit = (req, res) => {
     var cartID = req.params.id;
-    console.log(req.body.quantity)
     var updateCart = {
         quantity: req.body.quantity
     };

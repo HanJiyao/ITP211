@@ -3,6 +3,7 @@ var cartRouter = express.Router();
 var cartController = require("../controllers/cart");
 cartRouter.get("/", isLoggedIn, cartController.show);
 cartRouter.post("/add/:id", isLoggedIn, cartController.insert);
+cartRouter.post("/check", isLoggedIn, cartController.check);
 cartRouter.post("/edit/:id", isLoggedIn, cartController.edit);
 cartRouter.delete("/:id", isLoggedIn, cartController.delete);
 function isLoggedIn(req, res, next) {
