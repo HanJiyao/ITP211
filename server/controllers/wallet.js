@@ -12,7 +12,7 @@ exports.view = (req,res) => {
             itemList: wallet,
             urlPath: req.protocol + "://" + req.get("host") + "/payment" + req.url,
             user: user,
-            cartNum:cartNum,
+            cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
         });
     })
@@ -60,16 +60,21 @@ exports.list = function (req,res) {
 };
 // update wallet
 exports.update = function (req,res) {
+    var user = req.session.passport.user;
     var balance_num = req.params.id;
+    console.log(req.body.balance)
     var updateBalance = {
         balance: req.body.balance
     }
-    walletModel.update(updateBalance, {where: {id: balance_num}}).then((updatedBalance)=> {
-        if (!updatedBalance || updatedBalance==0) {
+    var currBalance = models.sequelize.query('SELECT balance FROM Wallets WHERE userID =' + user.id + '', {model: models.Wallet});
+    var newBalance = currBalance + balance_num;
+    walletModel.update(updateBalance, {where: {id: user.id}}).then((updatedBalance)=> {
+        if (!updateBalance || updateBalance==0) {
             return res.send(400, {
                 message: "error"
             });
         }
+        res.redirect("/Wallet")
         res.status(200).send({message: "Updated Balance: " + balance_num});
     })
 };
@@ -81,7 +86,7 @@ exports.edit = function(req, res) {
     models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => { cartNum = data[0].dataValues.cartNum});
     var balance_num = req.params.id;
     models.sequelize.query('select * from Wallets where userID =' + user.id + '', {model: models.Wallet}).then(function (wallet) {
-        console.log(wallet)
+        // console.log(wallet)
         res.render("topupWallet", {
             title: "Top Up My Wallet",
             item: wallet[0].dataValues,

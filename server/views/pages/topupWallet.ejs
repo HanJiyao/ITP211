@@ -15,32 +15,32 @@
                 <h2 class="font-weight-light mt-3 mb-3">
                     Please select the amount to top up your wallet
                 </h2>
-                <a class="editBtn" data-id="<%= item.id %>">
+                <a class="editBtn" data-id="5">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $5
                     </button>
                 </a>
-                <a class="editBtn" data-id="<%= item.id %>">
+                <a class="editBtn" data-id="10">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $10
                     </button>
                 </a>
-                <a class="editBtn" data-id="<%= item.id %>">
+                <a class="editBtn" data-id="50">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $50
                     </button>
                 </a>
-                <a class="editBtn" data-id="<%= item.id %>">
+                <a class="editBtn" data-id="100">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $100
                     </button>
                 </a>
-                <a class="editBtn" data-id="<%= item.id %>">
+                <a class="editBtn" data-id="500">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $500
                     </button>
                 </a>
-                <a class="editBtn" data-id="<%= item.id %>">
+                <a class="editBtn" data-id="1000">
                     <button type="button" class="btn btn-success btn-lg">
                     Top Up $1000
                     </button>
@@ -50,10 +50,26 @@
         </div>
     </div>
     <script>
+        var balance_num = 0;
         $(".editBtn").click(function () {
             var balance_num = $(this).data("id");
-            console.log(balance_num)
+            console.log(balance_num);
+            updateWallet(balance_num);
         });
+        updateWallet=(balance_num)=>{
+            var url = "<%=hostPath%>/Wallet/topup";
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: JSON.stringify({balance:balance_num}),
+                dataType: "json",
+                contentType: "application/json",
+                success: function() {},
+                error: function(result) {
+                    alert("Error updating your wallet");
+                }
+            })
+        }
     </script>
     <% include ../partials/footer %>
 </body>
