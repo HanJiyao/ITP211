@@ -24,10 +24,6 @@
               <h4 class="modal-title" id="myModalLabel">Create New Product</h4>
             </div>
             <div class="modal-body">
-              <fieldset class="form-group">
-                <label for="productID">Product ID</label>
-                <input type="text" id="productID" name="productID" class="form-control" placeholder="Product Id" required="true">
-              </fieldset>
               <fieldset class = "form-group">
                 <label for ="productImage">Product Image</label>
                 <input type = "file" id ="productImage" name = "productImage">
@@ -65,7 +61,6 @@
       <thread>
         <tr>
           <th>S/N</th>
-          <th>Product ID</th>
           <th>Product Image</th>
           <th>Product Name</th>
           <th>Product Type</th>
@@ -77,9 +72,6 @@
           <tr class="rowRecord" data-id="<%= itemList[i].id %>">
             <td>
               <%=i+1%>
-            </td>
-            <td>
-              <%= itemList[i].productID %>
             </td>
             <td>
               <img src = "images/products/<%=itemList[i].productImage %>" 

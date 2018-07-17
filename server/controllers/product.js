@@ -5,7 +5,6 @@ var mime = require('mime');
 var image_type = ['image/jpg','image/jpeg', 'image/png'];
 exports.insert = function(req, res){
     var productData ={
-        productID: req.body.productID,
         productImage: req.file.originalname,
         productName: req.body.productName,
         productType: req.body.productType,
@@ -104,7 +103,6 @@ exports.editRecord = function(req, res){
 exports.update = function(req, res){
     var record_num = req.params.id; 
     var updateData ={
-        productID: req.body.productID,
         productImage: req.file.originalname,
         productName: req.body.productName,
         productType: req.body.productType,

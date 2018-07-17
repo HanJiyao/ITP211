@@ -61,22 +61,26 @@ exports.list = function (req,res) {
 // update wallet
 exports.update = function (req,res) {
     var user = req.session.passport.user;
-    var balance_num = req.params.id;
-    console.log(req.body.balance)
-    var updateBalance = {
-        balance: req.body.balance
-    }
-    var currBalance = models.sequelize.query('SELECT balance FROM Wallets WHERE userID =' + user.id + '', {model: models.Wallet});
-    var newBalance = currBalance + balance_num;
-    walletModel.update(updateBalance, {where: {id: user.id}}).then((updatedBalance)=> {
-        if (!updateBalance || updateBalance==0) {
-            return res.send(400, {
-                message: "error"
-            });
+    var balance_num = req.body.balance;
+    var currBalance = 0;
+    var newBalance = 0;
+    models.sequelize.query('SELECT balance FROM Wallets WHERE userID =' + user.id + '', {model: models.Wallet}).then((currBalanceData)=>{
+        currBalance = currBalanceData[0].dataValues.balance
+        newBalance = currBalance + balance_num;
+            
+        var updateBalance = {
+            balance: newBalance
         }
-        res.redirect("/Wallet")
-        res.status(200).send({message: "Updated Balance: " + balance_num});
-    })
+        console.log(newBalance,currBalance, balance_num);
+        walletModel.update(updateBalance, {where: {id: user.id}}).then((updatedBalance)=> {
+            if (!updateBalance || updateBalance==0) {
+                return res.send(400, {
+                    message: "error"
+                });
+            }
+            res.status(200).send({message: "Updated Balance: " + balance_num});
+        })
+    });
 };
 // edit wallet balance
 exports.edit = function(req, res) {

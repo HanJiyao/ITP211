@@ -11,10 +11,6 @@
         <h4 class="modal-title" id="myModalLabel">Edit Product Record</h4>
     </div>
     <form action="/productsmanager/edit/<%=item.id%>" method="post" enctype="multipart/form-data">
-        <fieldset class="form-group">
-            <label for="inputproductID">Product ID</label>
-            <input type="text" id="inputproductID" name="productID" class="form-control" placeholder="Product Id" required="true" value="<%=item.productID%>">
-        </fieldset>
         <fieldset class = "form-group">
             <label for ="inputproductImage">Product Image:</label>
             <input type ="file" id = "inputproductImage" name ="productImage" class = "form-control" placeholder="Product Image" required = "true" value=" <%=item.productImage%>"
@@ -48,7 +44,6 @@
         function saveChanges() {
             var url = "<%=hostPath%>/productsmanager/edit/<%=item.id%>";
             var newValues = {
-                productID: $("#inputproductID").val(),
                 productImage:$("#inputproductImage").val(),
                 productName: $("#inputproductName").val(),
                 productType: $("#inputType").val(),

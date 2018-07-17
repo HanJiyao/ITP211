@@ -64,7 +64,9 @@
                 data: JSON.stringify({balance:balance_num}),
                 dataType: "json",
                 contentType: "application/json",
-                success: function() {},
+                success: function() {
+                    window.location.href= "/Wallet";
+                },
                 error: function(result) {
                     alert("Error updating your wallet");
                 }

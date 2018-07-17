@@ -5,10 +5,6 @@ module.exports = function (sequelize, Sequelize) {
             autoIncrement: true,
             primaryKey: true,
         },
-        productID: {
-            type: Sequelize.STRING,
-            allowNull: false,
-        },
         productImage:{
             type: Sequelize.STRING,
         },
@@ -45,7 +41,6 @@ module.exports = function (sequelize, Sequelize) {
     .then(() => {
         Products.upsert({
             id: 1,
-            productID: 1001, 
             productImage: "seagate_stdr2000102_backup_plus_2tb_portable_1017872.jpg",
             productName: "Seagate 1TB 7200RPM (Blue)", 
             productType: "Hard Disk", 

@@ -30,11 +30,7 @@ exports.show = (req, res) => {
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true),
             hostPath: req.protocol + "://" + req.get("host"),
         });
-    }).catch((err)=> {
-        return res.status(400).send({
-            message: err
-        });
-    });
+    })
 }
 exports.check = (req,res) => {
     var cartID = req.body.id;

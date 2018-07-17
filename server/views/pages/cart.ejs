@@ -29,11 +29,13 @@
             width: 1.6rem;
             height: 1.6rem;
             top: 0;
+            left: -20px;
         }
         .custom-control-label::after {
             width: 1.6rem;
             height: 1.6rem;
             top: 0;
+            left: -20px;
         }
         .custom-control-input:checked~.custom-control-label::before {
             background-color: #FF8800;
@@ -55,7 +57,7 @@
                 <div class="mt-5">
                     <div class="card mt-5 mb-5">
                         <% if (cartData.length!=0) {%>
-                        <div class="row pt-3 pb-3 grey-text text-center">
+                        <div class="row m-0 pt-3 pb-3 grey-text text-center">
                             <div class="col-md-1">
                                 <div class="custom-control custom-checkbox ml-md-4">
                                     <input type="checkbox" class="custom-control-input" id="checkAll">
@@ -81,7 +83,7 @@
                             </div>
                         <%}%>
                         <% for(var i=0; i<cartData.length; i++){ %>
-                        <div class="row pt-3 pb-3 text-center" style="border-top:solid thin #e0e0e0" id="cartRow<%=cartData[i].dataValues.id%>">
+                        <div class="row m-0 pt-3 pb-3 text-center" style="border-top:solid thin #e0e0e0" id="cartRow<%=cartData[i].dataValues.id%>">
                             <div class="col-md-1">
                                 <div class="custom-control custom-checkbox ml-md-4" style="margin-top: 36px">
                                     <input type="checkbox" class="custom-control-input" id="cartCheck<%=cartData[i].dataValues.id%>">
@@ -99,7 +101,7 @@
                             </script>
                             <div class="col-md-5 text-left">
                                 <div class="row">
-                                    <div class="prodImgContainer ml-3 mr-2" style="width:100px">
+                                    <div class="prodImgContainer ml-1 mr-2" style="width:100px">
                                         <div class="" style="
                                         background-image: url('<%=hostPath%>/images/products/<%=cartData[i].dataValues.productImage%>');
                                         background-size: contain;
@@ -110,7 +112,7 @@
                                         </div>
                                     </div>
                                     <div class="col pt-3 pl-0 pr-0">
-                                        <div>
+                                        <div style="font-size:0.9rem">
                                             <%=cartData[i].dataValues.productName%>
                                         </div>
                                         <small class="grey-text"><%=cartData[i].dataValues.productType%></small>
