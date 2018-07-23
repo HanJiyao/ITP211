@@ -85,31 +85,66 @@
             </div>
             <div class="col-lg-5">
                 <div class="card mt-lg-5 mb-5 bg-dark text-white">
-                    <h4 class="pl-4 pt-5 pb-4 mt-5" style="border-bottom:solid thin grey">My Silicon Wallet</h4>
-                    <div class="row">
+                    <div class="row m-0">
+                        <div class="col">
+                            <h4 class="pl-4 pt-5 pb-2 mt-5 font-weight-normal">My Silicon Wallet</h4>
+                        </div>
+                    </div>
+                    <div class="row m-0">
                         <div class="col pr-0">
                             <h5 class="pl-4 pt-2 pr-0">Balance</h5>
                         </div>
                         <div class="col-7">
-                            <h5 class="font-weight-normal pt-2">S$ <%=cartData[0].dataValues.balance%></h5>
+                            <h5 class="font-weight-normal pt-2" id="balanceDisplay">S$ <%=wallet[0].balance%></h5>
                         </div>
                     </div>
-                    <h4 class="pl-4 pt-3 pb-4 mt-3" style="border-bottom:solid thin grey">My Address</h4>
-                    <div class="row">
+                    <div class="row m-0 sr-only" id="balanceErr" >
+                        <div class="col pr-0 ml-4">
+                            <h6 class="text-danger text-center bg-light mt-3 pr-0 pl-0 pt-3 pb-3 font-weight-normal" style="border-top-left-radius: 10em!important;border-bottom-left-radius: 10em!important;font-size:1rem">
+                                Insufficient Balance
+                            </h6>
+                        </div>
+                        <div class="col-5 pl-0 mr-4">
+                            <a href="/Wallet">
+                                <button class="bg-danger text-light btn btn-block mt-3 font-weight-bold waves-effect waves-light" style="border-top-right-radius: 10em!important;border-bottom-right-radius: 10em!important; font-size:1rem">TOPUP</button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row m-0 pb-4" style="border-bottom:solid thin grey"></div>
+                    <div class="row m-0">
+                        <div class="col">
+                            <h4 class="pl-4 pt-3 pb-2 mt-3 font-weight-normal">My Address</h4>
+                        </div>
+                    </div>
+                    <div class="row m-0">
                         <div class="col pr-0">
-                            <h5 class="pl-4 pt-2 pr-4"><%=cartData[0].dataValues.address%></h5>
+                            <h5 class="pl-4 pt-2 pr-4" id="address"><%=cartData[0].dataValues.address%></h5>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row m-0">
                         <div class="col pr-0">
                             <h5 class="pl-4 pt-2 pr-0">Postal</h5>
                         </div>
                         <div class="col-7">
-                            <h5 class="font-weight-normal pt-2"><%=cartData[0].dataValues.postal_code%></h5>
+                            <h5 class="font-weight-normal pt-2" id="postalCode"><%=cartData[0].dataValues.postal_code%></h5>
                         </div>
                     </div>
-                    <h4 class="pl-4 pt-3 pb-4 mt-3" style="border-bottom:solid thin grey">Check Out</h4>
-                    <div class="row">
+                    <div class="row m-0 sr-only" id="addressErr">
+                        <div class=" col-12">
+                            <div class="pl-4 pr-4">
+                            <a href="/profile">
+                                <button class="bg-danger text-light btn btn-block mt-3 font-weight-bold waves-effect waves-light" style="border-radius: 10em!important;font-size:1rem">Please fill in Address</button>
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0 pb-4" style="border-bottom:solid thin grey"></div>
+                    <div class="row m-0">
+                        <div class="col">
+                            <h4 class="pl-4 pt-3 pb-2 mt-3 font-weight-normal">Check Out</h4>
+                        </div>
+                    </div>
+                    <div class="row m-0">
                         <div class="col">
                             <h5 class="pl-4 pt-4">Subtotal</h5>
                         </div>
@@ -119,7 +154,7 @@
                             </h5>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row m-0">
                         <div class="col">
                             <h6 class="pl-4 pt-2 pr-0">Shipping</h6>
                         </div>
@@ -127,7 +162,7 @@
                             <h6 class="font-weight-normal pt-2">Free</h6>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row m-0">
                         <div class="col">
                             <h6 class="pl-4 pt-2 pr-0">Discount</h6>
                         </div>
@@ -135,9 +170,9 @@
                             <h6 class="font-weight-normal pt-2">N/A</h6>
                         </div>
                     </div>
-                    <div class="row pt-3 pb-3">
+                    <div class="row m-0 pt-3 pb-3">
                         <div class="col">
-                            <h3 class="pl-4 pt-3 text-weight-normal">Total</h3>
+                            <h3 class="pl-4 pt-3 font-weight-bold">Total</h3>
                         </div>
                         <div class="col-7">
                             <h3 class="font-weight-bold pt-3">$S
@@ -145,13 +180,9 @@
                             </h3>
                         </div>
                     </div>
-                    <div class="row p-3">
+                    <div class="row p-3 m-0">
                         <div class="col p-4 mb-4">
-                            <% if (cartData.length!=0) {%>
-                                <button type="button" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;font-size: 1rem">Confirm Checkout</button>
-                            <% } else { %>
-                                <button disabled type="button" class="btn btn-warning btn-block font-weight-bold" style="border-radius:10em!important;font-size: 1rem">Confirm Checkout</button>
-                            <% } %>
+                            <button disabled type="button" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;font-size: 1rem" id="submitCheckout">Confirm Checkout</button>
                         </div>
                     </div>
                 </div>
@@ -161,15 +192,24 @@
     <script>
         var total=0;
         var cartIDarr =[];
-        `<% for(var i=0; i<cartData.length; i++){ %>`
+        '<% for(var i=0; i<cartData.length; i++){ %>'
         cartIDarr.push("<%=cartData[i].dataValues.id%>");
-        `<% } %>`
+        '<% } %>'
         for (var i=0;i<cartIDarr.length;i++){
             $("#cartCheck"+cartIDarr[i]).prop('checked','checked');
             total+=parseFloat(document.getElementById("cartPrice"+cartIDarr[i]).innerText);
         };
         document.getElementById("cartSubTotal").innerText=parseFloat(total).toFixed(2);
         document.getElementById("cartTotal").innerText=parseFloat(total).toFixed(2);
+        if (total>parseFloat("<%=wallet[0].balance%>")){
+            $("#balanceErr").removeClass("sr-only");
+        }
+        if (document.getElementById("address").innerText=="" || document.getElementById("postalCode").innerText==""){
+            $("#addressErr").removeClass("sr-only");
+        }
+        if (total<parseFloat("<%=wallet[0].balance%>")&&document.getElementById("address").innerText!=""&&document.getElementById("postalCode").innerText!=""){
+            $("#submitCheckout").removeAttr("disabled")
+        }
     </script>
     <% include ../partials/footer %>
 </body>
