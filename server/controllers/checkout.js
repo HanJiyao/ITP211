@@ -8,16 +8,14 @@ exports.show = (req, res) => {
     });
     models.sequelize.query(
         'select u.address address, u.postal_code postal_code,\
-        pay.cardNumber cardNumber, pay.cardHolderName, cardHolderName, pay.securityCode securityCode, pay.expiryDate expiryDate,\
+        w.balance balance,\
         c.id id, p.id productID, p.productImage productImage, p.productName productName, p.productType productType, p.price price, c.quantity quantity, p.quantity prodQuantity\
         from Carts c\
         join Products p on c.productID = p.id\
-        join PaymentDetails pay on p.userID = pay.userID\
+        join Wallets w on c.userID = w.userID\
         join Users u on c.userID = u.id\
-        where c.checked = 1 and c.userID = '+user.id+' and pay.userID = '+user.id, {
-            model: models.Cart
-        }).then((cartData) => {
-            console.log(cartData)
+        where c.checked=1 and c.userID='+user.id+' and w.userID='+user.id, {model: models.Cart}
+    ).then((cartData) => {
         res.render("checkout", {
             title: "Check Out",
             cartData: cartData,

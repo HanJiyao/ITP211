@@ -19,7 +19,7 @@ module.exports = function (sequelize, Sequelize) {
             }
         },
     });
-    Wallet.sync({force: true, logging: console.log}).then(() => {
+    Wallet.sync({force: false, logging: console.log}).then(() => {
         console.log("Wallet table synced");
         Wallet.upsert({
             //test data
