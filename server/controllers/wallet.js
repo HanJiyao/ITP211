@@ -5,20 +5,19 @@ exports.view = (req,res) => {
     var user = req.session.passport.user;
     // get cart num
     var cartNum = 0;
-    var paymentNum = 0;
+    var paymentData = 0;
     //checking the paymentdetails table (whether it is empty)
-    models.sequelize.query('SELECT * FROM paymentdetails WHERE userID =' + user.id + '', {model: models.Payments}).then((data) => {paymentNum = data[0].dataValues.paymentNum});
-    if (itemList.length == 0) {
-
-    }
-    else {
-        
-    }
+    models.sequelize.query('SELECT * FROM paymentdetails WHERE userID =' + user.id + '', {model: models.Payments}).then((data) => {
+        if(data){
+            paymentData = 1;
+        }
+    });
     models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
     walletModel.findOrCreate({ where: { userID: user.id } }).then(function(wallet) {
         res.render("viewWallet", {
             title: "My Silicon Wallet",
             itemList: wallet,
+            paymentData: paymentData,
             urlPath: req.protocol + "://" + req.get("host") + "/payment" + req.url,
             user: user,
             cartNum: cartNum,
