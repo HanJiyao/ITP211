@@ -18,7 +18,7 @@
                 Current Balance : $ <%= itemList[0].balance %>
             </h2>
             <a href="/Wallet/topup">
-                <button type="button" class="btn btn-success btn-lg">
+                <button id="topup" type="button" class="btn btn-success btn-lg">
                 Top Up My Wallet
                 </button>
             </a>
@@ -30,6 +30,14 @@
         </div>
         </div>
     </div>
+    <script>
+        $("#topup").click(function () {
+            checkPaymentTable();
+        });
+        checkPaymentTable() {
+             
+        }
+    </script>
     <% include ../partials/footer %>
 </body>
 </html>

@@ -27,7 +27,7 @@
             </div>
         </div>
         <%} else {%>
-            <div class="row pt-3 pb-3 text justify-content-center">
+            <div class="row pt-3 pb-3 mb-5 text justify-content-center">
                 <h2 class="p-3">You have not added any payment details yet</h2>
             </div>
         <% } %>
@@ -82,6 +82,8 @@
                 url: '<%=urlPath%>' + detail_num,
                 type: 'DELETE',
                 success: function (result) {
+                    // come back to this line another time
+                    confirm("Are you sure you want to delete the details?");
                     console.log(result.message);
                     // var detailsToRemove = document.getElementById(id);
                     var detailsToRemove = $('#'+detail_num + '');
