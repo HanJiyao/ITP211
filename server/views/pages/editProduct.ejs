@@ -20,8 +20,18 @@
             <input type="text" id="inputproductName" name="productName" class="form-control" placeholder="Product Name" required="true" value="<%=item.productName%>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputType">Type</label>
-            <input type="text" id="inputType" name="type" class="form-control" placeholder="Type" required="true" value="<%=item.productType%>">
+            <label for="inputType"> Product Type</label>
+            <select name = "productType" id="productType" required ="true">
+                <option value = "Hard Disk" >Hard Disk</option>
+                <option value = "Disk Drive">Disk Drive</option>
+                <option value = "MotherBoard">MotherBoard</option>
+                <option value="Ram">Ram</option>
+                <option value="Graphic Card">Graphic Card</option>
+                <option value = "Processor">Processor</option>
+                <option value = "Mouse">Mouse</option>
+                <option value="Keyboard">Keyboard</option>
+                <option value = "Casing">Desktop Case</option>
+              </select>
         </fieldset>
         <fieldset class="form-group">
             <label for="productDesc">Product Description</label>
