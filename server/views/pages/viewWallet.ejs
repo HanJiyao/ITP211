@@ -17,7 +17,7 @@
             <h2 class="font-weight-light pt-3 pb-3 mt-5 mb-5">
                 Current Balance : $ <%= itemList[0].balance %>
             </h2>
-            <a >
+            <a>
                 <button id="topup" type="button" class="btn btn-success btn-lg">
                 Top Up My Wallet
                 </button>
@@ -35,7 +35,15 @@
             checkPaymentTable();
         });
         function checkPaymentTable() {
-             console.log("<%=paymentData%>")
+            console.log("<%=paymentData%>");
+            var empty = "<%=paymentData%>";
+            if (empty == 0) {
+                alert("Please add your payment details first!");
+                window.location.href= "/payment";
+            }
+            else {
+                window.location.href= "/Wallet/topup";
+            }
         }
     </script>
     <% include ../partials/footer %>

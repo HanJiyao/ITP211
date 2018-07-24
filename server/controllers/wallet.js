@@ -5,11 +5,12 @@ exports.view = (req,res) => {
     var user = req.session.passport.user;
     // get cart num
     var cartNum = 0;
-    var paymentData = 0;
-    //checking the paymentdetails table (whether it is empty)
+    var paymentData = 0;//declare 0 as false
+    //check the paymentdetails table (whether it is empty)
     models.sequelize.query('SELECT * FROM paymentdetails WHERE userID =' + user.id + '', {model: models.Payments}).then((data) => {
-        if(data){
-            paymentData = 1;
+        console.log(data);
+        if (data) {//if any data exists inside table
+            paymentData = 1;//declare 1 as true
         }
     });
     models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
