@@ -9,7 +9,7 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
         },
-        sellerID:{
+        userID: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
@@ -17,26 +17,21 @@ module.exports = function (sequelize, Sequelize) {
                 key: 'id'
             }
         },
-        customerID: {
+        totalPrice:{
             type: Sequelize.INTEGER,
             allowNull: false,
-            references: {
-                model: 'Users',
-                key: 'id'
-            }
-        },
+        }
     });
     Orders.sync({
         force: false,
         logging: console.log
-    }).then(() => {
+    }).then(()=>{
         Orders.upsert({
+            //static test data
             id: 1,
-            orderDate:"2018-07-16",
-            sellerID: 1,
-            customerID: 1,
+            userID: 1,
+            totalPrice: 0,
         });
-        console.log("Orders table synced");
-    });
+    })
     return Orders;
 }

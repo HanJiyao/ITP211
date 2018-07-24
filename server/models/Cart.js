@@ -34,15 +34,8 @@ module.exports = function (sequelize, Sequelize) {
             }
         },
     });
-    Cart.sync({force: true,logging: console.log}).then(() => {
-        console.log("Payment details table synced");
-        Cart.upsert({
-            //static test data
-            id: 1,
-            productID: 1,
-            quantity: 1,
-            userID: 1,
-        });
+    Cart.sync({force: false,logging: console.log}).then(() => {
+        console.log("Cart table synced");
     });
     return Cart;
 }

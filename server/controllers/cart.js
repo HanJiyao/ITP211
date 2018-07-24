@@ -6,11 +6,11 @@ exports.insert = (req, res) => {
         quantity: req.body.quantity,
         userID: req.user.id,
     }
-    Cart.create(cartData).then((newData, created) => {
-        if (!newData) {
-            return res.send(400, {
-                message: "error"
-            });
+    models.Cart.find({where:{productID:req.params.id}}).then((existData)=>{
+        if(existData){
+            Cart.update({quantity:existData.quantity+parseFloat(req.body.quantity)},{where:{id:existData.id}})
+        }else{
+            Cart.create(cartData)
         }
     });
 };

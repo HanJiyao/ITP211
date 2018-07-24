@@ -3,6 +3,11 @@ module.exports = function (sequelize, Sequelize) {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
+        },
+        orderID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
             references: {
                 model: 'Orders',
                 key: 'id'
@@ -10,7 +15,6 @@ module.exports = function (sequelize, Sequelize) {
         },
         productID: {
             type: Sequelize.INTEGER,
-            primaryKey: true,
             allowNull: false,
             references: {
                 model: 'Products',
@@ -30,16 +34,8 @@ module.exports = function (sequelize, Sequelize) {
         },
     });
     OrderDetails.sync({
-        force: true,
+        force: false,
         logging: console.log
-    }).then(() => {
-        OrderDetails.upsert({
-            id: 1,
-            productID: 1,
-            quantity: 1,
-            price: 199.99,
-        });
-        console.log("OrderDetails table synced");
-    });
+    })
     return OrderDetails;
 }

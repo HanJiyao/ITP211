@@ -287,6 +287,22 @@
         `<% for(var i=0; i<cartData.length; i++){ %>`
         cartIDarr.push("<%=cartData[i].dataValues.id%>");
         `<% } %>`
+        for (var i=0;i<cartIDarr.length;i++){
+            $("#cartCheck"+cartIDarr[i]).prop('checked','');  
+            $.ajax({
+                url: "<%=hostPath%>/cart/check",
+                type: "POST",
+                data: JSON.stringify({
+                    id: cartIDarr[i],
+                    checked: false,
+                }),
+                dataType: "json",
+                contentType: "application/json",
+                error: function(result){
+                    alert("Error updating cart");
+                }
+            })
+        }
         $("#checkAll").change(()=>{
             if(document.getElementById("checkAll").checked){
                 total=0;
