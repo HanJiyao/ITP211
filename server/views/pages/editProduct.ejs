@@ -16,12 +16,13 @@
             <input type ="file" id = "inputproductImage" name ="productImage" class = "form-control" placeholder="Product Image" required = "true" value=" <%=item.productImage%>"
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputproductName">Product Name</label>
+            <label for="inputproductName">Product Name: </label>
             <input type="text" id="inputproductName" name="productName" class="form-control" placeholder="Product Name" required="true" value="<%=item.productName%>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="inputType"> Product Type</label>
+            <label for="inputType"> Product Type: </label>
             <select name = "productType" id="productType" required ="true">
+                <option value = ""></option>
                 <option value = "Storage" >Storage</option>
                 <option value = "Optical Drive">Optical Drive</option>
                 <option value = "MotherBoard">MotherBoard</option>
@@ -36,7 +37,7 @@
               </select>
         </fieldset>
         <fieldset class="form-group">
-            <label for="productDesc">Product Description</label>
+            <label for="productDesc">Product Description: </label>
             <input type="text" id="inputDesc" name="productDesc" class="form-control" placeholder="Product Description" required="true" value = "<%=item.productDesc%>">
           </fieldset>
         <fieldset class="form-group">
