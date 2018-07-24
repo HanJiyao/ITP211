@@ -7,9 +7,9 @@ exports.view = (req,res) => {
     var cartNum = 0;
     var paymentData = 0;//declare 0 as false
     //check the paymentdetails table (whether it is empty)
-    models.sequelize.query('SELECT * FROM paymentdetails WHERE userID =' + user.id + '', {model: models.Payments}).then((data) => {
-        console.log(data);
-        if (data) {//if any data exists inside table
+    models.PaymentDetails.findAll({where: {userID:user.id}}).then((data) => {
+        console.log(data)
+        if (data!="") {//if any data exists inside table
             paymentData = 1;//declare 1 as true
         }
     });
