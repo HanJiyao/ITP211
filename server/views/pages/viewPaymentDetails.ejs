@@ -77,23 +77,23 @@
             location.href = "<%=urlPath %>editDetails/"+detail_num;
         });
         $(".deleteBtn").click(function () {
-            var detail_num = $(this).data("id");
-            $.ajax({
-                url: '<%=urlPath%>' + detail_num,
-                type: 'DELETE',
-                success: function (result) {
-                    // come back to this line another time
-                    confirm("Are you sure you want to delete the details?");
-                    console.log(result.message);
-                    // var detailsToRemove = document.getElementById(id);
-                    var detailsToRemove = $('#'+detail_num + '');
-                    $(detailsToRemove).remove();
-                },
-                error: function (result) {
-                    alert("Unable to delete payment details.");
-                    console.log(result.message);
-                }
-            });
+            if (confirm("Are you sure you want to delete the details?")) {
+                var detail_num = $(this).data("id");
+                $.ajax({
+                    url: '<%=urlPath%>' + detail_num,
+                    type: 'DELETE',
+                    success: function (result) {
+                        console.log(result.message);
+                        // var detailsToRemove = document.getElementById(id);
+                        var detailsToRemove = $('#'+detail_num + '');
+                        $(detailsToRemove).remove();
+                    },
+                    error: function (result) {
+                        alert("Unable to delete payment details.");
+                        console.log(result.message);
+                    }
+                });
+            };
         });
     </script>
     <% include ../partials/footer %>
