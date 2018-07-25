@@ -18,7 +18,7 @@ module.exports = function (sequelize, Sequelize) {
             }
         },
         totalPrice:{
-            type: Sequelize.INTEGER,
+            type: Sequelize.FLOAT(10,2),
             allowNull: false,
         }
     });
