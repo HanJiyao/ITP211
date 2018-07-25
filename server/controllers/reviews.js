@@ -69,7 +69,7 @@ exports.list=function(req,res){
             res.status(200).send({message:"Deleted reviews :" + record_num });
         })
     }
-
+   
         //comments authorization middleware
         exports.hasAuthorization=function(req,res,next){
             if (req.isAuthenticated())
@@ -77,6 +77,46 @@ exports.list=function(req,res){
             res.redirect("/login");
         };
 
+
+        exports.editRecord = function(req, res){
+            var user = req.session.passport.user;
+            // get cart num
+            var cartNum = 0;
+            models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+                model: models.Cart
+            }).then((data) => {
+                cartNum = data[0].dataValues.cartNum
+            })
+            var record_num = req.params.id;
+            Reviews.findById(record_num).then(function(reviewsRecords){
+                console.log(reviewsRecords)
+                res.render("editReview", {
+                    title: "Edit Review",
+                    reviews: reviewsRecords,
+                    hostPath: req.protocol + "://" + req.get("host"),
+                    user: user,
+                    cartNum: cartNum,
+                    avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
+                });
+            })
+        };  
+        exports.update = function(req, res){
+            var record_num = req.params.id; 
+            var UpdateData={
+                title:req.body.title,
+                content:req.body.content,
+                rating:req.body.rating,
+                productID:req.body.productID,
+            }
+            Reviews.update(UpdateData, {where: {id: record_num}}).then((updatedReview)=> {
+                if (!updatedReview){
+                    return res.send(400, {
+                        message: "error"
+                    });   
+                }
+                res.status(200).send({message: "Edit review: " + record_num});
+            })
+        };
         
       
 

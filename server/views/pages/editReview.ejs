@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+<body>
+    <% include ../partials/header %>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Edit Reviews Record</h4>
+    </div>
+    <form action="/reviews/edit/<%=reviews.id%>" method="post" enctype="multipart/form-data">
+        <fieldset class="form-group">
+                <label for="productID">ProductID</label>
+                <input type="text" id="productID" name="productID" class="form-control" placeholder="Product ID" required="true" value="<%=reviews.productID%>" >
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="title">title</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="Review Title" required="true" required="true" value="<%=reviews.title%>" >
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="rating">From 1-5,please rate this product</label>
+                <input type="number" id="rating" name="rating" class="form-control" placeholder="Product Rating" required min="1" max="5" value="<%=reviews.rating%>" >
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="content">Content</label>
+                <textarea id="content" name="content" rows="8" cols="40" class="form-control" placeholder="Review Content" required="true" value="" ><%=reviews.content %></textarea>
+            </fieldset>
+    </form>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" onclick=saveChanges()>Save Changes</button>
+        <button type="button" class="btn btn-secondary" onclick=discardChanges()>Cancel</button>
+    </div>
+        <script>
+            function saveChanges() {
+            var url = "<%=hostPath%>/reviews/edit/<%=reviews.id%>";
+            var newValues = {
+                rating: $("#rating").val(),
+                content:$("#content").val(),
+                title: $("#title").val(),
+                productID: $("#productID").val(),
+            }
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: JSON.stringify(newValues),
+                dataType: "json",
+                contentType: "application/json",
+                success: function(result){
+                    alert(" Product updated successfully");
+                },
+                error: function(result){
+                    alert(result.message);
+                    discardChanges();
+                }
+            })
+        }
+        function discardChanges() {
+            location.href = "<%=hostPath%>/reviews"
+        }
+    </script>
+    <br>
+    <br>
+    <br>
+    <% include ../partials/footer %>
+</body>
+</html>
+

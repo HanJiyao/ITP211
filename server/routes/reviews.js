@@ -15,6 +15,14 @@ var reviewsController=require("../controllers/reviews");
 // app.post("/comments",comments.hasAuthorization, comments.create);
 // app.delete("/comments/:comments_id", comments.hasAuthorization, comments.delete);
 reviewsRouter.get("/",reviewsController.hasAuthorization,reviewsController.list);
+reviewsRouter.get("/edit/:id", isLoggedIn,reviewsController.editRecord);
+reviewsRouter.post("/edit/:id", isLoggedIn,reviewsController.update);
 reviewsRouter.post("/",reviewsController.hasAuthorization,reviewsController.create);
 reviewsRouter.delete("/:reviews_id",reviewsController.hasAuthorization,reviewsController.delete);
+// productRouter.get("/edit/:id", isLoggedIn, productController.editRecord);
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.redirect('/login');
+}
 module.exports=reviewsRouter;
