@@ -78,8 +78,13 @@
                             </div>
                         </div>
                         <%} else {%>
-                            <div class="row pt-3 pb-3 grey-text justify-content-center">
-                                <h3 class="p-3">Your cart is empty</h3>
+                            <div class="row pt-5 pb-1 grey-text justify-content-center">
+                                <div><h3 class="p-3">Your cart is empty</h3></div>
+                            </div>
+                            <div class="row pb-5 justify-content-center">
+                                <a href="/">
+                                    <button type="button" class=" btn btn-lg btn-warning font-weight-bold waves-effect waves-light" style="border-radius:10em!important; font-size: 1.25rem">continue shopping</button>
+                                </a>
                             </div>
                         <%}%>
                         <% for(var i=0; i<cartData.length; i++){ %>
@@ -167,7 +172,8 @@
                                         })
                                         $("#quantity<%=cartData[i].dataValues.id%>").blur(()=>{
                                             if ($("#quantity<%=cartData[i].dataValues.id%>").val() <= 0 || $("#quantity<%=cartData[i].dataValues.id%>").val() > prodQuantity|| !Number.isInteger(parseInt($("#quantity<%=cartData[i].dataValues.id%>").val()))){
-                                                alert("Please enter an valid number : 0 - <%= cartData[i].dataValues.prodQuantity%>");
+                                                document.getElementById("errMessage").innerText = "Please enter an valid number : 1 - <%= cartData[i].dataValues.prodQuantity%>";
+                                                $("#selectErr").click();
                                                 $("#quantity<%=cartData[i].dataValues.id%>").val("<%=cartData[i].dataValues.quantity%>");
                                             };
                                             if ($("#quantity<%=cartData[i].dataValues.id%>").val() == `<%=cartData[i].dataValues.prodQuantity%>`){
@@ -275,6 +281,25 @@
                                 <button disabled type="button" class="btn btn-warning btn-block font-weight-bold" style="border-radius:10em!important;font-size: 1rem">Proceed Checkout</button>
                             <%}%>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="extra">
+        <button type="button" id="selectErr" class="btn btn-primary sr-only" data-toggle="modal" data-target="#modalPush">Launch modal</button>
+        <div class="modal fade" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-info" role="document">
+                <div class="modal-content text-center">
+                    <div class="modal-header d-flex justify-content-center bg-warning">
+                        <p class="heading">Select your cart</p>
+                    </div>
+                    <div class="modal-body">
+                        <i class="fa fa-bell fa-4x animated rotateIn mb-4 text-warning"></i>
+                        <h5 id="errMessage"></h5>
+                    </div>
+                    <div class="modal-footer flex-center">
+                        <button type="button" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;font-size: 1rem" data-dismiss="modal">OK</button>
                     </div>
                 </div>
             </div>
@@ -407,7 +432,8 @@
         }
         checkout=()=>{
             if(parseFloat(document.getElementById("cartSubTotal").innerText)==0){
-                alert("Please select at least one product")
+                document.getElementById("errMessage").innerText = "Please select at least one product";
+                $("#selectErr").click();
             } else {
                 window.location.href = "/checkout"
             }

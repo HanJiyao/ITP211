@@ -118,20 +118,19 @@
                                 })
                                 $("#quantity").blur(()=>{
                                     var quantityInput = parseInt($("#quantity").val());
-                                    console.log(quantityInput)
                                     if (quantityInput <= 0 || quantityInput > quantity || !Number.isInteger(parseInt($("#quantity").val().trim()))){
-                                        alert("Please enter an valid number : 1 - <%= product.quantity%>");
+                                        $("#selectErr").click();
                                         $("#quantity").val(1);
                                     };
                                     if (quantityInput == quantity){
-                                        $("#numUp").attr("disabled", true)
+                                        $("#numUp").attr("disabled", true);
                                     } else {
-                                        $("#numUp").attr("disabled", false)
+                                        $("#numUp").attr("disabled", false);
                                     } 
                                     if (quantityInput == 1){
-                                        $("#numDown").attr("disabled", true)
+                                        $("#numDown").attr("disabled", true);
                                     } else {
-                                        $("#numDown").attr("disabled", false)
+                                        $("#numDown").attr("disabled", false);
                                     }
                                 })
                             });
@@ -141,8 +140,8 @@
                                 <button type="button" id="addCart" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="font-size:1.2rem;-webkit-border-radius:10em!important;border-radius:10em!important;" data-toggle="modal" data-target="#modalAbandonedCart">
                                     <i class="material-icons text-white pr-2" style="vertical-align:-10px;font-size:2rem;">add_shopping_cart</i> Add to Cart
                                 </button>
-                                <button disabled type="button" id="addCartSuccess" class="btn btn-light btn-block sr-only" style="font-size:1.2rem;color:#00C851!important;-webkit-border-radius:10em!important;border-radius:10em!important;">
-                                    <i class="material-icons text-white pr-2" style="vertical-align:-10px;font-size:2rem;color:#00C851!important;">done_outline</i> Add Successfully
+                                <button disabled type="button" id="addCartSuccess" class="btn btn-light font-weight-bold text-success btn-block sr-only" style="font-size:1.2rem;color:#00C851!important;-webkit-border-radius:10em!important;border-radius:10em!important;">
+                                    <i class="material-icons text-success pr-2" style="vertical-align:-10px;font-size:2rem;">done_outline</i> Add Successfully
                                 </button>
                             </a>
                             <% if (user) { %>
@@ -177,6 +176,13 @@
                                 </div>
                             </div>
                             <script>
+                                var productID = "<%=product.id%>"
+                                "<% for (var i=0;i<cartData.length;i++) {%>"
+                                if(productID=="<%=cartData[i].dataValues.productID%>"){
+                                    $("#addCart").addClass("sr-only");
+                                    $("#addCartSuccess").removeClass("sr-only");
+                                }
+                                "<% } %>"
                                 $("#addCart").click(()=>{
                                     $("#carNum").removeClass("sr-only");
                                     $("#carNum")[0].innerText = parseInt($("#carNum")[0].innerText)+1;
@@ -244,8 +250,26 @@
                             <a class="col-3 text-center">
                                 <i class="material-icons text-light" style="vertical-align:-36px;font-size:3rem;">favorite</i>
                             </a>
-                            
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="extra">
+        <button type="button" id="selectErr" class="btn btn-primary sr-only" data-toggle="modal" data-target="#modalPush">Launch modal</button>
+        <div class="modal fade" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-info" role="document">
+                <div class="modal-content text-center">
+                    <div class="modal-header d-flex justify-content-center bg-warning">
+                        <p class="heading">Please Notice</p>
+                    </div>
+                    <div class="modal-body">
+                        <i class="fa fa-bell fa-3x animated rotateIn mb-3 text-warning"></i>
+                        <h5 id="errMessage">Please enter an valid number : 1 - <%= product.quantity%></h5>
+                    </div>
+                    <div class="modal-footer flex-center">
+                        <button type="button" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;font-size: 1rem" data-dismiss="modal">OK</button>
                     </div>
                 </div>
             </div>

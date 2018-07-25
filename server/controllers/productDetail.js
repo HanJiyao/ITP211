@@ -18,16 +18,18 @@ exports.show = function (req, res) {
             join Products p on p.id = r.productID\
             where p.id ='+id, 
             { model: models.Reviews }).then((review)=>{
-                console.log(review)
+                models.Cart.findAll({where:{userID:user.id}}).then((cartData)=>{
                 res.render('productDetail', {
                     title: "",
                     user: user,
                     cartNum: cartNum,
+                    cartData: cartData,
                     avatar: avatar,
                     product: product[0].dataValues,
                     review:review,
                     hostPath: req.protocol + "://" + req.get("host"),
-            });
+                });
+            })  
         })
     })
 };

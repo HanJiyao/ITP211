@@ -119,7 +119,7 @@
                             <h4 class="pl-4 pt-3 pb-2 mt-3 font-weight-normal">My Address</h4>
                         </div>
                         <div class="col-3 pt-3 mt-3">
-                            <a href="/Wallet"><i class="material-icons text-warning" style="font-size:2rem">edit</i></a>
+                            <a href="/profile"><i class="material-icons text-warning" style="font-size:2rem">edit</i></a>
                         </div>
                     </div>
                     <div class="row m-0">
@@ -222,7 +222,8 @@
                 url: "<%=hostPath%>/checkout/confirm",
                 type: "POST",
                 success:(result)=>{
-                    console.log(result.message)
+                    console.log(result.message+result.orderID);
+                    window.location.href = "<%=hostPath%>/checkout/success/"+result.orderID
                 },
                 error:()=>{
                     alert("Unable to check out");
