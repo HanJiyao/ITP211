@@ -20,9 +20,12 @@
                 Card Number
             </div>
             <div class="col-2">
-                Security Code
+                Card Type
             </div>
-            <div class="col-2">
+            <div class="col-1">
+                CVC
+            </div>
+            <div class="col-1">
                 Expiry Date
             </div>
         </div>
@@ -36,13 +39,16 @@
             <div class="col-3">
                 <%= itemList[i].cardHolderName %>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <%= itemList[i].cardNumber %>
+            </div>
+            <div class="col-2">
+                <%= itemList[i].cardType %>
             </div>
             <div class="col-1">
                 <%= itemList[i].securityCode %>
             </div>
-            <div class="col-2">
+            <div class="col-1">
                 <%= itemList[i].expiryDate %>
             </div>
             <div class="col-1">

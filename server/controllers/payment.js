@@ -27,6 +27,7 @@ exports.insert = function (req, res) {
     var paymentDetailsData = {
         cardHolderName: req.body.cardHolderName,
         cardNumber: req.body.cardNumber,
+        cardType: req.body.cardType,
         securityCode: req.body.securityCode,
         expiryDate: req.body.expiryDate,
         userID:req.session.passport.user.id
@@ -98,6 +99,7 @@ exports.update = function(req, res) {
     var updateDetails = {
         cardHolderName: req.body.cardHolderName,
         cardNumber: req.body.cardNumber,
+        cardType: req.body.cardType,
         securityCode: req.body.securityCode,
         expiryDate: req.body.expiryDate
     }
