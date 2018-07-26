@@ -21,12 +21,6 @@ module.exports = function (sequelize, Sequelize) {
                 key: 'id'
             }
         },
-        created: {
-            type: Sequelize.DATE,
-            defaultValue: Sequelize.NOW
-        },
-        
-       
         quantity: {
             type: Sequelize.INTEGER,
             allowNull: false,
