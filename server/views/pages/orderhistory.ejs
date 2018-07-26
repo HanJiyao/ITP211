@@ -26,9 +26,24 @@
     background-color: #4CAF50;
     color: white;
 }
+h{
+    text-align: right;
+    font-size:40px;
+}
 </style>
 <body>
     <% include ../partials/header %>
+    
+    <h>Order History</h> <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort by:
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Order Date</a></li>
+          <li><a href="#">Price</a></li>
+          <li><a href="#">Product Name</a></li>
+        </ul>
+      </div>
+   
     <table id="orderdetails">
             <tr>
               <th>S/N</th>
@@ -47,7 +62,7 @@
               <td><%=i+1%></td>
               <td><img src = "images/products/<%=orderhistory[i].dataValues.productImage %> " width="70px" height="70px"></td>
               
-              <td><%= orderhistory[i].dataValues.createdAt %></td>
+              <td><%= orderhistory[i].dataValues.orderDate %></td>
               <td><%= orderhistory[i].dataValues.orderID %></td>
               <td><%= orderhistory[i].dataValues.productName %></td>
               <td><%= orderhistory[i].dataValues.productType %></td>
@@ -57,7 +72,8 @@
             </tr>
             <% } %>
           </table>
-          
+            <br>
+            <br>
             <% include ../partials/footer %>
 
 </body>

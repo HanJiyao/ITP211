@@ -11,7 +11,7 @@ exports.list=function(req,res){
         cartNum = data[0].dataValues.cartNum
     });
     //list all orders and sort by date
-    models.sequelize.query("select * from orderdetails od inner join products p on od.productID=p.id ",{model: models.OrderDetails})
+    models.sequelize.query("select * from orderdetails od inner join products p on od.productID=p.id inner join orders o on p.userID=o.userID",{model: models.OrderDetails})
     .then((orderhistory)=>{console.log(orderhistory)
         res.render("orderhistory",{
             title:"Order History page",
