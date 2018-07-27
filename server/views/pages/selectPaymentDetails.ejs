@@ -9,10 +9,13 @@
         <div class="card pl-3 pr-3">
         <div class="p-5 text-left m-md-5">
             <h1 class="font-weight-light mt-3 mb-5">
-                View Your Payment Details
+                Select Payment Card For Top Up
             </h1>
         <% if (itemList.length!=0) {%>
         <div class="row bg-primary text-white pt-4/pb-4 font-weight-bold">
+            <div class="col-md-1">
+                *
+            </div>
             <div class="col-3">
                 Cardholder Name
             </div>
@@ -37,9 +40,9 @@
         <% for(var i=0; i < itemList.length; i++){ %>
         <div class="row pt-3 pb-4" id="<%= itemList[i].id %>">
             <div class="col-md-1">
-                <div class="custom-control custom-checkbox ml-md-4">
-                    <input type="checkbox" class="custom-control-input" id="checkThis">
-                    <label class="custom-control-label" for="checkThis"></label>
+                <div class="form-check ml-md-4">
+                    <input type="radio" name="checkThis" class="form-check-input" id="checkThis">
+                    <label class="form-check-label" for="checkThis"></label>
                 </div>
             </div>
             <div class="col-3">

@@ -67,6 +67,31 @@ exports.list = function(req, res) {
         });
     });
 };
+exports.choose = function(req, res) {
+    var user = req.session.passport.user;
+    // get cart num
+    var cartNum = 0;
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
+        model: models.Cart
+    }).then((data) => {
+        cartNum = data[0].dataValues.cartNum
+    });
+    paymentModel.findAll(
+        { where: { userID: user.id } }).then(function(payment) {
+        res.render("selectPaymentDetails", {
+            title: "Select Payment Details",
+            itemList: payment,
+            urlPath: req.protocol + "://" + req.get("host") + "/payment/select" + req.url,
+            user: user,
+            cartNum: cartNum,
+            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
+        });
+    }).catch((err)=> {
+        return res.status(400).send({
+            message: err
+        });
+    });
+};
 // edit payment details
 exports.edit = function(req, res) {
     var user = req.session.passport.user;

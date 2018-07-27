@@ -6,6 +6,7 @@ var paymentController = require("../controllers/payment");
 paymentRouter.get("/createPaymentDetails", isLoggedIn, paymentController.create);
 paymentRouter.post("/createPaymentDetails", isLoggedIn, paymentController.insert);
 paymentRouter.get("/", isLoggedIn, paymentController.list);
+paymentRouter.get("/select", isLoggedIn, paymentController.choose);
 paymentRouter.get("/editDetails/:id", isLoggedIn, paymentController.edit);
 paymentRouter.post("/editDetails/:id", isLoggedIn, paymentController.update);
 paymentRouter.delete("/:id", isLoggedIn, paymentController.delete);
