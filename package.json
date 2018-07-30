@@ -42,7 +42,8 @@
     "popper.js": "^1.14.3",
     "sequelize": "^4.38.0",
     "sequelize-transforms": "^2.0.0",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "tablesorter": "^2.30.7"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
