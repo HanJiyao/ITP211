@@ -55,6 +55,7 @@ exports.list = function(req, res){
     var user = req.session.passport.user;
     // get cart num
     var cartNum = 0;
+<<<<<<< HEAD
     var discount_price =0.0;
     models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
         model: models.Cart
@@ -62,6 +63,9 @@ exports.list = function(req, res){
         cartNum = data[0].dataValues.cartNum
     });
  
+=======
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
+>>>>>>> ad3cd6b81a4034fc25acca44472e3088648dfdf9
     productModel.findAll({where:{userID:user.id}})
     .then(function(products){
         res.render("products", {
