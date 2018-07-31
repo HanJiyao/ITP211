@@ -70,8 +70,7 @@
     </div>
     <script>
         function saveChanges() {
-            var url = "<%=hostPath
-            %>/productsmanager/edit/<%=item.id%>";
+            var url = "<%=hostPath%>/productsmanager/edit/<%=item.id%>";
             var newValues = {
                 productImage:$("#inputproductImage").val(),
                 productName: $("#inputproductName").val(),
@@ -79,7 +78,7 @@
                 quantity: $("#inputquantity").val(),
                 price: $("#inputPrice").val(),
                 discount_percentage: $("#discount_percentage").val()
-            }
+                }
             $.ajax({
                 url: url,
                 type: "POST",
