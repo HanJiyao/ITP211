@@ -48,6 +48,21 @@
             <label for="inputPrice">Price</label>
             <input type="text" id="inputPrice" name="price" class="form-control" placeholder="price" required="true" value="<%=item.price%>">
         </fieldset>
+        <fieldset class="form-group">
+            <label for="discount"> Discount: </label>
+            <select name = "discount" id="discount" required ="true">
+                <option value = ""></option>
+                <option value = 0.1 >10%</option>
+                <option value = 0.2>20%</option>
+                <option value = 0.3>30%</option>
+                <option value= 0.4>40%</option>
+                <option value= 0.5>50%</option>
+                <option value = 0.6>60%</option>
+                <option value = 0.7>70%</option>
+                <option value= 0.8>80%</option>
+                <option value = 0.9>90%</option>
+              </select>
+        </fieldset>
     </form>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -61,7 +76,8 @@
                 productName: $("#inputproductName").val(),
                 productType: $("#inputType").val(),
                 quantity: $("#inputquantity").val(),
-                price: $("#inputPrice").val()
+                price: $("#inputPrice").val(),
+                discount: $("#discount").val()
             }
             $.ajax({
                 url: url,

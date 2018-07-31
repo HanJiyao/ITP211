@@ -61,6 +61,21 @@
                 <label for ="price">Price</label>
                 <input type = "text" id = "price" name ="price" class ="form-control" placeholder="Price"  required= "true">
               </fieldset>
+              <fieldset class="form-group">
+                <label for="discount"> Discount: </label>
+                <select name = "productType" id="productType" required ="true">
+                    <option value = ""></option>
+                    <option value = 0.1 >10%</option>
+                    <option value = 0.2>20%</option>
+                    <option value = 0.3>30%</option>
+                    <option value= 0.4>40%</option>
+                    <option value= 0.5>50%</option>
+                    <option value = 0.6>60%</option>
+                    <option value = 0.7>70%</option>
+                    <option value= 0.8>80%</option>
+                    <option value = 0.9>90%</option>
+                  </select>
+            </fieldset>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -80,6 +95,7 @@
           <th>Product Description</th>
           <th>Quantity</th>
           <th>Price</th>
+          <th>Discount price</th>
         </tr>
         <% for(var i=0; i < itemList.length; i++){ %>
           <tr class="rowRecord" data-id="<%= itemList[i].id %>">
@@ -104,6 +120,9 @@
             </td>
             <td>
               <%= itemList[i].price %>
+            </td>
+            <td>
+              <%= itemList[i].discount %>
             </td>
             <td>
               <input type="button" class="editBtn" value="Edit">
