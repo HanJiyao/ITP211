@@ -7,7 +7,7 @@ exports.show = function (req, res) {
     var cartNum = 0;
     if(user){models.sequelize.query('select count(*) cartNum from Carts where userID='+user.id, {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum})}
     models.sequelize.query(
-        'select productImage, productName, quantity, price, p.id id, productType, productDesc, u.username AS userID, count(r.productID) reviewCount, round(avg(rating),0) rating\
+        'select productImage, productName, quantity, price, p.id id, productType, productDesc, u.username AS userID, count(r.productID) reviewCount, round(avg(rating), 1) rating\
         from Products p\
         left outer join Reviews r on r.productID = p.id\
         join Users u on p.userID = u.id\
@@ -15,11 +15,16 @@ exports.show = function (req, res) {
         group by productImage, productName, quantity, price, p.id, productType, productDesc, u.username',
         { model: models.Products }).then((product)=>{
             models.sequelize.query(
-            'select r.created reviewCreated, r.title title, r.content content, r.rating rating\
+            'select created, user_id userID, title, content, rating, email\
             from Reviews r\
             join Products p on p.id = r.productID\
+            join Users u on u.id = r.user_id\
             where p.id ='+id, 
-            { model: models.Reviews }).then((review)=>{
+            { model: models.Reviews }).then((reviews)=>{
+                var reviewsAvatars = [];
+                for (var i=0;i<reviews.length;i++){
+                    reviewsAvatars.push(require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true))
+                }
                 models.Cart.findAll({where:{userID:user.id}}).then((cartData)=>{
                 res.render('productDetail', {
                     user: user,
@@ -27,7 +32,8 @@ exports.show = function (req, res) {
                     cartData: cartData,
                     avatar: avatar,
                     product: product[0].dataValues,
-                    review:review,
+                    reviews:reviews,
+                    reviewsAvatars: reviewsAvatars,
                     hostPath: req.protocol + "://" + req.get("host"),
                 });
             })  

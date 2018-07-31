@@ -44,7 +44,6 @@ exports.checkout = (req,res) => {
             let productPrice = parseFloat(cartData[i].dataValues.price * cartData[i].dataValues.quantity);
             var newSellerBalance = 0;
             await models.Wallet.find({ where: { userID: sellerID } }).then(async (sellerWallet)=>{
-                console.log(sellerWallet.balance)
                 newSellerBalance = parseFloat(sellerWallet.balance)+productPrice
                 await models.Wallet.update({balance:newSellerBalance}, { where: { userID:sellerID }}).then(()=>{
                     models.Products.update({ quantity:quantity }, { where: { id: productID }})
@@ -57,16 +56,19 @@ exports.checkout = (req,res) => {
             newUserBalance = userWallet.balance-totalPrice;
             models.Wallet.update({balance:newUserBalance},{ where: { userID: user.id }});
         })
-        await models.Orders.create({userID:user.id, totalPrice: totalPrice}).then((orderData)=>{
+        await models.Orders.create({userID:user.id, totalPrice: totalPrice}).then(async (orderData)=>{
             for (var i = 0; i < cartData.length; i++) {
                 let productID = cartData[i].dataValues.productID;
                 let orderQuantity = cartData[i].dataValues.quantity;
                 let productPrice = parseFloat(cartData[i].dataValues.price * cartData[i].dataValues.quantity);
-                models.OrderDetails.create({
-                    orderID:orderData.id,
-                    productID:productID,
-                    quantity:orderQuantity,
-                    price:productPrice,
+                await models.Products.findById(productID).then((product)=>{
+                        models.OrderDetails.create({
+                        orderID:orderData.id,
+                        productID:productID,
+                        quantity:orderQuantity,
+                        price:productPrice,
+                        sellerID:product.userID
+                    })
                 })
                 models.Cart.destroy({where:{id:cartData[i].dataValues.id}})
             };

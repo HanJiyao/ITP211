@@ -52,7 +52,7 @@ module.exports=function(sequelize,Sequelize){
             title: 'Great hard disk',
             content: 'good quality',
             user_id: 1,
-            rating: 5,
+            rating: 4,
         });
         Reviews.upsert({
             id: 2,
