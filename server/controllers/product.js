@@ -54,13 +54,7 @@ exports.list = function(req, res){
     var user = req.session.passport.user;
     // get cart num
     var cartNum = 0;
-    var discount_price =0.0;
-    models.sequelize.query('select price*discount  count(*) cartNum from Carts where userID =' + user.id + '', {
-        model: models.Cart
-    }).then((data) => {
-        cartNum = data[0].dataValues.cartNum
-    });
- 
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
     productModel.findAll({where:{userID:user.id}})
     .then(function(products){
         res.render("products", {
