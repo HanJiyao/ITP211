@@ -61,7 +61,7 @@ exports.list = function(req, res){
         cartNum = data[0].dataValues.cartNum
     });
  
-    productModel.findAll({where:{userID:user.id, discount_price: }})
+    productModel.findAll({where:{userID:user.id}})
     .then(function(products){
         res.render("products", {
             title: "View Products",

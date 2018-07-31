@@ -112,12 +112,10 @@
                 <div class="card-text">
                   <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= products[i].userID %>
                 </div>
-                <div class="card-text pt-3">
-                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                <div class="card-text pt-3 grey-text">
+                  <% for (var j=0;j<products[i].dataValues.rating;j++) {%> 
+                    <i class="material-icons text-warning" style="font-size: 1rem;vertical-align: -3px;">star</i>
+                  <% } %> (<%=products[i].dataValues.reviewCount%>)
                 </div>
               </div>
             </div>
