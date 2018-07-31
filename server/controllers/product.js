@@ -11,6 +11,7 @@ exports.insert = function(req, res){
         productDesc: req.body.productDesc,
         quantity: req.body.quantity,
         price: req.body.price,
+        discount: req.body.discount,
         userID:req.session.passport.user.id
     }
     var src;
@@ -55,13 +56,13 @@ exports.list = function(req, res){
     // get cart num
     var cartNum = 0;
     var discount_price =0.0;
-    models.sequelize.query('select price*discount  count(*) cartNum from Carts where userID =' + user.id + '', {
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
         model: models.Cart
     }).then((data) => {
         cartNum = data[0].dataValues.cartNum
     });
  
-    productModel.findAll({where:{userID:user.id, discount_price: }})
+    productModel.findAll({where:{userID:user.id}})
     .then(function(products){
         res.render("products", {
             title: "View Products",
@@ -110,7 +111,8 @@ exports.update = function(req, res){
         productType: req.body.productType,
         productDesc: req.body.productDesc,
         quantity: req.body.quantity,
-        price: req.body.price
+        price: req.body.price,
+        discount: req.body.discount
     }
     var src;
     var dest;
