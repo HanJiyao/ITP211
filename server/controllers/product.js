@@ -11,7 +11,7 @@ exports.insert = function(req, res){
         productDesc: req.body.productDesc,
         quantity: req.body.quantity,
         price: req.body.price,
-        discount: req.body.discount,
+        discount_percentage: req.body.discount_percentage,
         userID:req.session.passport.user.id
     }
     var src;
@@ -106,7 +106,7 @@ exports.update = function(req, res){
         productDesc: req.body.productDesc,
         quantity: req.body.quantity,
         price: req.body.price,
-        discount: req.body.discount
+        discount_percentage: req.body.discount_percentage
     }
     var src;
     var dest;

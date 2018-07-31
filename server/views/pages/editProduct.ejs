@@ -49,8 +49,8 @@
             <input type="text" id="inputPrice" name="price" class="form-control" placeholder="price" required="true" value="<%=item.price%>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="discount"> Discount: </label>
-            <select name = "discount" id="discount" required ="true">
+            <label for="discount_percentage"> discount_percentage: </label>
+            <select name = "discount_percentage" id="discount_percentage" required ="true">
                 <option value = ""></option>
                 <option value = 0.1 >10%</option>
                 <option value = 0.2>20%</option>
@@ -77,7 +77,7 @@
                 productType: $("#inputType").val(),
                 quantity: $("#inputquantity").val(),
                 price: $("#inputPrice").val(),
-                discount: $("#discount").val()
+                discount_percentage: $("#discount_percentage").val()
             }
             $.ajax({
                 url: url,

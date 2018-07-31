@@ -28,7 +28,7 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.FLOAT(10, 2),
             allowNull: false,
         },
-        discount:{
+        discount_percentage:{
             type: Sequelize.FLOAT(3,2)
         },
         userID: {
@@ -50,7 +50,7 @@ module.exports = function (sequelize, Sequelize) {
             productDesc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.",
             quantity: 100, 
             price: 199.99, 
-            discount: 0.5,
+            discount_percentage: 0.5,
             userID: 1,
         });Products.upsert({
             id: 2,
@@ -61,7 +61,7 @@ module.exports = function (sequelize, Sequelize) {
             productDesc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.",
             quantity: 100, 
             price: 99.90, 
-            discount: 0.3,
+            discount_percentage: 0.3,
             userID: 1,
         }); Products.upsert({
             id: 3,
@@ -72,7 +72,7 @@ module.exports = function (sequelize, Sequelize) {
             productDesc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.",
             quantity: 50, 
             price: 100.00,
-            discount: 0.7, 
+            discount_percentage: 0.7, 
             userID: 1,
         }); Products.upsert({
             id: 4,
@@ -83,7 +83,7 @@ module.exports = function (sequelize, Sequelize) {
             productDesc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.",
             quantity: 80, 
             price: 120.00, 
-            discount: 0.5,
+            discount_percentage: 0.5,
             userID: 1,
         }); 
         return console.log("Products table synced");
