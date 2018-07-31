@@ -2,13 +2,13 @@
 <html>
 <head>
     <title>
-        <%= title %>
+        <%=product.productName%>
     </title>
 </head>
 <body>
 <% include ../partials/header %>
-    <div class="container"  style="margin-bottom:100px;">
-        <div class="card mt-5 mb-5">
+    <div class="container" style="margin-bottom:100px;">
+        <div class="card mt-5 mb-3">
             <div class="row">
                 <style>
                     .prodImgContainer{
@@ -30,11 +30,11 @@
                         <h3 class="font-weight-normal pb-3"><%=product.productName%></h3>
                         <a class="pb-3">
                             <span class="text-warning">
-                                <% for(var i=0; i < 5; i++){ %>
+                                <% for(var i=0; i < product.rating; i++){ %>
                                     <i class="material-icons" style="vertical-align:-7px">stars</i>
                                 <% } %>
                             </span>
-                            <span><small class="grey-text"> (19 reviews) </small></span>
+                            <span class="grey-text pl-1" style="font-size: 0.9rem"> (<%=product.reviewCount%> reviews) </span>
                         </a>
                         <div class="pt-3 grey-text">
                             <i class="material-icons" style="vertical-align:-5px">store</i> <%=product.userID%>
@@ -137,7 +137,7 @@
                         </script>
                         <div class="row pb-5">
                             <a class="col pr-0" href="#">
-                                <button type="button" id="addCart" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="font-size:1.2rem;-webkit-border-radius:10em!important;border-radius:10em!important;" data-toggle="modal" data-target="#modalAbandonedCart">
+                                <button type="button" id="addCart" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="font-size:1.2rem;-webkit-border-radius:10em!important;border-radius:10em!important;">
                                     <i class="material-icons text-white pr-2" style="vertical-align:-10px;font-size:2rem;">add_shopping_cart</i> Add to Cart
                                 </button>
                                 <button disabled type="button" id="addCartSuccess" class="btn btn-light font-weight-bold text-success btn-block sr-only" style="font-size:1.2rem;color:#00C851!important;-webkit-border-radius:10em!important;border-radius:10em!important;">
@@ -184,28 +184,34 @@
                                 }
                                 "<% } %>"
                                 $("#addCart").click(()=>{
-                                    $("#carNum").removeClass("sr-only");
-                                    $("#carNum")[0].innerText = parseInt($("#carNum")[0].innerText)+1;
-                                    $("#addCart").addClass("sr-only");
-                                    $("#addCartSuccess").removeClass("sr-only");
-                                    var url = "<%=hostPath%>/cart/add/<%=product.id%>";
-                                    var addCart = {
-                                        productID:"<%=product.id%>",
-                                        userID:"<%=user.id%>",
-                                        quantity:$("#quantity").val()
+                                    var quantityInput = parseInt($("#quantity").val());
+                                    if (quantityInput <= 0 || quantityInput > quantity || !Number.isInteger(parseInt($("#quantity").val().trim()))) {
+                                        $("#selectErr").click();
+                                        $("#quantity").val(1);
+                                    } else {
+                                        $("#addCartModel").click();
+                                        $("#carNum").removeClass("sr-only");
+                                        $("#carNum")[0].innerText = parseInt($("#carNum")[0].innerText)+1;
+                                        $("#addCart").addClass("sr-only");
+                                        $("#addCartSuccess").removeClass("sr-only");
+                                        var url = "<%=hostPath%>/cart/add/<%=product.id%>";
+                                        var addCart = {
+                                            productID:"<%=product.id%>",
+                                            userID:"<%=user.id%>",
+                                            quantity:$("#quantity").val()
+                                        }
+                                        $.ajax({
+                                            url: url,
+                                            type: "POST",
+                                            data: JSON.stringify(addCart),
+                                            dataType: "json",
+                                            contentType: "application/json",
+                                        })
                                     }
-                                    $.ajax({
-                                        url: url,
-                                        type: "POST",
-                                        data: JSON.stringify(addCart),
-                                        dataType: "json",
-                                        contentType: "application/json",
-                                    })
-                                })
+                                });
                             </script>
                             <% } else { %>
-                            <div class="modal fade" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-notify modal-info" role="document">
+                                <div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
                                     <div class="modal-content">
                                         <div class="modal-header bg-warning">
                                             <p class="heading">Please Login 
@@ -255,8 +261,13 @@
                 </div>
             </div>
         </div>
+        <div class="card mb-5">
+            <h4 class="p-4 pt-5 pl-5">Ratings & Reviews </h4>
+            <h1></h1>
+        </div>
     </div>
     <div class="extra">
+        <button id="addCartModel" data-toggle="modal" data-target="#modalAbandonedCart"></button>
         <button type="button" id="selectErr" class="btn btn-primary sr-only" data-toggle="modal" data-target="#modalPush">Launch modal</button>
         <div class="modal fade" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-notify modal-info" role="document">

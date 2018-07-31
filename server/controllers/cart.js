@@ -4,7 +4,7 @@ exports.insert = (req, res) => {
     var cartData = {
         productID: req.params.id,
         quantity: req.body.quantity,
-        userID: req.user.id,
+        userID: req.session.passport.user.id,
     }
     models.Cart.find({where:{productID:req.params.id}}).then((existData)=>{
         if(existData){
@@ -13,6 +13,7 @@ exports.insert = (req, res) => {
             Cart.create(cartData)
         }
     });
+    res.status(200).send({message: "Add to cart successful"});
 };
 exports.show = (req, res) => {
     var user = req.session.passport.user;
