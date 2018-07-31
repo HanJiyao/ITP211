@@ -95,7 +95,7 @@
           <th>Product Description</th>
           <th>Quantity</th>
           <th>Price</th>
-          <th>discount_percentage price</th>
+          <th>Discounted Price</th>
         </tr>
         <% for(var i=0; i < itemList.length; i++){ %>
           <tr class="rowRecord" data-id="<%= itemList[i].id %>">
@@ -122,7 +122,7 @@
               <%= itemList[i].price %>
             </td>
             <td>
-              <%= itemList[i].discount_percentage %>
+              <%= itemList[i].discounted_price %>
             </td>
             <td>
               <input type="button" class="editBtn" value="Edit">
