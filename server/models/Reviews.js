@@ -50,7 +50,7 @@ module.exports=function(sequelize,Sequelize){
             id: 1,
             productID: 1,
             title: 'Great hard disk',
-            content: 'good quality',
+            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.',
             user_id: 1,
             rating: 4,
         });
