@@ -29,8 +29,7 @@ module.exports = function (sequelize, Sequelize) {
             allowNull: false,
         },
         discount:{
-            type: Sequelize.FLOAT(3,2),
-            allowNull: true,
+            type: Sequelize.FLOAT(3,2)
         },
         userID: {
             type: Sequelize.INTEGER,
