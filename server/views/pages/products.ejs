@@ -64,18 +64,10 @@
               </fieldset>
               <fieldset class="form-group">
                 <label for="discount_percentage"> discount_percentage: </label>
-                <select name = "discount_percentage" id="discount_percentage" required ="true">
-                    <option value = ""></option>
-                    <option value = 0.1 >10%</option>
-                    <option value = 0.2>20%</option>
-                    <option value = 0.3>30%</option>
-                    <option value= 0.4>40%</option>
-                    <option value= 0.5>50%</option>
-                    <option value = 0.6>60%</option>
-                    <option value = 0.7>70%</option>
-                    <option value= 0.8>80%</option>
-                    <option value = 0.9>90%</option>
-                  </select>
+                <fieldset class="form-group">
+                    <label for="discount_percentage"> discount_percentage: </label>
+                    <input type="text" id="inputdiscount_percentage" name="discount_percentage" class="form-control" placeholder="discount_percentage" required="true" value="<%=item.discount_percentage%>">
+                </fieldset>
             </fieldset>
             </div>
             <div class="modal-footer">
