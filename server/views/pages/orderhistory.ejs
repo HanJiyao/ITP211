@@ -74,12 +74,13 @@ h{
             
               <td><%=i+1%></td>
               <td><img src = "images/products/<%=orderhistory[i].dataValues.productImage %> " width="70px" height="70px"></td>
-              
-              <td><%= orderhistory[i].dataValues.orderDate %></td>
+              <td id="orderDate<%=i%>"></td>
+              <script>
+                  document.getElementById("orderDate<%=i%>").innerText = moment("<%=orderhistory[i].dataValues.orderDate%>","ddd MMM D").format("MMM Do YYYY");
+              </script>
               <td><%= orderhistory[i].dataValues.orderID %></td>
               <td><%= orderhistory[i].dataValues.productName %></td>
               <td><%= orderhistory[i].dataValues.productType %></td>
-              
               <td><%= orderhistory[i].dataValues.price %></td>
               <td><%= orderhistory[i].dataValues.quantity %></td>
             </tr>

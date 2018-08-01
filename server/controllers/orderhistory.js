@@ -5,8 +5,9 @@ exports.list=function(req,res){
     var cartNum = 0;
     models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
     //list all orders and sort by date
-    models.sequelize.query("select * from OrderDetails od inner join Products p on od.productID=p.id inner join Orders o on od.orderID=o.id", {model: models.OrderDetails})
+    models.sequelize.query("select *, od.quantity quantity from OrderDetails od inner join Products p on od.productID=p.id inner join Orders o on od.orderID=o.id", {model: models.OrderDetails})
     .then((orderhistory)=>{
+        console.log(orderhistory)
         res.render("orderhistory",{
             title:"Order History page",
             orderhistory:orderhistory,

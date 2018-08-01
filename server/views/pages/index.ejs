@@ -88,7 +88,7 @@
               box-shadow: 0 0 10px #f80;
             }
           </style>
-          <a class="col-lg-3 pb-4" href="<%=hostPath%>/product/<%=products[i].id%>"</a>
+          <a class="col-lg-3 pb-4" href="<%=hostPath%>/product/<%=products[i].id%>">
             <div class="card productCard">
               <div class="p-3">
                 <div class="prodImgContainer" 
@@ -102,7 +102,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="card-title mb-1"><%= products[i].productName %></div>
+                <h6 class="card-title mb-1 text-dark font-weight-normal"><%= products[i].productName %></h6>
                 <div class="card-text pb-2">
                   <%= products[i].productType %>
                 </div>

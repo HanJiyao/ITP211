@@ -5,14 +5,13 @@ module.exports = function (sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        seller_name: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            trim: true,
-        },
         productID: {
-            type: Sequelize.STRING,
-            allowNull: true,
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'Products',
+                key: 'id'
+            }
         },
         userID: {
             type: Sequelize.INTEGER,
@@ -22,19 +21,6 @@ module.exports = function (sequelize, Sequelize) {
                 key: 'id'
             }
         },
-        product_name: {
-            type: Sequelize.STRING
-        },
-        product_quantity: {
-            type: Sequelize.INTEGER
-        },
-        product_price: {
-            type: Sequelize.INTEGER
-        },
-        total_price: {
-            type: Sequelize.INTEGER
-        },
-
     });
     Wishlist.sync({
         force: false,

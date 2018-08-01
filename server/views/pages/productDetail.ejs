@@ -219,15 +219,65 @@
                                 <div class="col">Sorry, this item is temporarily unavailable</div>
                             </div>
                             <div class="row pb-5">
-                            <a class="col pr-0" href="#">
-                                <button disabled type="button" id="addCart" class="btn btn-light btn-block" style="font-size:1.2rem;-webkit-border-radius:10em!important;border-radius:10em!important;" data-toggle="modal" data-target="#modalAbandonedCart">
-                                    <i class="material-icons text-white pr-2" style="vertical-align:-10px;font-size:2rem;">add_shopping_cart</i> Add to Cart
-                                </button>
-                            </a>
+                                <a class="col pr-0" href="#">
+                                    <button disabled type="button" id="addCart" class="btn btn-light btn-block" style="font-size:1.2rem;-webkit-border-radius:10em!important;border-radius:10em!important;" data-toggle="modal" data-target="#modalAbandonedCart">
+                                        <i class="material-icons text-white pr-2" style="vertical-align:-10px;font-size:2rem;">add_shopping_cart</i> Add to Cart
+                                    </button>
+                                </a>
                         <% } %>
-                            <a class="col-3 text-center">
-                                <i class="material-icons text-light" style="vertical-align:-36px;font-size:3rem;">favorite</i>
-                            </a>
+                            <div class="col-2 pl-4">
+                                <%if(!wishlist){%>
+                                    <button class="text-center btn btn-white m-0 p-0" id="addWishList" style="height: 60px;width: 60px;border-radius: 50%;">
+                                        <i class="material-icons text-light" style="vertical-align:-36px;font-size:3rem;" id="wishIcon">favorite</i>
+                                    </button>
+                                    <script>
+                                        if("<%=user.id%>"!=""){
+                                            $("#addWishList").click(()=>{
+                                                $("#wishIcon").removeClass("text-light");
+                                                $("#wishIcon").addClass("text-danger");
+                                                $("#addWishList").attr("disabled", "true");
+                                                $.ajax({
+                                                    url: '<%=hostPath%>/wishlistmanager/<%=product.id%>',
+                                                    type: 'POST',
+                                                    success: (result)=>{
+                                                        console.log("success")
+                                                    },
+                                                    error: (result)=>{
+                                                        alert("Unable to add to wishlist.");
+                                                    }
+                                                })
+                                            });
+                                        } else {
+                                            $("#addWishList").click(()=>{$("#loginErr").click()})
+                                        }
+                                    </script>
+                                <%}else{%>
+                                    <button class="text-center btn btn-white m-0 p-0" id="addWishList" style="height: 60px;width: 60px;border-radius: 50%;">
+                                        <i class="material-icons text-danger" style="vertical-align:-36px;font-size:3rem;" id="wishIcon">favorite</i>
+                                    </button>
+                                    <script>
+                                        if("<%=user.id%>"!=""){
+                                            $("#addWishList").click(()=>{
+                                                $("#wishIcon").removeClass("text-danger");
+                                                $("#wishIcon").addClass("text-light");
+                                                $("#addWishList").attr("disabled", "true");
+                                                $.ajax({
+                                                    url: '<%=hostPath%>/wishlistmanager/<%=wishlist%>',
+                                                    type: 'DELETE',
+                                                    success: (result)=>{
+                                                        console.log("del success")
+                                                    },
+                                                    error: (result)=>{
+                                                        alert("Unable to delete from wishlist.");
+                                                    }
+                                                })
+                                            });
+                                        } else {
+                                            $("#addWishList").click(()=>{$("#loginErr").click()})
+                                        }
+                                    </script>
+                                <%}%>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -340,7 +390,6 @@
                 $("#progressStar3").css("width", star3/parseFloat("<%=product.reviewCount%>")*100+"%");
                 $("#progressStar4").css("width", star4/parseFloat("<%=product.reviewCount%>")*100+"%");
                 $("#progressStar5").css("width", star5/parseFloat("<%=product.reviewCount%>")*100+"%");
-
                 document.getElementById("reviewDate<%=i%>").innerText = moment("<%=reviews[i].dataValues.created%>","ddd MMM D").format("MMM Do YYYY");
             </script>
             <%}%>
@@ -383,8 +432,8 @@
                                     <i class="fa fa-sign-in fa-2x text-warning"></i>
                                 </p>
                             </div>
-                            <div class="col-9 text-center pt-1">
-                                <p>Please login first then save to your cart</p>
+                            <div class="col-9 pt-1">
+                                <p>Please login first</p>
                             </div>
                         </div>
                     </div>
