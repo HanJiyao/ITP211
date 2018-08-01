@@ -33,7 +33,7 @@
                                 <div class="form-group">
                                     <fieldset class="form-group">
                                         <label for="cardType">Card Type</label>
-                                        <select class="form-control" id="cardType" name="cardType" placeholder="" required="true">
+                                        <select class="form-control" id="cardType" name="cardType" placeholder="" required="true" value="<%=item.cardType%>">
                                             <option value=""></option>
                                             <option value="Visa">Visa</option>
                                             <option value="MasterCard">MasterCard</option>
@@ -56,7 +56,7 @@
                                         <input type="text" id="expiryDate" name="expiryDate" class="form-control" placeholder="" required="true" value="<%=item.expiryDate%>">
                                     </fieldset>
                                 </div>
-                                <button type="button" class="btn btn-success btn-lg" onclick="saveDetails()">Save Changes</button>
+                                <button type="button" class="btn btn-success btn-lg" onclick="validate()">Save Changes</button>
                                 <a href="/payment">
                                     <button type="button" class="btn btn-secondary btn-lg">
                                     Back to my payment
@@ -70,6 +70,31 @@
             </form>
     </div>
     <script>
+        function validate() {
+            empty();
+            checkCardType();
+        };
+        function checkCardType() {
+            var cardType = $("#cardType").val();
+            if (cardType==null || cardType=="") {
+                alert("Card Type is not selected!");
+            }
+            else {
+                saveDetails();
+            }
+        };
+        function empty() {
+            var cardHolderName = $("#cardHolderName").val();
+            var cardNumber = $("#cardNumber").val();
+            var securityCode = $("#securityCode").val();
+            var expiryDate = $("#expiryDate").val();
+            if (cardHolderName=="", cardNumber=="", securityCode=="", expiryDate=="") {
+                alert("One or more fields is empty!");
+            }
+            else {
+                saveDetails();
+            }
+        };
         function saveDetails() {
             var url = "<%=hostPath%>/payment/editDetails/<%=item.id%>";
             var newDetails = {
@@ -78,10 +103,6 @@
                 cardType: $("#cardType").val(),
                 securityCode: $("#securityCode").val(),
                 expiryDate: $("#expiryDate").val()
-            }
-            var cardType = $("#cardType").val();
-            if (cardType==null || cardType=="") {
-                alert("Card Type is not selected!");
             }
             $.ajax({
                 url: url,
@@ -98,10 +119,10 @@
                     cancel();
                 }
             })
-        }
+        };
         function cancel() {
             location.href = "<%=hostPath%>/payment"
-        }
+        };
     </script>
     <% include ../partials/footer %>
 </body>
