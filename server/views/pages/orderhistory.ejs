@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- load jQuery and tablesorter scripts -->
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="tablesorter/js/jquery.tablesorter.js"></script>
-<script>
-    $("#myTable").tablesorter();
-</script>
     <title><%= title %></title>
 </head>
 <style>
@@ -44,8 +38,12 @@ h{
 </script>
 <body>
     <% include ../partials/header %>
-    
-    <h>Order History(Transactions)</h> <div class="dropdown">
+<script>
+    $(function () {
+        $("#myTable").tablesorter();
+    });
+</script>
+    <h>Order History</h> <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort by:
         <span class="caret"></span></button>
         <ul class="dropdown-menu">

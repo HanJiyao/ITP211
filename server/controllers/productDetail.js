@@ -15,15 +15,16 @@ exports.show = function (req, res) {
         group by productImage, productName, quantity, price, p.id, productType, productDesc, u.username',
         { model: models.Products }).then((product)=>{
             models.sequelize.query(
-            'select created, user_id userID, title, content, rating, email\
+            "select created, user_id userID, title, content, rating, email, first_name, last_name\
             from Reviews r\
             join Products p on p.id = r.productID\
             join Users u on u.id = r.user_id\
-            where p.id ='+id, 
+            where p.id ="+id, 
             { model: models.Reviews }).then((reviews)=>{
+                console.log(reviews);
                 var reviewsAvatars = [];
                 for (var i=0;i<reviews.length;i++){
-                    reviewsAvatars.push(require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true))
+                    reviewsAvatars.push(require('gravatar').url(reviews[i].dataValues.email, { s: '60', r: 'x', d: 'retro' }, true))
                 }
                 models.Cart.findAll({where:{userID:user.id}}).then((cartData)=>{
                 res.render('productDetail', {
