@@ -115,12 +115,17 @@
             <td>
               <%= itemList[i].quantity %>
             </td>
-            <td>
+            <td id ="original_price<%=i%>"> 
+            </td>
+            <td id ="discounted_price<%=i%>">
               <%= itemList[i].price %>
             </td>
-            <td>
-              <%= itemList[i].discounted_price %>
-            </td>
+            <script>
+            var original_price = 0;
+            var discounted_price = document.getElementById("discounted_price<%=i%>").innerText;
+            original_price =  parseFloat (discounted_price) / (1 - parseFloat("<%= itemList[i].discount_percentage %>") );
+            document.getElementById("original_price<%=i%>").innerText = original_price 
+            </script>
             <td>
               <input type="button" class="editBtn" value="Edit">
               <input type="button" class="deleteBtn"  value="Delete">

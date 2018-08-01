@@ -46,11 +46,11 @@
         </fieldset>
         <fieldset class="form-group">
             <label for="inputPrice">Price: </label>
-            <input type="text" id="inputPrice" name="price" class="form-control" placeholder="price" required="true" value="<%=item.price%>">
+            <input type="text" id="inputPrice" name="price" class="form-control" placeholder="price" required="true" value="<%=item.price/(1-item.discount_percentage)%>">
         </fieldset>
         <fieldset class="form-group">
-            <label for="discount_percentage"> discount_percentage: </label>
-            <input type="text" id="inputdiscount_percentage" name="discount_percentage" class="form-control" placeholder="discount_percentage" required="true" value="<%=item.discount_percentage%>">
+            <label for="discount_percentage"> discount: </label>
+            <input type="text" id="inputdiscount_percentage" name="discount_percentage" class="form-control" placeholder="discount_percentage" required="true" value="<%=item.discount_percentage * 100%>">
         </fieldset>
     </form>
     <div class="modal-footer">
