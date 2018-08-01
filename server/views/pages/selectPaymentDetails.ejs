@@ -7,9 +7,9 @@
     <% include ../partials/header %>
     <div class="container mt-5">
         <div class="card pl-3 pr-3">
-        <div class="p-5 text-left m-md-5">
+        <div class="p-5 text-center m-md-5">
             <h1 class="font-weight-light mt-3 mb-5">
-                Select Payment Card For Top Up
+                <strong>Select Payment Card For Top Up</strong>
             </h1>
         <% if (itemList.length!=0) {%>
         <div class="row bg-primary text-white pt-4/pb-4 font-weight-bold">
@@ -62,8 +62,8 @@
             </div>
         </div>
         <% } %>
-        <a href="/Wallet/topup">
-            <button type="button" class="btn btn-success btn-lg">
+        <a>
+            <button id="proceed" type="button" class="btn btn-success btn-lg">
             Proceed To Top Up
             </button>
         </a>
@@ -76,7 +76,15 @@
         </div>
     </div>
     <script>
-        
+        $("#proceed").click(function () {
+            if ($("#checkThis").is(':checked')) {
+                window.location.href= "/Wallet/topup";
+            }
+            else {
+                alert("Please select a card to top up from!");
+                // window.location.href= "/payment/select";
+            }
+        });
     </script>
     <% include ../partials/footer %>
 </body>

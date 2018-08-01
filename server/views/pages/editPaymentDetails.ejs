@@ -79,6 +79,10 @@
                 securityCode: $("#securityCode").val(),
                 expiryDate: $("#expiryDate").val()
             }
+            var cardType = $("#cardType").val();
+            if (cardType==null || cardType=="") {
+                alert("Card Type is not selected!");
+            }
             $.ajax({
                 url: url,
                 type: "POST",

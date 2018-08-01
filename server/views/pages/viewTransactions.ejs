@@ -11,6 +11,65 @@
             <h1 class="font-weight-light mt-3 mb-5">
                 <strong>My Transaction History</strong>
             </h1>
+        <% if (itemList.length!=0) {%>
+        <div class="row bg-secondary text-white pt-4/pb-4 font-weight-bold">
+            <div class="col-2">
+                Date Of Transaction
+            </div>
+            <div class="col-2">
+                Payment Made To
+            </div>
+            <div class="col-2">
+                Payment Received From
+            </div>
+            <div class="col-3">
+                Description
+            </div>
+            <div class="col-1">
+                Debit
+            </div>
+            <div class="col-1">
+                Credit
+            </div>
+            <div class="col-1">
+                Balance
+            </div>
+        </div>
+        <%} else {%>
+            <div class="row pt-3 pb-3 mb-5 text justify-content-center">
+                <h2 class="p-3">You do not have any transactions with your wallet</h2>
+            </div>    
+        <% } %>
+        <% for(var i=0; i < itemList.length; i++){ %>
+        <div class="row pt-3 pb-4" id="<%= itemList[i].id %>">
+            <div class="col-2">
+                <%= itemList[i].transactionDate %>
+            </div>
+            <div class="col-2">
+                <%= itemList[i].paymentMadeTo %>
+            </div>
+            <div class="col-2">
+                <%= itemList[i].paymentReceivedFrom %>
+            </div>
+            <div class="col-3">
+                <%= itemList[i].description %>
+            </div>
+            <div class="col-1">
+                <%= itemList[i].debit %>
+            </div>
+            <div class="col-1">
+                <%= itemList[i].credit %>
+            </div>
+            <div class="col-1">
+                <%= itemList[i].balance %>
+            </div>
+        </div>
+        <% } %>
+        <a href="/Wallet">
+            <button type="button" class="btn btn-info btn-lg">
+            Return To My Wallet
+            </button>
+        </a>
         </div>    
         </div>
     </div>
