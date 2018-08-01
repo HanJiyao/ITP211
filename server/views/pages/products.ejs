@@ -26,11 +26,11 @@
             </div>
             <div class="modal-body">
               <fieldset class = "form-group">
-                <label for ="productImage">Product Image</label>
+                <label for ="productImage">Product Image: </label>
                 <input type = "file" id ="productImage" name = "productImage">
               </fieldset>
               <fieldset class="form-group">
-                <label for="productName">Product Name</label>
+                <label for="productName">Product Name: </label>
                 <input type="text" id="productName" name="productName" class="form-control" placeholder="Product Name" required="true">
               </fieldset>
               <fieldset class="form-group">
@@ -51,15 +51,15 @@
                     </select>
               </fieldset>
               <fieldset class="form-group">
-                <label for="productDesc">Product Description</label>
+                <label for="productDesc">Product Description: </label>
                 <input type="text" id="productDesc" name="productDesc" class="form-control" placeholder="Product Description" required="true">
               </fieldset>
               <fieldset class="form-group">
-                <label for="quantity">Quantity</label>
+                <label for="quantity">Quantity: </label>
                 <input type="text" id="quantity" name="quantity" class="form-control" placeholder="Quantity" required="true">
               </fieldset>
               <fieldset>
-                <label for ="price">Price</label>
+                <label for ="price">Price: </label>
                 <input type = "text" id = "price" name ="price" class ="form-control" placeholder="Price"  required= "true">
               </fieldset>
               <fieldset class="form-group">
@@ -98,7 +98,7 @@
           <th>Price</th>
           <th>Discounted Price</th>
         </tr>
-        <% for(var i=0; i < itemList.length; i++){ %>
+        <% for(var i=0; i < itemList.length; i++){
           <tr class="rowRecord" data-id="<%= itemList[i].id %>">
             <td>
               <%=i+1%>
@@ -130,7 +130,7 @@
               <input type="button" class="deleteBtn"  value="Delete">
             </td>
           </tr>
-        <% } %>
+        } %>
       </thread>
     </table>
     <script>
@@ -150,7 +150,7 @@
             window.location.href="/productsmanager"
           },
           error: function (result) {
-            alert("Unable to delete student record.");
+            alert("Unable to delete product.");
             console.log(result.message);
           }
         });
