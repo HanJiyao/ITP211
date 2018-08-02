@@ -77,12 +77,13 @@
     </div>
     <script>
         $("#proceed").click(function () {
-            if ($("#checkThis").is(':checked')) {
+            var checked = $("#checkThis").is(':checked');
+            console.log(checked);
+            if ($("#checkThis").is(':checked') == true) {
                 window.location.href= "/Wallet/topup";
             }
             else {
                 alert("Please select a card to top up from!");
-                // window.location.href= "/payment/select";
             }
         });
     </script>
