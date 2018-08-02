@@ -34,15 +34,24 @@
                                     <fieldset class="form-group">
                                         <label for="cardType">Card Type</label>
                                         <select class="form-control" id="cardType" name="cardType" placeholder="" required="true" value="<%=item.cardType%>">
-                                            <option value=""></option>
-                                            <option value="Visa">Visa</option>
-                                            <option value="MasterCard">MasterCard</option>
-                                            <option value="JCB">JCB</option>
-                                            <option value="Diners Club">Diners Club</option>
-                                            <option value="Discover">Discover</option>
-                                            <option value="American Express">American Express</option>
+                                            <option class="cardTypeOption" value=""></option>
+                                            <option class="cardTypeOption" value="Visa">Visa</option>
+                                            <option class="cardTypeOption" value="MasterCard">MasterCard</option>
+                                            <option class="cardTypeOption" value="JCB">JCB</option>
+                                            <option class="cardTypeOption" value="Diners Club">Diners Club</option>
+                                            <option class="cardTypeOption" value="Discover">Discover</option>
+                                            <option class="cardTypeOption" value="American Express">American Express</option>
                                         </select>
                                     </fieldset>
+                                    <script>
+                                        for (var i=0;i<$(".cardTypeOption").length;i++){
+                                            var cardTypeOption = document.getElementsByClassName("cardTypeOption")
+                                            var selected = (cardTypeOption[i].value=="<%=item.cardType%>")?"selected":false;
+                                            console.log(selected);
+                                            console.log(cardTypeOption[i]);
+                                            $(cardTypeOption[i]).attr("selected", selected)
+                                        }
+                                    </script>
                                 </div>
                                 <div class="form-group">
                                     <fieldset class="form-group">
@@ -71,25 +80,16 @@
     </div>
     <script>
         function validate() {
-            empty();
-            checkCardType();
-        };
-        function checkCardType() {
-            var cardType = $("#cardType").val();
-            if (cardType==null || cardType=="") {
-                alert("Card Type is not selected!");
-            }
-            else {
-                saveDetails();
-            }
-        };
-        function empty() {
             var cardHolderName = $("#cardHolderName").val();
             var cardNumber = $("#cardNumber").val();
             var securityCode = $("#securityCode").val();
             var expiryDate = $("#expiryDate").val();
-            if (cardHolderName=="", cardNumber=="", securityCode=="", expiryDate=="") {
+            var cardType = $("#cardType").val();
+            if (cardHolderName=="" || cardNumber==""||securityCode==""|| expiryDate=="") {
                 alert("One or more fields is empty!");
+            }
+            else if (cardType==null || cardType=="") {
+                alert("Card Type is not selected!");
             }
             else {
                 saveDetails();

@@ -42,9 +42,12 @@
         <% } %>
         <% for(var i=0; i < itemList.length; i++){ %>
         <div class="row pt-3 pb-4" id="<%= itemList[i].id %>">
-            <div class="col-2">
+            <div class="col-2" id="transactionDate<%=i%>">
                 <%= itemList[i].transactionDate %>
             </div>
+            <script>
+                document.getElementById("transactionDate<%=i%>").innerText = moment(new Date("<%= itemList[i].transactionDate %>")).format("ddd DD MMM YYYY HH:mm:ss");
+            </script>
             <div class="col-2">
                 <%= itemList[i].paymentMadeTo %>
             </div>

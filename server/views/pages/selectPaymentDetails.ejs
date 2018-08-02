@@ -41,7 +41,7 @@
         <div class="row pt-3 pb-4" id="<%= itemList[i].id %>">
             <div class="col-md-1">
                 <div class="form-check ml-md-4">
-                    <input type="radio" name="checkThis" class="form-check-input" id="checkThis">
+                    <input type="radio" name="checkThis" class="form-check-input checkThis">
                     <label class="form-check-label" for="checkThis"></label>
                 </div>
             </div>
@@ -77,9 +77,9 @@
     </div>
     <script>
         $("#proceed").click(function () {
-            var checked = $("#checkThis").is(':checked');
+            var checked = $(".checkThis").is(':checked');
             console.log(checked);
-            if ($("#checkThis").is(':checked') == true) {
+            if ($(".checkThis").is(':checked') == true) {
                 window.location.href= "/Wallet/topup";
             }
             else {

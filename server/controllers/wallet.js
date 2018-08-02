@@ -81,14 +81,22 @@ exports.update = function (req,res) {
         var updateBalance = {
             balance: newBalance
         }
+        var updateTransaction = {
+            description: "Top Up",
+            credit: balance_num,
+            balance: newBalance,
+            userID: req.session.passport.user.id
+        }
         console.log(newBalance,currBalance, balance_num);
-        walletModel.update(updateBalance, {where: {id: user.id}}).then((updatedBalance)=> {
-            if (!updateBalance || updateBalance==0) {
-                return res.send(400, {
-                    message: "error"
-                });
-            }
-            res.status(200).send({message: "Updated Balance: " + balance_num});
+        walletModel.update(updateBalance, {where: {id: user.id}}).then(async (updatedBalanceData)=> {
+            await models.Transactions.create(updateTransaction).then(()=>{
+                if (!updatedBalanceData || updatedBalanceData == 0) {
+                    return res.send(400, {
+                        message: "error"
+                    });
+                };
+                res.status(200).send({message: "Updated Balance: " + balance_num});
+            })
         })
     });
 };
