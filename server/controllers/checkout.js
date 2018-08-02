@@ -44,7 +44,6 @@ exports.checkout = (req,res) => {
             let productPrice = parseFloat(cartData[i].dataValues.price * cartData[i].dataValues.quantity);
             var newSellerBalance = 0;
             await models.Wallet.find({ where: { userID: sellerID } }).then(async (sellerWallet)=>{
-                console.log(sellerWallet.balance)
                 newSellerBalance = parseFloat(sellerWallet.balance)+productPrice
                 await models.Wallet.update({balance:newSellerBalance}, { where: { userID:sellerID }}).then(()=>{
                     models.Products.update({ quantity:quantity }, { where: { id: productID }})
@@ -52,29 +51,30 @@ exports.checkout = (req,res) => {
             })
             totalPrice += productPrice;
         }
-        models.Orders.create({userID:user.id, totalPrice: totalPrice}).then((orderData)=>{
+        var newUserBalance = 0;
+        await models.Wallet.find({ where: { userID: user.id } }).then((userWallet)=>{
+            newUserBalance = userWallet.balance-totalPrice;
+            models.Wallet.update({balance:newUserBalance},{ where: { userID: user.id }});
+        })
+        await models.Orders.create({userID:user.id, totalPrice: totalPrice}).then(async (orderData)=>{
             for (var i = 0; i < cartData.length; i++) {
                 let productID = cartData[i].dataValues.productID;
                 let orderQuantity = cartData[i].dataValues.quantity;
                 let productPrice = parseFloat(cartData[i].dataValues.price * cartData[i].dataValues.quantity);
-                models.OrderDetails.create({
-                    orderID:orderData.id,
-                    productID:productID,
-                    quantity:orderQuantity,
-                    price:productPrice,
+                await models.Products.findById(productID).then((product)=>{
+                        models.OrderDetails.create({
+                        orderID:orderData.id,
+                        productID:productID,
+                        quantity:orderQuantity,
+                        price:productPrice,
+                        sellerID:product.userID
+                    })
                 })
                 models.Cart.destroy({where:{id:cartData[i].dataValues.id}})
-                res.status(200).send({message: "Check Out Successful on Order : ", orderID:orderData.id});
-            }
-            
+            };
+            res.status(200).send({message: "Check Out Successful on Order : ", orderID:orderData.id});
         });
-        var newUserBalance = 0;
-        models.Wallet.find({ where: { userID: user.id } }).then((userWallet)=>{
-            newUserBalance = userWallet.balance-totalPrice;
-            models.Wallet.update({balance:newUserBalance},{ where: { userID: user.id }});
-        })
-    })
-    
+    });
 };
 exports.success = (req, res) => {
     var user = req.session.passport.user;
@@ -83,7 +83,7 @@ exports.success = (req, res) => {
     .then((orderData) => {
         models.Users.findById(user.id)
         .then((userData)=>{
-            res.render("checkOutSuccess", {
+            res.status(200).render("checkOutSuccess", {
                 title: "Check Out Success",
                 orderData: orderData,
                 userData: userData,

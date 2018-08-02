@@ -9,7 +9,11 @@ module.exports = function (sequelize, Sequelize) {
             defaultValue: 0,
             type: Sequelize.FLOAT(10, 2),
         },
-        //need any other attributes?
+        // topUpDate: {
+        //     type: Sequelize.DATE,
+        //     defaultValue: Sequelize.NOW,
+        //     allowNull: false,
+        // },
         userID: {
             type: Sequelize.INTEGER,
             allowNull: false,

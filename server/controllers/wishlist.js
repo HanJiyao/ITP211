@@ -1,43 +1,28 @@
 var models = require("../models");
-var wishlistModel = models.Wishlist;
 exports.insert = function(req, res){
     var Wishlistdata={
-        seller_name:req.body.seller_name,
-        product_name:req.body.product_name,
-        product_quantity:req.body.product_quantity,
-        product_price:req.body.product_price,
-        total_price:req.body.total_price,
-        seller_name:req.body.seller_name,
-        created:req.body.created,
         userID:req.session.passport.user.id,
-        productID:req.body.productID
+        productID:req.params.id
     }
-    wishlistModel.create(Wishlistdata).then((newWishlist,created)=>{
+    models.Wishlist.create(Wishlistdata).then((newWishlist)=>{
         if (!newWishlist){
             return res.send(400,{
                 message:"error"
             });
         }
-        res.redirect("/wishlistmanager");
+        res.status(200).send({message:"add wishlist success"})
     })
 };
-   
-    
 exports.list = function(req, res){
     var user = req.session.passport.user;
-    // get cart num
     var cartNum = 0;
-    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
-        model: models.Cart
-    }).then((data) => {
-        cartNum = data[0].dataValues.cartNum
-    });
-    wishlistModel.findAll({where:{userID:user.id}})
-    .then(function(wishlist){
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
+    models.sequelize.query('select * from Products p join Wishlists w on p.id = w.productID', {model: models.Products})
+    .then((products)=>{
         res.render("wishlist", {
             title: "View Wishlist",
-            itemList: wishlist,
-            urlPath: req.protocol + "://" + req.get("host") +"/wishlistmanager"+ req.url,
+            products: products,
+            hostPath: req.protocol + "://" + req.get("host"),
             user: user,
             cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
@@ -48,50 +33,10 @@ exports.list = function(req, res){
         });
     });
 };
-exports.editRecord = function(req, res){
-    var user = req.session.passport.user;
-    var record_num = req.params.id;
-    wishlistModel.findById(record_num).then(function(wishlistRecords){
-        res.render("editWishlist", {
-            title: "Edit Wishlist",
-            item: wishlistRecords,
-            hostPath: req.protocol + "://" + req.get("host"),
-            user: user,
-            cartNum: cartNum,
-            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
-        });
-    }).catch((err)=> {
-        return res.status(400).send({
-            message: err
-        });
-    });
-};  
-exports.update = function(req, res){
-    var record_num = req.params.id; 
-    var Updatedata={
-        id:req.body.id,
-        seller_name:req.body.seller_name,
-        product_name:req.body.product_name,
-        product_quantity:req.body.product_quantity,
-        product_price:req.body.product_price,
-        total_price:req.body.total_price,
-        seller_name:req.body.seller_name,
-        created:req.body.created,
-        productID:req.body.productID,
-    }
-    wishlistModel.update(UpdateData, {where: {id: record_num}}).then((updatedWishlist)=> {
-        if (!updatedWishlist || updatedWishlist==0){
-            return res.send(400, {
-                message: "error"
-            });   
-        }
-        res.status(200).send({message: "Updated Wishlist Record: " + record_num});
-    })
-};
 exports.delete = function(req, res){
     var record_num = req.params.id;
     console.log("deleting" + record_num);
-    wishlistModel.destroy({where: { id: record_num}}).then((deleteRecord)=>{
+    models.Wishlist.destroy({where: { id: record_num}}).then((deleteRecord)=>{
         if (!deleteRecord){
             return res.send(400, {
                 message: "error"

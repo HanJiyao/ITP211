@@ -88,7 +88,7 @@
               box-shadow: 0 0 10px #f80;
             }
           </style>
-          <a class="col-lg-3 pb-4" href="<%=hostPath%>/product/<%=products[i].id%>"</a>
+          <a class="col-lg-3 pb-4" href="<%=hostPath%>/product/<%=products[i].id%>">
             <div class="card productCard">
               <div class="p-3">
                 <div class="prodImgContainer" 
@@ -102,7 +102,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="card-title mb-1"><%= products[i].productName %></div>
+                <h6 class="card-title mb-1 text-dark font-weight-normal"><%= products[i].productName %></h6>
                 <div class="card-text pb-2">
                   <%= products[i].productType %>
                 </div>
@@ -112,12 +112,10 @@
                 <div class="card-text">
                   <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= products[i].userID %>
                 </div>
-                <div class="card-text pt-3">
-                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
-                  <i class="material-icons text-warning" style="font-size: 1rem">star</i>
+                <div class="card-text pt-3 grey-text">
+                  <% for (var j=0;j<products[i].dataValues.rating;j++) {%> 
+                    <i class="material-icons text-warning" style="font-size: 1rem;vertical-align: -3px;">star</i>
+                  <% } %> (<%=products[i].dataValues.reviewCount%>)
                 </div>
               </div>
             </div>

@@ -76,6 +76,8 @@ var paymentRouter = require('./server/routes/payment');
 app.use("/payment", paymentRouter)
 var walletRouter = require('./server/routes/wallet');
 app.use("/Wallet", walletRouter)
+var transactionsRouter = require('./server/routes/transactions');
+app.use("/transactions", transactionsRouter)
 //reviews routing 
 var reviewsRouter = require("./server/routes/reviews");
 app.use("/reviews", reviewsRouter) 

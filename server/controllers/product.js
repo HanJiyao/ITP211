@@ -4,13 +4,17 @@ var fs = require('fs');
 var mime = require('mime');
 var image_type = ['image/jpg','image/jpeg', 'image/png'];
 exports.insert = function(req, res){
+    var original_price = req.body.price;
+    var discount_percentage = req.body.discount_percentage/100;
+    var discounted_price = original_price * (1 - discount_percentage);
     var productData ={
         productImage: req.file.originalname,
         productName: req.body.productName,
         productType: req.body.productType,
         productDesc: req.body.productDesc,
         quantity: req.body.quantity,
-        price: req.body.price,
+        price: discounted_price,
+        discount_percentage:discount_percentage,
         userID:req.session.passport.user.id
     }
     var src;
@@ -54,11 +58,7 @@ exports.list = function(req, res){
     var user = req.session.passport.user;
     // get cart num
     var cartNum = 0;
-    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {
-        model: models.Cart
-    }).then((data) => {
-        cartNum = data[0].dataValues.cartNum
-    });
+    models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
     productModel.findAll({where:{userID:user.id}})
     .then(function(products){
         res.render("products", {
@@ -102,13 +102,18 @@ exports.editRecord = function(req, res){
 };  
 exports.update = function(req, res){
     var record_num = req.params.id; 
+    var original_price = req.body.price;
+    var discount_percentage = req.body.discount_percentage/100;
+    var discounted_price = original_price * (1 - discount_percentage);
     var updateData ={
         productImage: req.file.originalname,
         productName: req.body.productName,
         productType: req.body.productType,
         productDesc: req.body.productDesc,
         quantity: req.body.quantity,
-        price: req.body.price
+        price: discounted_price,
+        discount_percentage:discount_percentage,
+        userID:req.session.passport.user.id
     }
     var src;
     var dest;

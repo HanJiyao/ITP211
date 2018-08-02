@@ -21,6 +21,14 @@ module.exports = function (sequelize, Sequelize) {
                 key: 'id'
             }
         },
+        sellerID:{
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'Users',
+                key: 'id'
+            }
+        },
         quantity: {
             type: Sequelize.INTEGER,
             allowNull: false,

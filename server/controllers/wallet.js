@@ -30,6 +30,7 @@ exports.view = (req,res) => {
 exports.insert = function (req,res) {
     var walletData = {
         balance: req.body.balance,
+        // topUpDate: req.body.topUpDate,
         userID: req.session.passport.user.id
     }
     walletModel.view(walletData).then((newWalletData) => {

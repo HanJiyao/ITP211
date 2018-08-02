@@ -1,66 +1,119 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <style>
+    #productTable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+  .tablesorter-header{
+    cursor: pointer;
+  }
+  #productTable td, #productTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+    vertical-align: inherit;
+  }
+  #productTable th{
+    background-color:#ffce99;
+    color: #000000;
+  }
+  #productTable tr:nth-child(even){
+    background-color: #f2f2f2;
+  }
+  #productTable tr:hover {
+    background-color: #ddd;
+  }
+  
+  h{
+    text-align: right;
+    font-size:  40px;
+  }
+  #newProduct {
+    background-color:#fff3e0;
+    color: #000000;
+  }
+  #content, #productImage{
+        margin-left: 10px;
+    }
+
+  </style>
   <title>
     <%= title %>
   </title>
 </head>
 <body>
   <% include ../partials/header %>
-  <div class="container">
+  <div class="">
     <div class="col-lg-12">
-      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createStudent">
+      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createProduct">
         New Product
       </button>
     </div>
-    <div class="modal fade" id="createStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form action="/productsmanager/new" method="post" enctype="multipart/form-data">
+          <form id = "newProduct" action="/productsmanager/new" method="post" enctype="multipart/form-data">
             <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">Create New Product</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title" id="myModalLabel">Create New Product</h4>
             </div>
             <div class="modal-body">
               <fieldset class = "form-group">
-                <label for ="productImage">Product Image</label>
+                <label for ="productImage" id="content">Product Image: </label>
                 <input type = "file" id ="productImage" name = "productImage">
               </fieldset>
-              <fieldset class="form-group">
-                <label for="productName">Product Name</label>
+              <fieldset class="form-group" id="content">
+                <label for="productName">Product Name: </label>
                 <input type="text" id="productName" name="productName" class="form-control" placeholder="Product Name" required="true">
               </fieldset>
-              <fieldset class="form-group">
+              <fieldset class="form-group" id="content">
                   <label for="inputType"> Product Type: </label>
                   <select name = "productType" id="productType" required ="true">
                       <option value = ""></option>
+                      <option value = "Processor">Processors</option>
+                      <option value="Memory">Memory</option>
+                      <option value = "MotherBoard">MotherBoard</option>
+                      <option value="Graphic Card">Graphic Card</option>
+                      <option value="Fans & Cooling">Fans & Cooling</option>
+                      <option value = "Power Supplies">Power Supplies</option>
+                      <option value = "Computer Case">Computer Case</option>
                       <option value = "Storage" >Storage</option>
                       <option value = "Optical Drive">Optical Drive</option>
-                      <option value = "MotherBoard">MotherBoard</option>
-                      <option value="Memory">Memory</option>
-                      <option value="Graphic Card">Graphic Card</option>
-                      <option value = "Processor">Processor</option>
                       <option value = "Mouse">Mouse</option>
                       <option value="Keyboard">Keyboard</option>
                       <option value = "Monitor">Monitor</option>
-                      <option value = "Computer Case">Computer Case</option>
-                      <option value = "Power Supplies">Power Supplies</option>
                     </select>
               </fieldset>
-              <fieldset class="form-group">
-                <label for="productDesc">Product Description</label>
+              <fieldset class="form-group" id="content">
+                <label for="productDesc">Product Description: </label>
                 <input type="text" id="productDesc" name="productDesc" class="form-control" placeholder="Product Description" required="true">
               </fieldset>
-              <fieldset class="form-group">
-                <label for="quantity">Quantity</label>
-                <input type="text" id="quantity" name="quantity" class="form-control" placeholder="Quantity" required="true">
+              <fieldset class="form-group" id="content">
+                <label for="quantity">Quantity: </label>
+                <input type="number" min="1" id="quantity" name="quantity" class="form-control" placeholder="Quantity" required="true">
               </fieldset>
-              <fieldset>
-                <label for ="price">Price</label>
-                <input type = "text" id = "price" name ="price" class ="form-control" placeholder="Price"  required= "true">
+              <fieldset class="form-group" id="content">
+                <label for ="price">Price: </label>
+                <input type = "number" min="0" id = "price" name ="price" class ="form-control" placeholder="Price"  required= "true">
               </fieldset>
+              <fieldset class="form-group pt-3" id="content">
+                <div class="row">
+                  <div class="col-3">
+                    <label for="discount_percentage"> Discount: </label>
+                  </div>
+                   <input class="col-2 form-control" type="number" max="99" min="0" id="inputdiscount_percentage" name="discount_percentage" class="form-control" required="true" style="position: relative;top:-8px">
+                  <div class="col-1">
+                    <div >%</div>
+                  </div>
+                </div>
+            </fieldset>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -70,47 +123,57 @@
         </div>
       </div>
     </div>
-    <table class="table">
+    <table class="table" id= "productTable">
       <thread>
-        <tr>
+        <tr class = "text-center">
           <th>S/N</th>
           <th>Product Image</th>
           <th>Product Name</th>
           <th>Product Type</th>
           <th>Product Description</th>
           <th>Quantity</th>
-          <th>Price</th>
+          <th>Price ($)</th>
+          <th>Discounted Price ($)</th>
+          <th></th>
         </tr>
-        <% for(var i=0; i < itemList.length; i++){ %>
+        <% for(var i=0; i < itemList.length; i++){%>
           <tr class="rowRecord" data-id="<%= itemList[i].id %>">
-            <td>
+            <td class="text-center">
               <%=i+1%>
             </td>
-            <td>
+            <td class = "text-center">
               <img src = "images/products/<%=itemList[i].productImage %>" 
               class="figure-img img-fluid img-rounded" alt="<%= itemList[i].productName %>" width="70px" height="70px">
             </td>
-            <td>
+            <td class = "text-center">
               <%= itemList[i].productName %>
             </td>
-            <td>
+            <td class = "text-center">
               <%= itemList[i].productType %>
             </td>
-            <td>
+            <td class = "text-center">
               <%=itemList[i].productDesc %>
             </td>
-            <td>
+            <td class = "text-center">
               <%= itemList[i].quantity %>
             </td>
-            <td>
+            <td class = "text-center" id ="original_price<%=i%>"> 
+            </td>
+            <td class = "text-center" id ="discounted_price<%=i%>">
               <%= itemList[i].price %>
             </td>
-            <td>
+            <script>
+            var original_price = 0;
+            var discounted_price = document.getElementById("discounted_price<%=i%>").innerText;
+            original_price =  parseFloat (discounted_price) / (1 - parseFloat("<%= itemList[i].discount_percentage %>") );
+            document.getElementById("original_price<%=i%>").innerText = original_price 
+            </script>
+            <td class="text-center">
               <input type="button" class="editBtn" value="Edit">
               <input type="button" class="deleteBtn"  value="Delete">
             </td>
           </tr>
-        <% } %>
+        <%} %>
       </thread>
     </table>
     <script>
@@ -130,7 +193,7 @@
             window.location.href="/productsmanager"
           },
           error: function (result) {
-            alert("Unable to delete student record.");
+            alert("Unable to delete product.");
             console.log(result.message);
           }
         });
