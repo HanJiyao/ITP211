@@ -48,15 +48,33 @@
             <div class="col-3">
                 <%= itemList[i].cardHolderName %>
             </div>
-            <div class="col-3">
+            <div class="col-3" id="cardNumber<%=i%>">
                 <%= itemList[i].cardNumber %>
             </div>
+            <script>
+                var cardNumberStr = document.getElementById("cardNumber<%=i%>").innerText;
+                var show = cardNumberStr.slice(-4);
+                var mask = '';
+                for (i = (cardNumberStr.length)-4; i>0; i--) {
+                    mask += '*';
+                }
+                var newCardNumberStr = mask + ' ' + show;
+                document.getElementById("cardNumber<%=i%>").innerText = newCardNumberStr;
+            </script>
             <div class="col-2">
                 <%= itemList[i].cardType %>
             </div>
-            <div class="col-1">
+            <div class="col-1" id="securityCode<%=i%>">
                 <%= itemList[i].securityCode %>
             </div>
+            <script>
+                var securityCodeStr = document.getElementById("securityCode<%=i%>").innerText;
+                var newSecurityCodeStr = '';
+                for (i=0; i<securityCodeStr.length; i++) {
+                    newSecurityCodeStr += '*';
+                }
+                document.getElementById("securityCode<%=i%>").innerText = newSecurityCodeStr; 
+            </script>
             <div class="col-1">
                 <%= itemList[i].expiryDate %>
             </div>

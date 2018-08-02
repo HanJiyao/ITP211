@@ -12,27 +12,27 @@
                 <strong>My Transaction History</strong>
             </h1>
         <% if (itemList.length!=0) {%>
-        <div class="row bg-secondary text-white pt-4/pb-4 font-weight-bold">
+        <div class="row bg-secondary text-white pt-3 pb-3 font-weight-bold">
             <div class="col-2">
-                Date Of Transaction
+                Transaction Date
             </div>
             <div class="col-2">
-                Payment Made To
+                Made To
             </div>
             <div class="col-2">
-                Payment Received From
+                Received From
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 Description
             </div>
             <div class="col-1">
-                Debit
+                Debit (SGD)
             </div>
             <div class="col-1">
-                Credit
+                Credit (SGD)
             </div>
-            <div class="col-1">
-                Balance
+            <div class="col-2">
+                Balance (SGD)
             </div>
         </div>
         <%} else {%>
@@ -46,7 +46,7 @@
                 <%= itemList[i].transactionDate %>
             </div>
             <script>
-                document.getElementById("transactionDate<%=i%>").innerText = moment(new Date("<%= itemList[i].transactionDate %>")).format("ddd DD MMM YYYY HH:mm:ss");
+                document.getElementById("transactionDate<%=i%>").innerText = moment(new Date("<%= itemList[i].transactionDate %>")).format("ddd DD MMM YYYY HH:mm");
             </script>
             <div class="col-2">
                 <%= itemList[i].paymentMadeTo %>
@@ -54,7 +54,7 @@
             <div class="col-2">
                 <%= itemList[i].paymentReceivedFrom %>
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <%= itemList[i].description %>
             </div>
             <div class="col-1">
@@ -63,7 +63,7 @@
             <div class="col-1">
                 <%= itemList[i].credit %>
             </div>
-            <div class="col-1">
+            <div class="col-2">
                 <%= itemList[i].balance %>
             </div>
         </div>
