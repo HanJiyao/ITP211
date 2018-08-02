@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +11,16 @@
     cursor: pointer;
   }
   #productTable td, #productTable th {
-    border: 1px solid #000000;
-    background-color:#ffce99;
-    color:#000000;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
     padding: 8px;
     vertical-align: inherit;
+  }
+  #productTable th{
+    background-color:#ffce99;
+    color: #000000;
   }
   #productTable tr:nth-child(even){
     background-color: #f2f2f2;
@@ -24,18 +28,13 @@
   #productTable tr:hover {
     background-color: #ddd;
   }
-  #productTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    background-color:#ffce99;
-    color:#000000;
-  }
+  
   h{
     text-align: right;
     font-size:  40px;
   }
   #newProduct {
-    background-color:#ffce99;
+    background-color:#fff3e0;
     color: #000000;
   }
   #content, #productImage{
@@ -109,7 +108,7 @@
                   <div class="col-3">
                     <label for="discount_percentage"> Discount: </label>
                   </div>
-                  <input class="col-2 form-control" type="number" max="99" min="0" id="inputdiscount_percentage" name="discount_percentage" class="form-control" required="true" style="position: relative;top:-8px">
+                   <input class="col-2 form-control" type="number" max="99" min="0" id="inputdiscount_percentage" name="discount_percentage" class="form-control" required="true" style="position: relative;top:-8px">
                   <div class="col-1">
                     <div >%</div>
                   </div>
@@ -133,8 +132,8 @@
           <th>Product Type</th>
           <th>Product Description</th>
           <th>Quantity</th>
-          <th>Price</th>
-          <th>Discounted Price</th>
+          <th>Price ($)</th>
+          <th>Discounted Price ($)</th>
           <th></th>
         </tr>
         <% for(var i=0; i < itemList.length; i++){%>

@@ -6,34 +6,27 @@
     </title>
     <style>
     #editProduct {
-        background-color:#ffce99;
+        background-color:#fff3e0;
         color: #000000;
-    }
-    #content{
-        margin-top: 10px;
-        margin-left: 10px;
-    }
-    #inputproductImage{
-        margin-top: 10px;
-        margin-left: 10px;
     }
     </style>
 </head>
 <body>
     <% include ../partials/header %>
+    <div class="container m-auto pb-5" style="max-width: 500px;">
     <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Edit Product Record</h4>
     </div>
-    <form id = "editProduct"action="/productsmanager/edit/<%=item.id%>" method="post" enctype="multipart/form-data">
+    <form class="p-4 card" id = "editProduct"action="/productsmanager/edit/<%=item.id%>" method="post" enctype="multipart/form-data">
         <fieldset class = "form-group">
-            <label for ="inputproductImage" id = "content">Product Image:</label>
+            <label for ="inputproductImage" >Product Image:</label>
             <input type ="file" id = "inputproductImage" name ="productImage" class = "form-control" placeholder="Product Image" required = "true" value=" <%=item.productImage%>"
         </fieldset>    
-        <fieldset class="form-group" id ="content">
+        <fieldset class="form-group">
             <label for="inputproductName">Product Name: </label>
             <input type="text" id="inputproductName" name="productName" class="form-control" placeholder="Product Name" required="true" value="<%=item.productName%>">
         </fieldset>
-        <fieldset class="form-group" id ="content">
+        <fieldset class="form-group">
             <label for="inputType"> Product Type: </label>
             <select name = "productType" id="productType" required ="true">
                 <option value = ""></option>
@@ -50,19 +43,19 @@
                 <option value = "Power Supplies">Power Supplies</option>
               </select>
         </fieldset>
-        <fieldset class="form-group" id ="content">
+        <fieldset class="form-group">
             <label for="productDesc">Product Description: </label>
             <input type="text" id="inputDesc" name="productDesc" class="form-control" placeholder="Product Description" required="true" value = "<%=item.productDesc%>">
           </fieldset>
-        <fieldset class="form-group" id ="content">
+        <fieldset class="form-group">
             <label for="inputquantity">Quantity: </label>
             <input type="number"  min="0" id="inputquantity" name="quantity" class="form-control" placeholder="quantity" required="true" value="<%=item.quantity%>">
         </fieldset>
-        <fieldset class="form-group" id ="content">
+        <fieldset class="form-group">
             <label for="inputPrice">Price: </label>
             <input type="number"  min="0" id="inputPrice" name="price" class="form-control" placeholder="price" required="true" value="<%=item.price/(1-item.discount_percentage)%>">
         </fieldset>
-        <fieldset class="form-group pt-3" id ="content"> 
+        <fieldset class="form-group pt-3"> 
             <div class="row">
               <div class="col-3">
                 <label for="discount_percentage"> Discount: </label>
@@ -109,6 +102,7 @@
             location.href = "<%=hostPath%>/productsmanager"
         }
     </script>
+    </div>
     <% include ../partials/footer %>
 </body>
 </html>
