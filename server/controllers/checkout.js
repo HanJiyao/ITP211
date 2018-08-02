@@ -17,11 +17,7 @@ exports.show = (req, res) => {
                 wallet:wallet,
                 user: user,
                 cartNum: cartNum,
-                avatar: require('gravatar').url(user.email, {
-                    s: '100',
-                    r: 'x',
-                    d: 'retro'
-                }, true),
+                avatar: require('gravatar').url(user.email, {s: '100',r: 'x',d: 'retro'}, true),
                 hostPath: req.protocol + "://" + req.get("host"),
             });
         });
@@ -37,40 +33,54 @@ exports.checkout = (req,res) => {
     ).then(async (cartData) => {
         let totalPrice = 0;
         for (var i=0;i<cartData.length; i++){
-            let quantity = cartData[i].dataValues.prodQuantity
-            quantity -= cartData[i].dataValues.quantity;
-            let sellerID = cartData[i].dataValues.sellerID;
-            let productID = cartData[i].dataValues.productID;
             let productPrice = parseFloat(cartData[i].dataValues.price * cartData[i].dataValues.quantity);
-            var newSellerBalance = 0;
-            await models.Wallet.find({ where: { userID: sellerID } }).then(async (sellerWallet)=>{
-                newSellerBalance = parseFloat(sellerWallet.balance)+productPrice
-                await models.Wallet.update({balance:newSellerBalance}, { where: { userID:sellerID }}).then(()=>{
-                    models.Products.update({ quantity:quantity }, { where: { id: productID }})
-                })
-            })
             totalPrice += productPrice;
         }
-        var newUserBalance = 0;
-        await models.Wallet.find({ where: { userID: user.id } }).then((userWallet)=>{
-            newUserBalance = userWallet.balance-totalPrice;
-            models.Wallet.update({balance:newUserBalance},{ where: { userID: user.id }});
-        })
         await models.Orders.create({userID:user.id, totalPrice: totalPrice}).then(async (orderData)=>{
             for (var i = 0; i < cartData.length; i++) {
+                let quantity = cartData[i].dataValues.prodQuantity
+                quantity -= cartData[i].dataValues.quantity;
+                let sellerID = cartData[i].dataValues.sellerID;
+                let newSellerBalance = 0;
+                let newUserBalance = 0;
                 let productID = cartData[i].dataValues.productID;
                 let orderQuantity = cartData[i].dataValues.quantity;
                 let productPrice = parseFloat(cartData[i].dataValues.price * cartData[i].dataValues.quantity);
-                await models.Products.findById(productID).then((product)=>{
-                        models.OrderDetails.create({
+                await models.Products.findById(productID).then(async (product)=>{
+                    await models.Wallet.find({ where: { userID: user.id } }).then(async (userWallet)=>{
+                        newUserBalance = parseFloat(userWallet.balance) - productPrice;
+                        await models.Wallet.update({balance:newUserBalance},{ where: { userID: user.id }}).then(async()=>{
+                            await models.Transactions.create({
+                                paymentMadeTo: product.userID,
+                                description:"Buy "+product.productName,
+                                debit:productPrice,
+                                userID:user.id,
+                                balance:newUserBalance
+                            });
+                        });
+                    });
+                    await models.Wallet.find({ where: { userID: sellerID } }).then(async (sellerWallet)=>{
+                        newSellerBalance = parseFloat(sellerWallet.balance) + productPrice
+                        await models.Wallet.update({balance:newSellerBalance}, { where: { userID:sellerID }}).then( async ()=>{
+                            models.Products.update({ quantity:quantity }, { where: { id: productID }});
+                            await models.Transactions.create({
+                                userID: product.userID,
+                                description:"Sell "+product.productName,
+                                credit:productPrice,
+                                paymentReceivedFrom: user.id,
+                                balance:newSellerBalance
+                            });
+                        })
+                    });
+                    await models.OrderDetails.create({
                         orderID:orderData.id,
                         productID:productID,
                         quantity:orderQuantity,
                         price:productPrice,
                         sellerID:product.userID
-                    })
-                })
-                models.Cart.destroy({where:{id:cartData[i].dataValues.id}})
+                    });
+                });
+                models.Cart.destroy({where:{id:cartData[i].dataValues.id}});
             };
             res.status(200).send({message: "Check Out Successful on Order : ", orderID:orderData.id});
         });
