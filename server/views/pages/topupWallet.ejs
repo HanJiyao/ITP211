@@ -17,36 +17,36 @@
                 </h2>
                 <div class="row pt-3 pb-4 justify-content-center">
                 <div class="col-3">
-                    <a class="editBtn" data-id="5">
+                    <a class="topupBtn" data-id="5">
                         <button type="button" class="btn btn-success btn-lg">
                         Top Up $5
                         </button>
                     </a>
-                    <a class="editBtn" data-id="10">
+                    <a class="topupBtn" data-id="10">
                         <button type="button" class="btn btn-success btn-lg">
                         Top Up $10
                         </button>
                     </a>
                 </div>
                 <div class="col-3">
-                    <a class="editBtn" data-id="50">
+                    <a class="topupBtn" data-id="50">
                         <button type="button" class="btn btn-success btn-lg">
                         Top Up $50
                         </button>
                     </a>
-                    <a class="editBtn" data-id="100">
+                    <a class="topupBtn" data-id="100">
                         <button type="button" class="btn btn-success btn-lg">
                         Top Up $100
                         </button>
                     </a>
                 </div>
                 <div class="col-3">
-                    <a class="editBtn" data-id="500">
+                    <a class="topupBtn" data-id="500">
                         <button type="button" class="btn btn-success btn-lg">
                         Top Up $500
                         </button>
                     </a>
-                    <a class="editBtn" data-id="1000">
+                    <a class="topupBtn" data-id="1000">
                         <button type="button" class="btn btn-success btn-lg">
                         Top Up $1000
                         </button>
@@ -59,10 +59,11 @@
     </div>
     <script>
         var balance_num = 0;
-        $(".editBtn").click(function () {
+        $(".topupBtn").click(function () {
             var balance_num = $(this).data("id");
             console.log(balance_num);
             updateWallet(balance_num);
+            updateTransaction(balance_num);
         });
         updateWallet=(balance_num)=>{
             var url = "<%=hostPath%>/Wallet/topup";
@@ -78,6 +79,22 @@
                 },
                 error: function(result) {
                     alert("Error updating your wallet");
+                }
+            })
+        }
+        updateTransaction=(balance_num)=>{
+            var url = "<%=hostPath%>/Wallet/topup";
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: JSON.stringify({credit:balance_num}),
+                dataType: "json",
+                contentType: "application/json",
+                success: function() {
+                    alert("Transaction updated");
+                },
+                error: function(result) {
+                    alert("Error updating your transaction");
                 }
             })
         }

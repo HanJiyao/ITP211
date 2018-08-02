@@ -46,3 +46,29 @@ exports.list = function (req, res) {
         });
     });
 };
+// update transaction
+exports.update = function (req, res) {
+    var user = req.session.passport.user;
+    var balance_num = req.body.balance;
+    var currBalance = 0;
+    var newBalance = 0;
+    models.sequelize.query('SELECT balance FROM Wallets WHERE userID =' + user.id + '', {model: models.Transactions}).then((currBalanceData)=>{
+        currBalance = currBalanceData[0].dataValues.balance;
+        newBalance = currBalance + balance_num;
+            
+        var updateTransaction = {
+            description: "Top Up",
+            credit: balance_num,
+            balance: newBalance
+        }
+        console.log(newBalance, balance_num);
+        transactionsModel.update(updateTransaction, {where: {id: user.id}}).then((updateTransaction)=> {
+            if (!updateTransaction || updateTransaction==0) {
+                return res.send(400, {
+                    message: "error"
+                });
+            }
+            res.status(200).send({message: "Updated Transactions"});
+        })
+    });
+};
