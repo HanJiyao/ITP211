@@ -41,22 +41,40 @@
         <div class="row pt-3 pb-4" id="<%= itemList[i].id %>">
             <div class="col-md-1">
                 <div class="form-check ml-md-4">
-                    <input type="radio" name="checkThis" class="form-check-input" id="checkThis">
+                    <input type="radio" name="checkThis" class="form-check-input checkThis">
                     <label class="form-check-label" for="checkThis"></label>
                 </div>
             </div>
             <div class="col-3">
                 <%= itemList[i].cardHolderName %>
             </div>
-            <div class="col-3">
+            <div class="col-3" id="cardNumber<%=i%>">
                 <%= itemList[i].cardNumber %>
             </div>
+            <script>
+                var cardNumberStr = document.getElementById("cardNumber<%=i%>").innerText;
+                var show = cardNumberStr.slice(-4);
+                var mask = '';
+                for (i = (cardNumberStr.length)-4; i>0; i--) {
+                    mask += '*';
+                }
+                var newCardNumberStr = mask + ' ' + show;
+                document.getElementById("cardNumber<%=i%>").innerText = newCardNumberStr;
+            </script>
             <div class="col-2">
                 <%= itemList[i].cardType %>
             </div>
-            <div class="col-1">
+            <div class="col-1" id="securityCode<%=i%>">
                 <%= itemList[i].securityCode %>
             </div>
+            <script>
+                var securityCodeStr = document.getElementById("securityCode<%=i%>").innerText;
+                var newSecurityCodeStr = '';
+                for (i=0; i<securityCodeStr.length; i++) {
+                    newSecurityCodeStr += '*';
+                }
+                document.getElementById("securityCode<%=i%>").innerText = newSecurityCodeStr; 
+            </script>
             <div class="col-1">
                 <%= itemList[i].expiryDate %>
             </div>
@@ -77,9 +95,9 @@
     </div>
     <script>
         $("#proceed").click(function () {
-            var checked = $("#checkThis").is(':checked');
+            var checked = $(".checkThis").is(':checked');
             console.log(checked);
-            if ($("#checkThis").is(':checked') == true) {
+            if ($(".checkThis").is(':checked') == true) {
                 window.location.href= "/Wallet/topup";
             }
             else {

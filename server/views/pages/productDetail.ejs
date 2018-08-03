@@ -28,7 +28,7 @@
                 <div class="col-lg-7 pt-5">
                     <div class="pt-0 pl-4 pr-4 mr-lg-5 ">
                         <h3 class="font-weight-normal pb-3"><%=product.productName%></h3>
-                        <a class="pb-3">
+                        <a class="pb-3" href="#review">
                             <span class="text-warning">
                                 <% for(var i=0; i < product.rating; i++){ %>
                                     <i class="material-icons" style="vertical-align:-7px">stars</i>
@@ -39,7 +39,10 @@
                         <div class="pt-3 grey-text">
                             <i class="material-icons" style="vertical-align:-5px">store</i> <%=product.userID%>
                         </div>
-                        <h1 class="text-danger font-weight-normal pt-4 pb-4 mt-4 mb-4" style="border-top:thin solid #e0e0e0;border-bottom:thin solid #e0e0e0">SGD <%=product.price%></h1>
+                        <h1 class="text-danger font-weight-normal pt-4 pb-4 mt-4 mb-4" style="border-top:thin solid #e0e0e0;border-bottom:thin solid #e0e0e0">
+                            <div class="text-dark mb-2" style="font-size: 1.2rem;"><del class="pr-2 grey-text">S$<%=Math.round(product.price/(1-product.discount_percentage),2)%></del> - <%=product.discount_percentage*100%>%</div>
+                            SGD <%=product.price%>
+                        </h1>
                         <div class="row mt-5">
                             <h6 class="col-sm-3">
                                 Description
@@ -282,165 +285,165 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card mb-5 p-5 justify-content-center">
-            <h4>Ratings & Reviews </h4>
-            <div class="row pb-5" style="border-bottom:thin solid #e0e0e0;">
-                <div class="col-lg-4">
-                    <div class="font-weight-normal text-warning pt-2" style="font-size: 5rem">
-                        <%if (product.rating!=null){%><%=product.rating%><%} else {%> 0.0<%}%>
-                        <span class="grey-text" style="font-size: 1.5rem">out of 5</span>
-                    </div>
-                    <div class="grey-text pl-2" style="font-size: 1.5rem"><span id="reviewCount"><%=product.reviewCount%></span> ratings</div>
-                </div>
-                <div class="col-lg-8 pt-2">
-                    <div class="row">
-                        <div class="p-1 pl-lg-5 col-3 grey-text">5 stars</div>
-                        <div class="p-2 col">
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" id="progressStar5" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
-                            </div>
+            <div class="p-5 justify-content-center" style="border-top: solid thin #e0e0e0" id="review">
+                <h4>Ratings & Reviews </h4>
+                <div class="row pb-5" style="border-bottom:thin solid #e0e0e0;">
+                    <div class="col-lg-4">
+                        <div class="font-weight-normal text-warning pt-2" style="font-size: 5rem">
+                            <%if (product.rating!=null){%><%=product.rating%><%} else {%> 0.0<%}%>
+                            <span class="grey-text" style="font-size: 1.5rem">out of 5</span>
                         </div>
-                        <div class="col-1 p-1 pr-5 grey-text" id="star5">
-                            0
-                        </div>
+                        <div class="grey-text pl-2" style="font-size: 1.5rem"><span id="reviewCount"><%=product.reviewCount%></span> ratings</div>
                     </div>
-                    <div class="row">
-                        <div class="p-1 pl-lg-5 col-3 grey-text">4 stars</div>
-                        <div class="p-2 col">
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" id="progressStar4" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
-                            </div>
-                        </div>
-                        <div class="col-1 p-1 pr-5 grey-text" id="star4">
-                            0
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="p-1 pl-lg-5 col-3 grey-text">3 stars</div>
-                        <div class="p-2 col">
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" id="progressStar3" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
-                            </div>
-                        </div>
-                        <div class="col-1 p-1 pr-5 grey-text" id="star3">
-                            0
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="p-1 pl-lg-5 col-3 grey-text">2 stars</div>
-                        <div class="p-2 col">
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" id="progressStar2" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
-                            </div>
-                        </div>
-                        <div class="col-1 p-1 pr-5 grey-text" id="star2">
-                            0
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="p-1 pl-lg-5 col-3 grey-text">1 star</div>
-                        <div class="p-2 col">
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" id="progressStar1" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
-                            </div>
-                        </div>
-                        <div class="col-1 p-1 pr-5 grey-text" id="star1">
-                            0
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <% for (var i=0;i<reviews.length;i++){%>
-            <div class="row p-md-4" style="border-bottom: solid thin #e0e0e0;">
-                <div class="col-lg-1 text-lg-right">
-                    <img class="mr-2 mb-3" style="border-radius: 50%; box-shadow: 3px 3px 10px #e0e0e0" alt="avatar" src="<%=reviewsAvatars[i]%>" />
-                </div>
-                <div class="col">
-                    <h5 class="font-weight-bold"><%=reviews[i].dataValues.title%></h5>
-                    <h6>
-                        <%for (var j=0; j< 5; j++) {%>
-                        <i class="material-icons text-light startRating<%=i%><%=j%>" style="font-size: 1rem">star</i>
-                        <%}%>
-                        <span class="grey-text font-weight-normal"> on <span id="reviewDate<%=i%>"></span></span>
-                        </h6>
-                    <div class="grey-text" style="font-size: 1rem"> by <%=reviews[i].dataValues.first_name%> <%=reviews[i].dataValues.last_name%> </div>
-                    <div class="pt-3"><%=reviews[i].dataValues.content%></div>
-                </div>
-            </div>
-            <script>
-                for (var i=0; i<parseInt("<%=reviews[i].dataValues.rating%>");i++){
-                    $(".startRating<%=i%>"+i).removeClass("text-light");
-                    $(".startRating<%=i%>"+i).addClass("text-warning");
-                };
-                var star5=parseInt(document.getElementById("star5").innerText);
-                var star4=parseInt(document.getElementById("star4").innerText);
-                var star3=parseInt(document.getElementById("star3").innerText);
-                var star2=parseInt(document.getElementById("star2").innerText);
-                var star1=parseInt(document.getElementById("star1").innerText);
-                switch (parseInt("<%=reviews[i].dataValues.rating%>")){
-                    case 1:document.getElementById("star1").innerText = ++star1;;break;
-                    case 2:document.getElementById("star2").innerText = ++star2;break;
-                    case 3:document.getElementById("star3").innerText = ++star3;break;
-                    case 4:document.getElementById("star4").innerText = ++star4;break;
-                    case 5:document.getElementById("star5").innerText = ++star5;break;
-                }
-                $("#progressStar1").css("width", star1/parseFloat("<%=product.reviewCount%>")*100+"%");
-                $("#progressStar2").css("width", star2/parseFloat("<%=product.reviewCount%>")*100+"%");
-                $("#progressStar3").css("width", star3/parseFloat("<%=product.reviewCount%>")*100+"%");
-                $("#progressStar4").css("width", star4/parseFloat("<%=product.reviewCount%>")*100+"%");
-                $("#progressStar5").css("width", star5/parseFloat("<%=product.reviewCount%>")*100+"%");
-                document.getElementById("reviewDate<%=i%>").innerText = moment("<%=reviews[i].dataValues.created%>","ddd MMM D").format("MMM Do YYYY");
-            </script>
-            <%}%>
-        </div>
-    </div>
-    <div class="extra">
-        <button id="addCartModel" data-toggle="modal" data-target="#modalAbandonedCart"></button>
-        <button type="button" id="selectErr" class="btn btn-primary sr-only" data-toggle="modal" data-target="#modalPush">Launch modal</button>
-        <div class="modal fade" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-notify modal-info" role="document">
-                <div class="modal-content text-center">
-                    <div class="modal-header d-flex justify-content-center bg-warning">
-                        <p class="heading">Please Notice</p>
-                    </div>
-                    <div class="modal-body">
-                        <i class="fa fa-bell fa-3x animated rotateIn mb-3 text-warning"></i>
-                        <h5 id="errMessage">Please enter an valid number : 1 - <%= product.quantity%></h5>
-                    </div>
-                    <div class="modal-footer flex-center">
-                        <button type="button" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;font-size: 1rem" data-dismiss="modal">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button type="button" id="loginErr" class="btn btn-primary sr-only" data-toggle="modal" data-target="#modalLogin">Launch modal</button>
-        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-notify modal-info" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-warning">
-                        <p class="heading">Please Login
-                        </p>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" class="white-text">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
+                    <div class="col-lg-8 pt-2">
                         <div class="row">
-                            <div class="col-3">
-                                <p class="text-center">
-                                    <i class="fa fa-sign-in fa-2x text-warning"></i>
-                                </p>
+                            <div class="p-1 pl-lg-5 col-3 grey-text">5 stars</div>
+                            <div class="p-2 col">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" id="progressStar5" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
+                                </div>
                             </div>
-                            <div class="col-9 pt-1">
-                                <p>Please login first</p>
+                            <div class="col-1 p-1 pr-5 grey-text" id="star5">
+                                0
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="p-1 pl-lg-5 col-3 grey-text">4 stars</div>
+                            <div class="p-2 col">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" id="progressStar4" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
+                                </div>
+                            </div>
+                            <div class="col-1 p-1 pr-5 grey-text" id="star4">
+                                0
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="p-1 pl-lg-5 col-3 grey-text">3 stars</div>
+                            <div class="p-2 col">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" id="progressStar3" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
+                                </div>
+                            </div>
+                            <div class="col-1 p-1 pr-5 grey-text" id="star3">
+                                0
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="p-1 pl-lg-5 col-3 grey-text">2 stars</div>
+                            <div class="p-2 col">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" id="progressStar2" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
+                                </div>
+                            </div>
+                            <div class="col-1 p-1 pr-5 grey-text" id="star2">
+                                0
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="p-1 pl-lg-5 col-3 grey-text">1 star</div>
+                            <div class="p-2 col">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" id="progressStar1" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
+                                </div>
+                            </div>
+                            <div class="col-1 p-1 pr-5 grey-text" id="star1">
+                                0
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center">
-                        <a href="/login">
-                            <button type="button" style="border-radius:10em!important;" class="btn btn-lg btn-warning waves-effect waves-light">Login</button>
-                        </a>
+                </div>
+                <% for (var i=0;i<reviews.length;i++){%>
+                <div class="row p-md-4" style="border-bottom: solid thin #e0e0e0;">
+                    <div class="col-lg-1 text-lg-right">
+                        <img class="mr-2 mb-3" style="border-radius: 50%; box-shadow: 3px 3px 10px #e0e0e0" alt="avatar" src="<%=reviewsAvatars[i]%>" />
+                    </div>
+                    <div class="col">
+                        <h5 class="font-weight-bold"><%=reviews[i].dataValues.title%></h5>
+                        <h6>
+                            <%for (var j=0; j< 5; j++) {%>
+                            <i class="material-icons text-light startRating<%=i%><%=j%>" style="font-size: 1rem">star</i>
+                            <%}%>
+                            <span class="grey-text font-weight-normal"> on <span id="reviewDate<%=i%>"></span></span>
+                            </h6>
+                        <div class="grey-text" style="font-size: 1rem"> by <%=reviews[i].dataValues.first_name%> <%=reviews[i].dataValues.last_name%> </div>
+                        <div class="pt-3"><%=reviews[i].dataValues.content%></div>
+                    </div>
+                </div>
+                <script>
+                    for (var i=0; i<parseInt("<%=reviews[i].dataValues.rating%>");i++){
+                        $(".startRating<%=i%>"+i).removeClass("text-light");
+                        $(".startRating<%=i%>"+i).addClass("text-warning");
+                    };
+                    var star5=parseInt(document.getElementById("star5").innerText);
+                    var star4=parseInt(document.getElementById("star4").innerText);
+                    var star3=parseInt(document.getElementById("star3").innerText);
+                    var star2=parseInt(document.getElementById("star2").innerText);
+                    var star1=parseInt(document.getElementById("star1").innerText);
+                    switch (parseInt("<%=reviews[i].dataValues.rating%>")){
+                        case 1:document.getElementById("star1").innerText = ++star1;;break;
+                        case 2:document.getElementById("star2").innerText = ++star2;break;
+                        case 3:document.getElementById("star3").innerText = ++star3;break;
+                        case 4:document.getElementById("star4").innerText = ++star4;break;
+                        case 5:document.getElementById("star5").innerText = ++star5;break;
+                    }
+                    $("#progressStar1").css("width", star1/parseFloat("<%=product.reviewCount%>")*100+"%");
+                    $("#progressStar2").css("width", star2/parseFloat("<%=product.reviewCount%>")*100+"%");
+                    $("#progressStar3").css("width", star3/parseFloat("<%=product.reviewCount%>")*100+"%");
+                    $("#progressStar4").css("width", star4/parseFloat("<%=product.reviewCount%>")*100+"%");
+                    $("#progressStar5").css("width", star5/parseFloat("<%=product.reviewCount%>")*100+"%");
+                    document.getElementById("reviewDate<%=i%>").innerText = moment("<%=reviews[i].dataValues.created%>","ddd MMM D").format("MMM Do YYYY");
+                </script>
+                <%}%>
+            </div>
+        </div>
+        <div class="extra sr-only">
+            <button id="addCartModel" data-toggle="modal" data-target="#modalAbandonedCart"></button>
+            <button type="button" id="selectErr" class="btn btn-primary sr-only" data-toggle="modal" data-target="#modalPush">Launch modal</button>
+            <div class="modal fade" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-notify modal-info" role="document">
+                    <div class="modal-content text-center">
+                        <div class="modal-header d-flex justify-content-center bg-warning">
+                            <p class="heading">Please Notice</p>
+                        </div>
+                        <div class="modal-body">
+                            <i class="fa fa-bell fa-3x animated rotateIn mb-3 text-warning"></i>
+                            <h5 id="errMessage">Please enter an valid number : 1 - <%= product.quantity%></h5>
+                        </div>
+                        <div class="modal-footer flex-center">
+                            <button type="button" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="border-radius:10em!important;font-size: 1rem" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="loginErr" class="btn btn-primary sr-only" data-toggle="modal" data-target="#modalLogin">Launch modal</button>
+            <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-notify modal-info" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-warning">
+                            <p class="heading">Please Login
+                            </p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="white-text">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-3">
+                                    <p class="text-center">
+                                        <i class="fa fa-sign-in fa-2x text-warning"></i>
+                                    </p>
+                                </div>
+                                <div class="col-9 pt-1">
+                                    <p>Please login first</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <a href="/login">
+                                <button type="button" style="border-radius:10em!important;" class="btn btn-lg btn-warning waves-effect waves-light">Login</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

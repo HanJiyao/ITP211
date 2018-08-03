@@ -28,21 +28,30 @@
         </fieldset>
         <fieldset class="form-group">
             <label for="inputType"> Product Type: </label>
-            <select name = "productType" id="productType" required ="true">
-                <option value = ""></option>
-                <option value = "Storage" >Storage</option>
-                <option value = "Optical Drive">Optical Drive</option>
-                <option value = "MotherBoard">MotherBoard</option>
-                <option value="Memory">Memory</option>
-                <option value="Graphic Card">Graphic Card</option>
-                <option value = "Processor">Processor</option>
-                <option value = "Mouse">Mouse</option>
-                <option value="Keyboard">Keyboard</option>
-                <option value = "Monitor">Monitor</option>
-                <option value = "Computer Case">Computer Case</option>
-                <option value = "Power Supplies">Power Supplies</option>
+            <select class = "form-control" name = "productType" id="productType" required ="true" value ="<%=item.productType%>">
+                <option class = "productTypeOption"value = ""></option>
+                <option class = "productTypeOption" value = "Storage" >Storage</option>
+                <option class = "productTypeOption" value = "Optical Drive">Optical Drive</option>
+                <option class = "productTypeOption" value = "MotherBoard">MotherBoard</option>
+                <option class = "productTypeOption" value="Memory">Memory</option>
+                <option class = "productTypeOption" value="Graphic Card">Graphic Card</option>
+                <option class = "productTypeOption" value = "Processor">Processor</option>
+                <option class = "productTypeOption" value = "Mouse">Mouse</option>
+                <option class = "productTypeOption" value="Keyboard">Keyboard</option>
+                <option class = "productTypeOption" value = "Monitor">Monitor</option>
+                <option class = "productTypeOption" value = "Computer Case">Computer Case</option>
+                <option class = "productTypeOption" value = "Power Supplies">Power Supplies</option>
               </select>
         </fieldset>
+        <script>
+            for (var i=0;i<$(".productTypeOption").length;i++){
+                var productTypeOption = document.getElementsByClassName("productTypeOption")
+                var selected = (productTypeOption[i].value=="<%=item.productType%>")?"selected":false;
+                console.log(selected);
+                console.log(productTypeOption[i]);
+                $(productTypeOption[i]).attr("selected", selected)
+            }
+        </script>
         <fieldset class="form-group">
             <label for="productDesc">Product Description: </label>
             <input type="text" id="inputDesc" name="productDesc" class="form-control" placeholder="Product Description" required="true" value = "<%=item.productDesc%>">
@@ -60,7 +69,7 @@
               <div class="col-3">
                 <label for="discount_percentage"> Discount: </label>
               </div>
-              <input class="col-2 form-control" type="number" max="99" min="0" id="inputdiscount_percentage" name="discount_percentage" class="form-control" required="true" style="position: relative;top:-8px">
+              <input class="col-2 form-control" type="number" max="99" min="0" id="inputdiscount_percentage" name="discount_percentage" class="form-control" required="true" style="position: relative;top:-8px" value="<%=item.discount_percentage * 100%>">
               <div class="col-1">
                 <div >%</div>
               </div>

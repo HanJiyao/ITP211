@@ -106,9 +106,10 @@
                 <div class="card-text pb-2">
                   <%= products[i].productType %>
                 </div>
-                <h4 class="card-title text-warning">
+                <h4 class="card-title text-warning mb-0">
                   SGD <%= products[i].price %>
                 </h4>
+                <div class="grey-text mb-2"><small><del class="pr-2">S$<%=Math.round(products[i].price/(1-products[i].discount_percentage),2)%></del> Saving <%=products[i].discount_percentage*100%>%</small></div>
                 <div class="card-text">
                   <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= products[i].userID %>
                 </div>

@@ -63,7 +63,6 @@
             var balance_num = $(this).data("id");
             console.log(balance_num);
             updateWallet(balance_num);
-            updateTransaction(balance_num);
         });
         updateWallet=(balance_num)=>{
             var url = "<%=hostPath%>/Wallet/topup";
@@ -79,22 +78,6 @@
                 },
                 error: function(result) {
                     alert("Error updating your wallet");
-                }
-            })
-        }
-        updateTransaction=(balance_num)=>{
-            var url = "<%=hostPath%>/Wallet/topup";
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: JSON.stringify({credit:balance_num}),
-                dataType: "json",
-                contentType: "application/json",
-                success: function() {
-                    alert("Transaction updated");
-                },
-                error: function(result) {
-                    alert("Error updating your transaction");
                 }
             })
         }

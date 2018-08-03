@@ -9,7 +9,7 @@ exports.show = function (req, res) {
         models.sequelize.query('select count(*) cartNum from Carts where userID='+user.id, {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
     }
     models.sequelize.query(
-        'select productImage, productName, quantity, price, p.id id, productType, productDesc, u.username AS userID, count(r.productID) reviewCount, round(avg(rating), 1) rating\
+        'select productImage, productName, quantity, price, discount_percentage, p.id id, productType, productDesc, u.username AS userID, count(r.productID) reviewCount, round(avg(rating), 1) rating\
         from Products p\
         left outer join Reviews r on r.productID = p.id\
         join Users u on p.userID = u.id\
