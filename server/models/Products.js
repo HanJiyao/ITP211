@@ -176,7 +176,7 @@ module.exports = function (sequelize, Sequelize) {
         Products.upsert({
             id: 12,
             productID: 1012, 
-            productImage: "Jmaxresdefault.JPG",
+            productImage: "94aa974c24ff2df7fc8cb966d5a9829a_L.JPG",
             productName: "Logitech G213 Prodigy Gaming Keyboard",
             productType: "Keyboard", 
             productDesc:"Gaming grade performance, Customize with logitech gaming software",
@@ -188,7 +188,7 @@ module.exports = function (sequelize, Sequelize) {
         Products.upsert({
             id: 13,
             productID: 1013, 
-            productImage: "Jmaxresdefault.JPG",
+            productImage: "Razer-Blackwidow-V2-2.JPG",
             productName: "Razer Blackwidow Chroma V2",
             productType: "Keyboard", 
             productDesc:"5 additional dedicated macro keys, 80 million keystroke life span, Audio-out/mic-in jacks, Gaming mode option ",
