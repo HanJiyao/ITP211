@@ -52,7 +52,8 @@ module.exports = function (sequelize, Sequelize) {
             price: 199.99, 
             discount_percentage: 0.5,
             userID: 1,
-        });Products.upsert({
+        });
+        Products.upsert({
             id: 2,
             productID: 1002, 
             productImage: "61svh7xo0kl._sl1200__4.jpg",
@@ -63,7 +64,8 @@ module.exports = function (sequelize, Sequelize) {
             price: 99.90, 
             discount_percentage: 0.3,
             userID: 1,
-        }); Products.upsert({
+        }); 
+        Products.upsert({
             id: 3,
             productID: 1003, 
             productImage: "msi-z270_gaming_pro_carbon-overview-hero.png",
@@ -74,7 +76,8 @@ module.exports = function (sequelize, Sequelize) {
             price: 100.00,
             discount_percentage: 0.7, 
             userID: 1,
-        }); Products.upsert({
+        }); 
+        Products.upsert({
             id: 4,
             productID: 1004, 
             productImage: "LD0004618347_2.jpg",
@@ -85,7 +88,8 @@ module.exports = function (sequelize, Sequelize) {
             price: 243.00, 
             discount_percentage: 0.5,
             userID: 1,
-        }); Products.upsert({
+        }); 
+        Products.upsert({
             id: 5,
             productID: 1005, 
             productImage: "LD0004618347_2.jpg",
@@ -96,7 +100,8 @@ module.exports = function (sequelize, Sequelize) {
             price: 395.00, 
             discount_percentage: 0.2,
             userID: 1,
-        }); Products.upsert({
+        }); 
+        Products.upsert({
             id: 6,
             productID: 1006, 
             productImage: "wd-blue-1tb-wd10ezex_16970.jpg",
@@ -107,7 +112,8 @@ module.exports = function (sequelize, Sequelize) {
             price: 118.00, 
             discount_percentage: 0.37,
             userID: 1,
-        }); Products.upsert({
+        }); 
+        Products.upsert({
             id: 7,
             productID: 1007, 
             productImage: "ZT-P10610E-10M-07.jpg",
@@ -118,21 +124,23 @@ module.exports = function (sequelize, Sequelize) {
             price: 429.00, 
             discount_percentage: 0.4,
             userID: 1,
-        }); Products.upsert({
+        }); 
+        Products.upsert({
             id: 8,
             productID: 1008, 
-            productImage: "1003874670.g_400-w_g.jpg",
+            productImage: "1003874670.g_400-w_g.JPG",
             productName: "Armaggeddon T1G Pro", 
             productType: "Computer Case", 
-            productDesc:"Excellent Micro ATX gaming casing, Full View Transparent Front and size panel design, Fully Black coated inner structure, Cable management with hidden cable rounting, supports up to 2 solid state drives, supports up to 290MM length graphic card, Support USB 3.0, Bottom mount PSU design",
+            productDesc:"Transparent Front and size panel, supports up to 2 solid state drives, 290MM length graphic card & USB 3.0,",
             quantity: 20, 
             price: 39.00, 
             discount_percentage: 0.3,
             userID: 1,
-        });Products.upsert({
+        });
+        Products.upsert({
             id: 9,
             productID: 1009, 
-            productImage: "w275R_G_01.jpg",
+            productImage: "w275R_G_01.JPG",
             productName: "Corsair Carbide Series 275R", 
             productType: "Computer Case", 
             productDesc:"Full window side panel shows of your system in style, Clean and minimalist styling with soft accent lighting, Builder-friendly with simple and intuitive internal layout, Versatile cooling options with space for multiple radiator configurations, Rugged-construction steel drive trays provide expansive storage space, Built-in cable routing compartments enables clean builds, Direct Airflow Path™ provides airflow to the hottest components" ,
@@ -140,7 +148,8 @@ module.exports = function (sequelize, Sequelize) {
             price: 129.00, 
             discount_percentage: 0.3,
             userID: 1,
-        }); Products.upsert({
+        }); 
+        Products.upsert({
             id: 10,
             productID: 1010, 
             productImage: "650W PSU ATX 12V Gaming PC Power Supply.JPG",
@@ -151,7 +160,8 @@ module.exports = function (sequelize, Sequelize) {
             price: 78.50, 
             discount_percentage: 0.6,
             userID: 1,
-        }); Products.upsert({
+        }); 
+        Products.upsert({
             id: 11,
             productID: 1011, 
             productImage: "Justgogo 550W.JPG",
@@ -159,8 +169,32 @@ module.exports = function (sequelize, Sequelize) {
             productType: "Power Supply", 
             productDesc:"Rated power 550 watts, maximum power 650 watts, suitable for high-end computer configuration in the market, Energy-efficient silent fan, standby power 1W, Built-in PFC, high frequency and low resistance filter capacitor to ensure the pure and stable current output, Intelligent temperature control circuit design, automatically adjust the fan speed, extend the service life",
             quantity: 150, 
-            price: 100.25, 
+            price: 100.0, 
             discount_percentage: 0.5,
+            userID: 1,
+        });
+        Products.upsert({
+            id: 12,
+            productID: 1012, 
+            productImage: "Jmaxresdefault.JPG",
+            productName: "Logitech G213 Prodigy Gaming Keyboard",
+            productType: "Keyboard", 
+            productDesc:"Gaming grade performance, Customize with logitech gaming software",
+            quantity: 50, 
+            price: 99.9, 
+            discount_percentage: 0.5,
+            userID: 1,
+        });
+        Products.upsert({
+            id: 13,
+            productID: 1013, 
+            productImage: "Jmaxresdefault.JPG",
+            productName: "Razer Blackwidow Chroma V2",
+            productType: "Keyboard", 
+            productDesc:"5 additional dedicated macro keys, 80 million keystroke life span, Audio-out/mic-in jacks, Gaming mode option ",
+            quantity: 200, 
+            price: 289, 
+            discount_percentage: 0.3,
             userID: 1,
         });
         return console.log("Products table synced");
