@@ -68,7 +68,7 @@ module.exports=function(sequelize,Sequelize){
             title: 'work fine',
             content: 'good quality',
             user_id: 1,
-            rating: 4,
+            rating: 5,
         });
         Reviews.upsert({
             id: 4,
@@ -76,7 +76,7 @@ module.exports=function(sequelize,Sequelize){
             title: 'hard disk damaged',
             content: 'poor product',
             user_id: 1,
-            rating: 1,
+            rating: 3,
         });
         Reviews.upsert({
             id: 5,
@@ -92,7 +92,7 @@ module.exports=function(sequelize,Sequelize){
             title: 'just normal',
             content: 'seems second hand ram',
             user_id: 1,
-            rating: 2,
+            rating: 3,
         })
     });
     return Reviews;
