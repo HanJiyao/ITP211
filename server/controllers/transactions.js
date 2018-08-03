@@ -30,8 +30,7 @@ exports.list = function (req, res) {
     }).then((data) => {
         cartNum = data[0].dataValues.cartNum
     });
-    transactionsModel.findAll(
-        { where: { userID: user.id } }).then(function(transactions) {
+    transactionsModel.query('SELECT *, u.username AS username FROM Transactions t JOIN Users u ON t.paymentMadeTo = u.id WHERE user_id='+user.id,{model:Transactions }).then((transactions)=> {
         res.render("viewTransactions", {
             title: "My Transaction History",
             itemList: transactions,
