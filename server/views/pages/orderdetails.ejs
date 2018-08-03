@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- load jQuery and tablesorter scripts -->
+
+
+<script>
+    
+    $("#myTable").tablesorter();
+</script>
     <title><%= title %></title>
 </head>
 <style>
@@ -24,8 +31,8 @@
 #myTable th {
     padding-top: 12px;
     padding-bottom: 12px;
-  
-    background-color:#0000FF;
+    text-align: left;
+    background-color: #4CAF50;
     color: white;
 }
 h{
@@ -44,18 +51,22 @@ h{
     });
 </script>
     <h>Order History</h> 
-    
-      <table id="myTable" class="tablesorter text-center"> 
-   <thead class="tablesorter-header text-center" >
+      <table id="myTable" class="tablesorter"> 
+   <thead class="tablesorter-header">
         
             <tr>
               <th>S/N</th>
-              
+              <th>Product ID</th>
+              <th>Product Image</th>
+              <th>Date of Purchase</th>
               
               <th>Order ID</th>
-              <th>Purchase Date</th>
-              <th>Total Price</th>
-              <th>Manage Order</th>
+              <th>Product Name</th>
+              <th>Product Type</th>
+             
+              <th>Product Price</th>
+              <th>Quantity</th>
+              <th>Write a Review</th>
             </tr>
         </thead>
             <tbody>
@@ -63,17 +74,18 @@ h{
             <tr>
             
               <td><%=i+1%></td>
-              
-             
-              <td><%= orderhistory[i].dataValues.orderID %></td>
+              <td><%=orderhistory[i].dataValues.productID%></td>
+              <td><img src = "<%=urlPath%>/images/products/<%=orderhistory[i].dataValues.productImage %> " width="70px" height="70px"></td>
               <td id="orderDate<%=i%>"></td>
               <script>
                   document.getElementById("orderDate<%=i%>").innerText = moment("<%=orderhistory[i].dataValues.orderDate%>","ddd MMM D").format("MMM Do YYYY");
               </script>
-              
-        
-              <td>$<%= orderhistory[i].dataValues.totalPrice %></td>
-              <td><a href="<%=urlPath%>/orderhistory/<%= orderhistory[i].dataValues.orderID %>"><button type="button" class="btn btn-secondary">Manage</button></a></td>
+              <td><%= orderhistory[i].dataValues.orderID %></td>
+              <td><%= orderhistory[i].dataValues.productName %></td>
+              <td><%= orderhistory[i].dataValues.productType %></td>
+              <td><%= orderhistory[i].dataValues.price %></td>
+              <td><%= orderhistory[i].dataValues.quantity %></td>
+              <td>Review This Product</td>
             </tr>
             <% } %>
         </tbody>
