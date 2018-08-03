@@ -65,7 +65,7 @@ h{
               <td><%=i+1%></td>
               
              
-              <td><%= orderhistory[i].dataValues.orderID %></td>
+              <td><%= orderhistory[i].dataValues.id %></td>
               <td id="orderDate<%=i%>"></td>
               <script>
                   document.getElementById("orderDate<%=i%>").innerText = moment("<%=orderhistory[i].dataValues.orderDate%>","ddd MMM D").format("MMM Do YYYY");
@@ -73,7 +73,7 @@ h{
               
         
               <td>$<%= orderhistory[i].dataValues.totalPrice %></td>
-              <td><a href="<%=urlPath%>/orderhistory/<%= orderhistory[i].dataValues.orderID %>"><button type="button" class="btn btn-secondary">Manage</button></a></td>
+              <td><a href="<%=urlPath%>/orderhistory/<%= orderhistory[i].dataValues.id %>"><button type="button" class="btn btn-secondary">Manage</button></a></td>
             </tr>
             <% } %>
         </tbody>
