@@ -197,6 +197,30 @@ module.exports = function (sequelize, Sequelize) {
             discount_percentage: 0.3,
             userID: 1,
         });
+        Products.upsert({
+            id: 14,
+            productID: 1014, 
+            productImage: "Razer-DeathAdder-Elite.JPG",
+            productName: "Razer DeathAdder Elite",
+            productType: "Mouse", 
+            productDesc:"True 16,000 DPI optical sensor, Up to 450 IPS / 50 g acceleration, Mechanical Mouse switches",
+            quantity: 100, 
+            price: 109, 
+            discount_percentage: 0.6,
+            userID: 1,
+        });
+        Products.upsert({
+            id: 15,
+            productID: 1015, 
+            productImage: "Logitech-G502-Spectrum.JPG",
+            productName: "Logitech G502 Proteus Spectrum ",
+            productType: "Mouse", 
+            productDesc:"Most accurate sensor, Primary buttons rated to 20 million clicks, 3 DPI indicator LEDs",
+            quantity: 60, 
+            price: 129, 
+            discount_percentage: 0.4,
+            userID: 1,
+         });
         return console.log("Products table synced");
     });
     return Products;
