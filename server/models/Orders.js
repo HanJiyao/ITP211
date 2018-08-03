@@ -20,6 +20,12 @@ module.exports = function (sequelize, Sequelize) {
         totalPrice:{
             type: Sequelize.FLOAT(10,2),
             allowNull: false,
+        },
+        shippingAddress:{
+            type: Sequelize.STRING,
+        },
+        shippingPostalCode:{
+            type: Sequelize.STRING,
         }
     });
     Orders.sync({

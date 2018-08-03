@@ -26,9 +26,10 @@ exports.show = (req, res) => {
 exports.checkout = (req,res) => {
     var user = req.session.passport.user;
     models.sequelize.query(
-        'select c.id id, p.id productID, p.price price, c.quantity quantity, p.quantity prodQuantity, p.userID sellerID\
+        'select c.id id, p.id productID, p.price price, c.quantity quantity, p.quantity prodQuantity, p.userID sellerID, address, postal_code\
         from Carts c\
         join Products p on c.productID = p.id\
+        join Users u on c.userID = u.id\
         where c.checked=1 and c.userID='+user.id, {model: models.Cart}
     ).then(async (cartData) => {
         let totalPrice = 0;
@@ -36,7 +37,7 @@ exports.checkout = (req,res) => {
             let productPrice = parseFloat(cartData[i].dataValues.price * cartData[i].dataValues.quantity);
             totalPrice += productPrice;
         }
-        await models.Orders.create({userID:user.id, totalPrice: totalPrice}).then(async (orderData)=>{
+        await models.Orders.create({userID:user.id, totalPrice: totalPrice, shippingAddress: cartData[0].dataValues.address, shippingPostalCode:cartData[0].dataValues.postal_code}).then(async (orderData)=>{
             for (var i = 0; i < cartData.length; i++) {
                 let quantity = cartData[i].dataValues.prodQuantity
                 quantity -= cartData[i].dataValues.quantity;
