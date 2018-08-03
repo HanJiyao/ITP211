@@ -101,7 +101,7 @@
               </fieldset>
               <fieldset class="form-group" id="content">
                 <label for ="price">Price: </label>
-                <input type = "number" min="0" id = "price" name ="price" class ="form-control" placeholder="Price"  required= "true">
+                <input type = "number" min="0" id = "price" step="0.01" name ="price" class ="form-control" placeholder="Price"  required= "true">
               </fieldset>
               <fieldset class="form-group pt-3" id="content">
                 <div class="row">
@@ -166,7 +166,7 @@
             var original_price = 0;
             var discounted_price = document.getElementById("discounted_price<%=i%>").innerText;
             original_price =  parseFloat (discounted_price) / (1 - parseFloat("<%= itemList[i].discount_percentage %>") );
-            document.getElementById("original_price<%=i%>").innerText = original_price 
+            document.getElementById("original_price<%=i%>").innerText = Math.round(original_price, 2); 
             </script>
             <td class="text-center">
               <input type="button" class="editBtn" value="Edit">

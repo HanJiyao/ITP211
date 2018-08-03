@@ -62,7 +62,7 @@
         </fieldset>
         <fieldset class="form-group">
             <label for="inputPrice">Price: </label>
-            <input type="number"  min="0" id="inputPrice" name="price" class="form-control" placeholder="price" required="true" value="<%=item.price/(1-item.discount_percentage)%>">
+            <input type="number"  min="0" step="0.01" id="inputPrice" name="price" class="form-control" placeholder="price" required="true" value="<%=item.price/(1-item.discount_percentage)%>">
         </fieldset>
         <fieldset class="form-group pt-3"> 
             <div class="row">
