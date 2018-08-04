@@ -38,7 +38,6 @@
               </div>
             </div>
           </div>
-          
           <div class="carousel-item">
             <div class="view">
               <div class="d-block w-100" style="height: 360px; overflow: hidden;background-image: url('https://i.ytimg.com/vi/NSNz6VVpWI8/maxresdefault.jpg');background-size:100% auto;"></div>
@@ -75,7 +74,7 @@
       </div>
     </div>
     <div class="container pt-5 pb-5 mb-5">
-      <h3 class="text-center p-3"> Most Popular</h3>
+      <h3 class="text-center p-3"> Just For You </h3>
       <div class="row">
         <% for(var i=0; i < products.length; i++){ %>
           <style>
@@ -102,7 +101,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <h6 class="card-title mb-1 text-dark font-weight-normal"><%= products[i].productName %></h6>
+                <h6 class="card-title mb-1 text-dark font-weight-normal" style="white-space: nowrap;overflow: hidden;"><%= products[i].productName %></h6>
                 <div class="card-text pb-2">
                   <%= products[i].productType %>
                 </div>
@@ -113,10 +112,21 @@
                 <div class="card-text">
                   <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= products[i].userID %>
                 </div>
-                <div class="card-text pt-3 grey-text">
-                  <% for (var j=0;j<products[i].dataValues.rating;j++) {%> 
-                    <i class="material-icons text-warning" style="font-size: 1rem;vertical-align: -3px;">star</i>
-                  <% } %> (<%=products[i].dataValues.reviewCount%>)
+                <div class="card-text pt-2 grey-text" style="position: relative;">
+                  <div class="star-ratings" style="width: 95px;vertical-align: -6px;">
+                    <div class="star-ratings-top text-warning font-weight-bold" style="font-size: 1.2rem;">
+                      ★★★★★
+                    </div>
+                    <div class="star-ratings-bottom text-light font-weight-bold" style="font-size: 1.2rem">
+                      ★★★★★
+                    </div>
+                  </div>
+                  <script>
+                      var width = "<%if(products[i].dataValues.rating!=null){%><%=products[i].dataValues.rating/5*100%><%}else{%>0<%}%>%"
+                      $($(".star-ratings-top")[`<%=i%>`]).css("width",width)
+                  </script>
+                  <span class="pl-1" style="display: inline-block;"> (<%=products[i].dataValues.reviewCount%>)</span>
+                  <span style="display: inline-block;position: absolute; right:0;top:14px;">Sales: <%=products[i].dataValues.saleCount%></span>
                 </div>
               </div>
             </div>

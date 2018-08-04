@@ -6,10 +6,11 @@ exports.show = function (req, res) {
     var cartNum = 0;
     if (user){models.sequelize.query('select count(*) cartNum from Carts where userID=' + user.id, {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum})}
     models.sequelize.query(
-        'select *, p.id, u.username as userID, count(r.productID) reviewCount, round(avg(rating),0) rating\
+        'select *, p.id, u.username as userID, count(r.productID) reviewCount, round(avg(rating), 1) rating, count(o.quantity) saleCount\
         from Products p \
         join Users u on p.userID = u.id\
-        left outer join Reviews r on r.productID = p.id\
+        left join Reviews r on r.productID = p.id\
+        left join OrderDetails o on p.id = o.productID\
         group by p.id, p.productName, p.productType, p.productImage, p.price, u.username'
         , { model: models.Products })
     .then((products)=>{

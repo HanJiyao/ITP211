@@ -27,16 +27,27 @@
                 </div>
                 <div class="col-lg-7 pt-5">
                     <div class="pt-0 pl-4 pr-4 mr-lg-5 ">
-                        <h3 class="font-weight-normal pb-3"><%=product.productName%></h3>
-                        <a class="pb-3" href="#review">
-                            <span class="text-warning">
-                                <% for(var i=0; i < product.rating; i++){ %>
-                                    <i class="material-icons" style="vertical-align:-7px">stars</i>
-                                <% } %>
-                            </span>
-                            <span class="grey-text pl-1" style="font-size: 0.9rem"> (<%=product.reviewCount%> reviews) </span>
+                        <h3 class="font-weight-normal pb-1"><%=product.productName%></h3>
+                        <a href="#review">
+                            <div class="star-ratings" style="width: 118px;">
+                                <div class="star-ratings-top text-warning font-weight-bold" style="font-size: 1.2rem;">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="star-ratings-bottom text-light font-weight-bold" style="font-size: 1.2rem">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <span class="grey-text" style="font-size: 0.9rem;vertical-align: 6px"> (<%=product.reviewCount%> reviews) </span>
                         </a>
-                        <div class="pt-3 grey-text">
+                        <div class="pt-2 grey-text">
                             <i class="material-icons" style="vertical-align:-5px">store</i> <%=product.userID%>
                         </div>
                         <h1 class="text-danger font-weight-normal pt-4 pb-4 mt-4 mb-4" style="border-top:thin solid #e0e0e0;border-bottom:thin solid #e0e0e0">
@@ -289,11 +300,36 @@
                 <h4>Ratings & Reviews </h4>
                 <div class="row pb-5" style="border-bottom:thin solid #e0e0e0;">
                     <div class="col-lg-4">
-                        <div class="font-weight-normal text-warning pt-2" style="font-size: 5rem">
+                        <div class="font-weight-normal text-warning" style="font-size: 5rem">
                             <%if (product.rating!=null){%><%=product.rating%><%} else {%> 0.0<%}%>
                             <span class="grey-text" style="font-size: 1.5rem">out of 5</span>
                         </div>
-                        <div class="grey-text pl-2" style="font-size: 1.5rem"><span id="reviewCount"><%=product.reviewCount%></span> ratings</div>
+                        <div class="star-ratings" style="width: 181px;vertical-align: 6px;">
+                            <div class="star-ratings-top text-warning font-weight-bold" style="font-size: 1.8rem;">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="star-ratings-bottom text-light font-weight-bold" style="font-size: 1.8rem">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <script>
+                            var width = "<%if(product.rating!=null){%><%=product.rating/5*100%><%}else{%>0<%}%>%"
+                            $(".star-ratings-top").css("width",width)
+                        </script>
+                        <div class="font-weight-light text-dark pl-2" style="font-size: 1.5rem;display: inline-block">
+                            <span id="reviewCount">
+                                <i class="material-icons grey-text" style="vertical-align: -3px;">person</i>
+                                <%=product.reviewCount%>
+                            </span>
+                        </div>
                     </div>
                     <div class="col-lg-8 pt-2">
                         <div class="row">

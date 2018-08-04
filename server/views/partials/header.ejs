@@ -12,13 +12,38 @@
 <!-- Bootstrap core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.3/js/mdb.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0/js/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0/css/tempusdominus-bootstrap-4.min.css" />
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.30.7/js/jquery.tablesorter.js"></script>
+<style>
+    .star-ratings {
+        position: relative;
+        height: 25px;
+        unicode-bidi: bidi-override;
+        display: inline-block;
+    }
+    .star-ratings i {
+        margin: -1px;
+    }
+    .star-ratings-bottom {
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        left: 0;
+    }
+    .star-ratings-top {
+        position: absolute;
+        z-index: 1;
+        overflow: hidden;
+        display: block;
+        white-space: nowrap;
+    }
+</style>
 <div class="master-wrapper" style="background: #e0e0e0; min-height: 100vh;position: relative;height:100%; padding-top:100px">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark pb-0 pt-0">
         <div class="container  justify-content-between" style="padding-left: 15px;padding-right: 15px">
@@ -82,7 +107,7 @@
                                         <a class="nav-link" href="#">Popular</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Taobao Collection</a>
+                                        <a class="nav-link" target="_blank" href="https://s.taobao.com/search?spm=a230r.1.0.0.2a097c09UxqsV1&q=%E7%94%B5%E8%84%91%E4%B8%BB%E6%9C%BA&rs=up&rsclick=1&preq=%E7%94%B5%E8%84%91%E7%BB%84%E8%A3%85">Taobao Collection</a>
                                     </li>
                                 </ul>
                             </div>

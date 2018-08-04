@@ -6,4 +6,5 @@ var orderhistoryController=require("../controllers/orderhistory");
 // reviewsRouter.delete("/:reviews_id",reviewsController.hasAuthorization,reviewsController.delete);
 // module.exports=reviewsRouter;
 orderhistoryRouter.get("/",orderhistoryController.hasAuthorization,orderhistoryController.list);
+orderhistoryRouter.get("/:id",orderhistoryController.hasAuthorization,orderhistoryController.listdetail);
 module.exports=orderhistoryRouter;
