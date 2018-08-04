@@ -37,7 +37,13 @@ exports.checkout = (req,res) => {
             let productPrice = parseFloat(cartData[i].dataValues.price * cartData[i].dataValues.quantity);
             totalPrice += productPrice;
         }
-        await models.Orders.create({userID:user.id, totalPrice: totalPrice, shippingAddress: cartData[0].dataValues.address, shippingPostalCode:cartData[0].dataValues.postal_code}).then(async (orderData)=>{
+        await models.Orders.create({
+            userID:user.id, totalPrice: totalPrice,
+            shippingName: user.first_name + ' ' + user.last_name,
+            shippingContact:user.mobile,
+            shippingAddress: cartData[0].dataValues.address, 
+            shippingPostalCode:cartData[0].dataValues.postal_code
+        }).then(async (orderData)=>{
             for (var i = 0; i < cartData.length; i++) {
                 let quantity = cartData[i].dataValues.prodQuantity
                 quantity -= cartData[i].dataValues.quantity;

@@ -21,6 +21,12 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.FLOAT(10,2),
             allowNull: false,
         },
+        shippingName:{
+            type: Sequelize.STRING,
+        },
+        shippingContact:{
+            type: Sequelize.INTEGER,
+        },
         shippingAddress:{
             type: Sequelize.STRING,
         },
