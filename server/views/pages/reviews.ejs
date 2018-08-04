@@ -16,9 +16,7 @@
                     <h4 class="text-muted">Reviews</h4>
                 </div>
                 <div class="col-lg-6">
-                    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createPost">
-                        Write a review
-                    </button>
+                    
                 </div>
             </div>
             <!-- Modal -->
@@ -70,7 +68,7 @@
                             <div class="reviews">
                                 <form action="/reviews" method="delete">
                                     <h4 class="list-group-item-heading">
-                                        Product ID: <%= reviews.productID %>
+                                        Product ID:#<%= reviews.productID %>
                                     </h4>
                                     <h4 class="list-group-item-heading">
                                         <%= reviews.title %>
@@ -99,9 +97,7 @@
                                         <%= reviews.created %>
                                     </small>
                                     <br>
-                                    <small class="text">
-                                        <i class="material-icons">favorite</i> <%= reviews.helpfulness %>  people liked this review
-                                    </small>
+                                    
                                 </form>
                             </div>
                         </a>

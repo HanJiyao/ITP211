@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- load jQuery and tablesorter scripts -->
-
-
-<script>
-    
-    $("#myTable").tablesorter();
-</script>
     <title><%= title %></title>
 </head>
 <style>
+    .text-small {
+    font-size: 0.75rem;
+}
     #myTable {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -45,12 +41,12 @@ h{
 </script>
 <body>
     <% include ../partials/header %>
-<script>
+
+    <h>Order History</h> <script>
     $(function () {
         $("#myTable").tablesorter();
     });
 </script>
-    <h>Order History</h> 
       <table id="myTable" class="tablesorter"> 
    <thead class="tablesorter-header">
         
@@ -67,6 +63,7 @@ h{
               <th>Product Price</th>
               <th>Quantity</th>
               <th>Total Price</th>
+              <th>Write a review</th>
             </tr>
         </thead>
             <tbody>
@@ -74,25 +71,92 @@ h{
             <tr>
             
               <td><%=i+1%></td>
-              <td><%=orderhistory[i].dataValues.productID%></td>
+              <td>#<%=orderhistory[i].dataValues.productID%></td>
               <td><img src = "<%=urlPath%>/images/products/<%=orderhistory[i].dataValues.productImage %> " width="70px" height="70px"></td>
               <td id="orderDate<%=i%>"></td>
               <script>
                   document.getElementById("orderDate<%=i%>").innerText = moment("<%=orderhistory[i].dataValues.orderDate%>","ddd MMM D").format("MMM Do YYYY");
               </script>
-              <td><%= orderhistory[i].dataValues.orderID %></td>
+              <td>#<%= orderhistory[i].dataValues.orderID %></td>
               <td><%= orderhistory[i].dataValues.productName %></td>
               <td><%= orderhistory[i].dataValues.productType %></td>
               <td>$<%= orderhistory[i].dataValues.price %></td>
               <td><%= orderhistory[i].dataValues.quantity %></td>
               <td>$<%= orderhistory[i].dataValues.totalPrice %></td>
+              <td>  <button id="buttonshit<%=i%>"  type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createPost">
+                Write a review
+            </button>
+            <script>$("#buttonshit<%=i%>").click(function(){
+                $("#productID").val("<%= orderhistory[i].dataValues.productID %>")})</script></td>
             </tr>
             <% } %>
         </tbody>
           </table>
-        
-            <br>
-            <br>
+          <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form action="/reviews" method="post">
+                            <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Create Review</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                
+                            </div>
+    
+                            <div class="modal-body">
+                                <fieldset class="form-group sr-only">
+                                    <label for="productID ">ProductID</label>
+                                    <input type="text" id="productID" name="productID" class="form-control" placeholder="Product ID" required>
+                                </fieldset>
+                                <fieldset class="form-group">
+                                    <label for="inputitle">Title</label>
+                                    <input type="text" id="inputitle" name="title" class="form-control" placeholder="Review Title" required>
+                                </fieldset>
+                                <fieldset class="form-group">
+                                    <label for="rating">From 1-5,please rate this product</label>
+                                    <input type="number" id="rating" name="rating" class="form-control" placeholder="Product Rating" required min="1" max="5">
+                                </fieldset>
+                                <fieldset class="form-group">
+                                    <label for="inputContent">Content</label>
+                                    <textarea id="inputContent" name="content" rows="8" cols="40" class="form-control" placeholder="Review Description" required></textarea>
+                                </fieldset>
+    
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>  
+    <!-- Grid column -->
+    <div style="width:400px;height:400px; margin:0 auto;">
+
+        <!--Card-->
+        <div class="card" align="center">
+
+            <!--Card image-->
+            <div class="view">
+                <img src="https://www.ma-maison-algarve.com/wp-content/uploads/2017/10/delivery-symbol.png" class="card-img-top" alt="photo">
+                <a href="#">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body elegant-color white-text">
+                <!--Title-->
+                <h4 class="card-title">Shipping Details</h4>
+                <!--Text-->
+                <p class="card-text white-text"><b>Name:<%= orderhistory[0].dataValues.shippingName %></b></p>
+                <p class="card-text white-text"><b>Contact Number:<%= orderhistory[0].dataValues.shippingContact %></b></p>
+                <p class="card-text white-text">Address:<%=orderhistory[0].dataValues.shippingAddress %> <%=orderhistory[0].dataValues.shippingPostalCode %></p>
+            </div>
+            </div>
+            </div>
+          
             <% include ../partials/footer %>
 
 </body>

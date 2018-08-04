@@ -26,7 +26,7 @@ exports.show = (req, res) => {
 exports.checkout = (req,res) => {
     var user = req.session.passport.user;
     models.sequelize.query(
-        'select c.id id, p.id productID, p.price price, c.quantity quantity, p.quantity prodQuantity, p.userID sellerID, address, postal_code\
+        'select c.id id, p.id productID, p.price price, c.quantity quantity, p.quantity prodQuantity, p.userID sellerID, address,mobile postal_code\
         from Carts c\
         join Products p on c.productID = p.id\
         join Users u on c.userID = u.id\
@@ -41,7 +41,7 @@ exports.checkout = (req,res) => {
             userID:user.id, totalPrice: totalPrice,
             shippingName: user.first_name + ' ' + user.last_name,
             shippingContact:user.mobile,
-            shippingAddress: cartData[0].dataValues.address, 
+            shippingAddress: cartData[0].dataValues.address ,
             shippingPostalCode:cartData[0].dataValues.postal_code
         }).then(async (orderData)=>{
             for (var i = 0; i < cartData.length; i++) {
