@@ -26,23 +26,25 @@
             <label for="inputproductName">Product Name: </label>
             <input type="text" id="inputproductName" name="productName" class="form-control" placeholder="Product Name" required="true" value="<%=item.productName%>">
         </fieldset>
-        <fieldset class="form-group">
+        <fieldset class="form-group" id="content">
             <label for="inputType"> Product Type: </label>
-            <select class = "form-control" name = "productType" id="productType" required ="true" value ="<%=item.productType%>">
-                <option class = "productTypeOption"value = ""></option>
+            <select class = "form-control" name = "productType" id="productType" required ="true">
+                <option class = "productTypeOption" value = ""></option>
+                <option class = "productTypeOption" value = "Processor">Processors</option>
+                <option class = "productTypeOption" value ="Memory">Memory</option>
+                <option class = "productTypeOption" value = "MotherBoard">MotherBoard</option>
+                <option class = "productTypeOption" value ="Graphic Card">Graphic Card</option>
+                <option class = "productTypeOption" value ="Cooling Fans">Cooling Fans</option>
+                <option class = "productTypeOption" value = "Power Supplies">Power Supplies</option>
+                <option class = "productTypeOption" value = "Computer Case">Computer Case</option>
                 <option class = "productTypeOption" value = "Storage" >Storage</option>
                 <option class = "productTypeOption" value = "Optical Drive">Optical Drive</option>
-                <option class = "productTypeOption" value = "MotherBoard">MotherBoard</option>
-                <option class = "productTypeOption" value="Memory">Memory</option>
-                <option class = "productTypeOption" value="Graphic Card">Graphic Card</option>
-                <option class = "productTypeOption" value = "Processor">Processor</option>
                 <option class = "productTypeOption" value = "Mouse">Mouse</option>
-                <option class = "productTypeOption" value="Keyboard">Keyboard</option>
+                <option class = "productTypeOption" value ="Keyboard">Keyboard</option>
                 <option class = "productTypeOption" value = "Monitor">Monitor</option>
-                <option class = "productTypeOption" value = "Computer Case">Computer Case</option>
-                <option class = "productTypeOption" value = "Power Supplies">Power Supplies</option>
-                <option class = "productTypeOption" value="Keyboard">Gaming Headset</option>
-            </select>
+                <option class = "productTypeOption" value = "Headset">Gaming Headset</option>
+                <option class = "productTypeOption" value = "Speaker">Speaker</option>
+              </select>
         </fieldset>
         <script>
             for (var i=0;i<$(".productTypeOption").length;i++){
@@ -55,7 +57,7 @@
         </script>
         <fieldset class="form-group">
             <label for="productDesc">Product Description: </label>
-            <input type="text" id="inputDesc" name="productDesc" class="form-control" placeholder="Product Description" required="true" value = "<%=item.productDesc%>">
+            <input type="text" row ="5" col="5" id="inputDesc" name="productDesc" class="form-control" placeholder="Product Description" required="true" value = "<%=item.productDesc%>">
           </fieldset>
         <fieldset class="form-group">
             <label for="inputquantity">Quantity: </label>
