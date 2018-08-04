@@ -212,7 +212,7 @@ module.exports = function (sequelize, Sequelize) {
         Products.upsert({
             id: 15,
             productID: 1015, 
-            productImage: "Logitech-G502-Spectrum.JPG",
+                productImage: "Logitech-G502-Spectrum.JPG",
             productName: "Logitech G502 Proteus Spectrum ",
             productType: "Mouse", 
             productDesc:"Most accurate sensor, Primary buttons rated to 20 million clicks, 3 DPI indicator LEDs",
