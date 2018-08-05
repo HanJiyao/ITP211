@@ -19,6 +19,7 @@
                     
                 </div>
             </div>
+            
             <!-- Modal -->
             <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -60,6 +61,11 @@
                 </div>
             </div>
             <hr>
+            <% if (reviews.length<1){ %>
+                    <p  align="center" style="font-size:40px;">You have yet to review anything,
+                        <br>
+                        please go to orders page to review from there.</p>
+                <% } %>
             <div class="lead">
                 <div class="list-group">
                     <% reviews.forEach(function(reviews){ %>
@@ -99,6 +105,7 @@
                                     <br>
                                     
                                 </form>
+                                
                             </div>
                         </a>
                         <% }); %>

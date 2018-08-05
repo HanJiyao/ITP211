@@ -59,6 +59,7 @@ h{
             </tr>
         </thead>
             <tbody>
+                   
             <% for (var i=0; i < orderhistory.length ; i++){ %>
             <tr>
             
@@ -76,9 +77,14 @@ h{
               <td><a href="<%=urlPath%>/orderhistory/<%= orderhistory[i].dataValues.id %>"><button type="button" class="btn btn-secondary">Manage</button></a></td>
             </tr>
             <% } %>
+            
         </tbody>
           </table>
-         
+          <% if (orderhistory.length<1){ %>
+                <p  align="center" style="font-size:40px;">You have yet to order anything,
+                    <br>
+                    please go to products page to buy something.</p>
+            <% } %>
                
             <br>
             <br>
