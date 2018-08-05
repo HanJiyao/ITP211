@@ -158,8 +158,8 @@ module.exports = function (sequelize, Sequelize) {
         }); 
         Products.upsert({
             id: 11,
-            productImage: "Justgogo 550W.jpg",
-            productName: "Justgogo 550W Power Supply Unit",
+            productImage: "PSUB.jpg",
+            productName: "Corsair CS Modular 550W",
             productType: "Power Supply", 
             productDesc:"Rated power 550 watts, maximum power 650 watts",
             quantity: 150, 
@@ -169,7 +169,7 @@ module.exports = function (sequelize, Sequelize) {
         });
         Products.upsert({
             id: 12,
-            productImage: "94aa974c24ff2df7fc8cb966d5a9829a_L.jpg",
+            productImage: "430691-logitech-g213-prodigy-gaming-keyboard.jpg",
             productName: "Logitech G213 Prodigy Gaming Keyboard",
             productType: "Keyboard", 
             productDesc:"Gaming grade performance, Customize with logitech gaming software",
@@ -202,7 +202,7 @@ module.exports = function (sequelize, Sequelize) {
         });
         Products.upsert({
             id: 15,
-            productImage: "Logitech-G502-Spectrum.jpg",
+            productImage: "Logitech_G502_Proteus_Spectrum_Gaming_Mouse.jpg",
             productName: "Logitech G502 Proteus Spectrum ",
             productType: "Mouse", 
             productDesc:"Most accurate sensor, 3 DPI indicator LEDs",
@@ -236,7 +236,7 @@ module.exports = function (sequelize, Sequelize) {
          Products.upsert({
             id: 18,
             productID: 1018, 
-            productImage: "CoolMaster-ML120L.JPG",
+            productImage: "CoolMaster-ML120L.jpg",
             productName: "CoolerMaster MasterFan MF120L",
             productType: "Cooling Fans", 
             productDesc:"2x 120mm Red Led Fan perfectly crafted 7-blade fan design for your system",
