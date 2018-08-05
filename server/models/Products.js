@@ -235,10 +235,8 @@ module.exports = function (sequelize, Sequelize) {
          });
          Products.upsert({
             id: 18,
-<<<<<<< HEAD
             productID: 1018, 
             productImage: "CoolMaster-ML120L.JPG",
-=======
             productImage: "CoolMaster-MasterFan-ML120L.JPG",
             productName: "CoolerMaster MasterFan MF120L",
             productType: "Cooling Fans", 
