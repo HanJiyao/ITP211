@@ -57,6 +57,7 @@ exports.list = function(req, res) {
             title: "View Payment Details",
             itemList: payment,
             urlPath: req.protocol + "://" + req.get("host") + "/payment" + req.url,
+            hostPath: req.protocol + "://" + req.get("host"),
             user: user,
             cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
@@ -82,6 +83,7 @@ exports.choose = function(req, res) {
             title: "Select Payment Details",
             itemList: payment,
             urlPath: req.protocol + "://" + req.get("host") + "/payment/select" + req.url,
+            hostPath: req.protocol + "://" + req.get("host"),
             user: user,
             cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)

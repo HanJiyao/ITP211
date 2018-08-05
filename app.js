@@ -67,6 +67,8 @@ var indexRouter = require('./server/routes/index');
 app.use('/', indexRouter)
 var cartRouter = require('./server/routes/cart');
 app.use('/cart', cartRouter);
+var searchRouter = require('./server/routes/search');
+app.use('/search', searchRouter);
 var checkoutRouter = require('./server/routes/checkout');
 app.use('/checkout', checkoutRouter)
 //Product routing

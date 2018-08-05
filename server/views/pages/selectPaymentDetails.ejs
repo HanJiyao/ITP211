@@ -41,7 +41,11 @@
         <div class="row pt-3 pb-4" id="<%= itemList[i].id %>">
             <div class="col-md-1">
                 <div class="form-check ml-md-4">
-                    <input type="radio" name="checkThis" class="form-check-input checkThis">
+                    <%if(i==0){%>
+                        <input type="radio" name="checkThis" class="form-check-input checkThis" checked>
+                    <%} else {%>
+                        <input type="radio" name="checkThis" class="form-check-input checkThis">
+                    <%}%>
                     <label class="form-check-label" for="checkThis"></label>
                 </div>
             </div>

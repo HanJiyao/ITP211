@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+</head>
+<body>
+    <% include ../partials/header %>
+    <div class="container pb-5 mb-5">
+        <div class="pt-3 pb-3">
+            <div class="row">
+                <div class="col pl-2 pr-2">
+                    <form id="searchTool">
+                        <div class="card">
+                            <div class="row m-0 p-3">
+                                <select class="custom-select col-lg-3" style="height: 50px;" id="searchCategory">
+                                    <option class = "productTypeOption" value = "all">All</option>
+                                    <option class = "productTypeOption" value = "Processor">Processor</option>
+                                    <option class = "productTypeOption" value="Memory">Memory</option>
+                                    <option class = "productTypeOption" value = "MotherBoard">MotherBoard</option>
+                                    <option class = "productTypeOption" value="Graphic Card">Graphic Card</option>
+                                    <option class = "productTypeOption" value="Sound Card">Sound Card</option>
+                                    <option class = "productTypeOption" value="Cooling Fans">Cooling Fans</option>
+                                    <option class = "productTypeOption" value = "Power Supply">Power Supply</option>
+                                    <option class = "productTypeOption" value = "Computer Case">Computer Case</option>
+                                    <option class = "productTypeOption" value = "Storage" >Storage</option>
+                                    <option class = "productTypeOption" value = "Networking" >Networking</option>
+                                    <option class = "productTypeOption" value = "Mouse">Mouse</option>
+                                    <option class = "productTypeOption" value="Keyboard">Keyboard</option>
+                                    <option class = "productTypeOption" value = "Monitor">Monitor</option>
+                                    <option class = "productTypeOption" value="Headset">Headset</option>
+                                    <option class = "productTypeOption" value="Speaker">Speaker</option>
+                                    <option class = "productTypeOption" value="Accessory">Accessory</option>
+                                </select>
+                                <script>
+                                    for (var i=0;i<$(".productTypeOption").length;i++){
+                                        var productTypeOption = document.getElementsByClassName("productTypeOption")
+                                        var selected = (productTypeOption[i].value=="<%=category%>")?"selected":false;
+                                        $(productTypeOption[i]).attr("selected", selected)
+                                    }
+                                </script>
+                                <input id="searchToolKeyword" value = "<%=keyword%>" type="text" class="form-control col-lg-7" style="height: 50px;">
+                                <button class="btn btn-outline-warning col-lg-2 m-0" type="submit" style="height: 50px;">Search</button>
+                            </div>
+                            <style>
+                                .searchActive{
+                                    color: #f80!important;
+                                    border:2px solid #f80;
+                                }
+                            </style>
+                            <div class="row pl-3 pr-3 pb-2 m-0">
+                                <div class="col-lg-2 p-0">
+                                    <button type="button" class="btn btn-block btn-white sortOption" style="font-size: 0.9rem;height: 50px;" data-id="popularity">
+                                        popularity
+                                        <%if(sort == "popularity"){if(order=="desc"){%>
+                                            <i class="material-icons" style="vertical-align: -5px;font-size: 1.2rem">keyboard_arrow_down</i>
+                                        <%}else{%>
+                                            <i class="material-icons" style="vertical-align: -5px;font-size: 1.2rem">keyboard_arrow_up</i>
+                                        <%}}%>
+                                    </button>
+                                </div>
+                                <div class="col-lg-2 p-0">
+                                    <button type="button" class="btn btn-block btn-white sortOption" style="font-size: 0.9rem;height: 50px;" data-id="ratings">
+                                        ratings
+                                        <%if(sort == "ratings"){if(order=="desc"){%>
+                                            <i class="material-icons" style="vertical-align: -5px;font-size: 1.2rem">keyboard_arrow_down</i>
+                                        <%}else{%>
+                                            <i class="material-icons" style="vertical-align: -5px;font-size: 1.2rem">keyboard_arrow_up</i>
+                                        <%}}%>
+                                    </button>
+                                </div>
+                                <div class="col-lg-2 p-0">
+                                    <button type="button" class="btn btn-block btn-white sortOption" style="font-size: 0.9rem;height: 50px;" data-id="price">
+                                        price
+                                        <%if(sort == "price"){if(order=="desc"){%>
+                                            <i class="material-icons" style="vertical-align: -5px;font-size: 1.2rem">keyboard_arrow_down</i>
+                                        <%}else{%>
+                                            <i class="material-icons" style="vertical-align: -5px;font-size: 1.2rem">keyboard_arrow_up</i>
+                                        <%}}%>
+                                    </button>
+                                </div>
+                                <div class="col-lg-2 p-0">
+                                    <button type="button" class="btn btn-block btn-white sortOption" style="font-size: 0.9rem;height: 50px;" data-id="discount">
+                                        discount
+                                        <%if(sort == "discount"){if(order=="desc"){%>
+                                            <i class="material-icons" style="vertical-align: -5px;font-size: 1.2rem">keyboard_arrow_down</i>
+                                        <%}else{%>
+                                            <i class="material-icons" style="vertical-align: -5px;font-size: 1.2rem">keyboard_arrow_up</i>
+                                        <%}}%>
+                                    </button>
+                                </div>
+                                <div class="col-lg-2 p-0 pt-2 ml-4 mr-4">
+                                    <div class="row ml-1">
+                                        <div class="col md-form form-sm p-0 m-0">
+                                            <input type="text" id="priceMin" class="form-control" value="<%=min%>">
+                                            <label for="priceMin">Min (S$)</label>
+                                        </div>
+                                        <div class="col-3 pt-2 p-0 text-center">to</div>
+                                        <div class="col md-form form-sm p-0 m-0">
+                                            <input type="text" id="priceMax" class="form-control" value="<%=max%>">
+                                            <label for="priceMax">Max (S$)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <script>
+                        for (var i=0;i<$(".sortOption").length;i++){
+                            if ($($(".sortOption")[i]).data("id")=="<%=sort%>"){
+                                $($(".sortOption")[i]).addClass("searchActive")
+                            } else {
+                                $($(".sortOption")[i]).removeClass("searchActive")
+                            }
+                        }
+                        $("#searchCategory").change(()=>{$("#searchTool").submit()});
+                        $($(".sortOption")[0]).click(()=>{sortResult($($(".sortOption")[0]).data("id"))});
+                        $($(".sortOption")[1]).click(()=>{sortResult($($(".sortOption")[1]).data("id"))});
+                        $($(".sortOption")[2]).click(()=>{sortResult($($(".sortOption")[2]).data("id"))});
+                        $($(".sortOption")[3]).click(()=>{sortResult($($(".sortOption")[3]).data("id"))});
+                        $(".searchActive").click(()=>{sortOrder($(".searchActive").data("id"))});
+                        function sortResult(sort) {
+                            console.log(sort)
+                            var minPrice = ($("#priceMin").val()=="")?"min":$("#priceMin").val();
+                            var maxPrice = ($("#priceMax").val()=="")?"max":$("#priceMax").val();
+                            var searchCategory = $("#searchCategory").val();
+                            keyword = ($("#searchToolKeyword").val()==""||document.getElementById("searchToolKeyword").value=="all")?"all":$("#searchToolKeyword").val();
+                            console.log("<%=hostPath%>/search/"+searchCategory+"/"+minPrice+"/"+maxPrice+"/"+keyword+"/"+sort+"/desc");
+                            window.location.href = "<%=hostPath%>/search/"+searchCategory+"/"+minPrice+"/"+maxPrice+"/"+keyword+"/"+sort+"/desc";
+                        }
+                        function sortOrder(sort) {
+                            console.log(sort)
+                            var minPrice = ($("#priceMin").val()=="")?"min":$("#priceMin").val();
+                            var maxPrice = ($("#priceMax").val()=="")?"max":$("#priceMax").val();
+                            var searchCategory = $("#searchCategory").val();
+                            keyword = ($("#searchToolKeyword").val()==""||document.getElementById("searchToolKeyword").value=="all")?"all":$("#searchToolKeyword").val();
+                            if("<%=order%>"=="desc"){
+                                window.location.href = "<%=hostPath%>/search/"+searchCategory+"/"+minPrice+"/"+maxPrice+"/"+keyword+"/"+sort+"/asc";
+                            }else{
+                                window.location.href = "<%=hostPath%>/search/"+searchCategory+"/"+minPrice+"/"+maxPrice+"/"+keyword+"/"+sort+"/desc";
+                            }
+                        }
+                        $("#searchTool").submit(()=>{
+                            var minPrice = ($("#priceMin").val()=="")?"min":$("#priceMin").val();
+                            var maxPrice = ($("#priceMax").val()=="")?"max":$("#priceMax").val();
+                            var searchCategory = $("#searchCategory").val();
+                            var searchToolKeyword = $("#searchToolKeyword").val();
+                            keyword = ($("#searchToolKeyword").val()==""||$("#searchToolKeyword").val().toLowerCase()=="all")?"all":$("#searchToolKeyword").val();
+                            window.location.href = "<%=hostPath%>/search/"+searchCategory+"/"+minPrice+"/"+maxPrice+"/"+keyword+"/<%=sort%>/desc";
+                            return false;
+                        })
+                    </script>
+                </div>
+            </div>
+        </div>
+        <h3 class="pt-3 p-2">
+          <img src="<%=hostPath%>/images/source/search-flat.png" / style="border-radius: 50%;height: 42px;width: 42px;box-shadow: 0 2px 5px #999999;">
+          <span class="pl-3" style="vertical-align: -5px;"><%=products.length%> results for <%=keywordDisplay%> from <%=category%> category</span>
+        </h3>
+        <div class="row">
+        <% for(var i=0; i < products.length; i++){ %>
+          <style>
+            .productCard{
+              transition: box-shadow 0.3s, border 0.3s;
+              border: thin solid rgba(0, 0, 0, 0);
+            }
+            .productCard:hover{
+              border: thin solid #f80;
+              box-shadow: 0 0 10px #f80;
+            }
+          </style>
+          <a class="col-lg-3 pl-2 pr-2 pb-3" href="<%=hostPath%>/product/<%=products[i].id%>">
+            <div class="card productCard">
+              <div class="p-3">
+                <div class="prodImgContainer" 
+                  style=
+                    "background-image:url('<%=hostPath%>/images/products/<%=products[i].productImage%>');
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    width: 100%;
+                    padding-top: 75%;">
+                </div>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-1 text-dark font-weight-normal" style="height: 2.5rem;overflow: hidden;"><%= products[i].productName %></h6>
+                <div class="card-text pb-2">
+                  <%= products[i].productType %>
+                </div>
+                <h4 class="card-title text-warning mb-0">
+                  SGD <%= products[i].price %>
+                </h4>
+                <div class="grey-text mb-2"><small><del class="pr-2">S$<%=Math.round(products[i].price/(1-products[i].discount_percentage),2)%></del> Saving <%=products[i].discount_percentage*100%>%</small></div>
+                <div class="card-text">
+                  <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= products[i].userID %>
+                </div>
+                <div class="card-text pt-2 grey-text" style="position: relative;">
+                  <div class="star-ratings" style="width: 95px;vertical-align: -6px;">
+                    <div class="star-ratings-top text-warning font-weight-bold popular" style="font-size: 1.2rem;">
+                      ★★★★★
+                    </div>
+                    <div class="star-ratings-bottom text-light font-weight-bold" style="font-size: 1.2rem">
+                      ★★★★★
+                    </div>
+                  </div>
+                  <script>
+                      var width = "<%if(products[i].dataValues.rating!=null){%><%=products[i].dataValues.rating/5*100%><%}else{%>0<%}%>%"
+                      $($(".star-ratings-top.popular")[`<%=i%>`]).css("width",width)
+                  </script>
+                  <span class="pl-1" style="display: inline-block;"> (<%=products[i].dataValues.reviewCount%>)</span>
+                  <span style="display: inline-block;position: absolute; right:0;top:14px;">Sales: <%=products[i].dataValues.saleCount%></span>
+                </div>
+              </div>
+            </div>
+          </a>
+        <% } %>
+        </div>
+    </div>
+    <% include ../partials/footer %>
+</body>
+</html>

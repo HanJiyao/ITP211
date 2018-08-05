@@ -198,11 +198,27 @@
                                 </script>
                             </div>
                             <div class="col-md-1 p-0 text-left" >
-                                <a id="delCart<%=cartData[i].dataValues.id%>">
+                                <a  data-toggle="modal" data-target="#modalConfirmDelete<%=i%>">
                                     <i class="material-icons deleteBtn" style="font-size: 1.8rem; margin-top: 36px">
                                         delete_outline
                                     </i>
                                 </a>
+                                <div class="modal fade" id="modalConfirmDelete<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+                                        <div class="modal-content text-center">
+                                            <div class="modal-header d-flex justify-content-center">
+                                                <p class="heading">Are You Sure to <%=cartData[i].dataValues.productName%> from cart?</p>
+                                            </div>
+                                            <div class="modal-body">
+                                                <i class="fa fa-times fa-4x animated rotateIn"></i>
+                                            </div>
+                                            <div class="modal-footer flex-center">
+                                                <a class="btn btn-light waves-effect " data-dismiss="modal" style="-webkit-border-radius:10em!important;border-radius:10em!important;">No</a>
+                                                <a id="delCart<%=cartData[i].dataValues.id%>"  class="btn btn-danger waves-effect" style="-webkit-border-radius:10em!important;border-radius:10em!important;">Yes</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <script>
                                 $("#delCart<%=cartData[i].dataValues.id%>").click(()=>{

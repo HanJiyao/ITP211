@@ -42,7 +42,7 @@ module.exports = function (sequelize, Sequelize) {
             //static test data
             id: 1,
             userID: 1,
-            totalPrice: 0,
+            totalPrice: 1485.95,
         });
     })
     return Orders;

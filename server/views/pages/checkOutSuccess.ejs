@@ -17,7 +17,7 @@
             <div class="pt-5 pb-3">
                 <div class="text-left m-auto" style="max-width: 500px;">
                     <h4 class="font-weight-normal">Thank you for your purchase!</h4>
-                    <h5 class="pt-2">Your order Number is: <a class="font-weight-normal"><u><%=orderData.id%></u></a></h5>
+                    <h5 class="pt-2">Your order Number is: <a class="font-weight-normal" href="<%=hostPath%>/orderhistory/<%=orderData.id%>"><u><%=orderData.id%></u></a></h5>
                     <h5 class="pt-2">Total payment amount: S$ <%=orderData.totalPrice%></h5>
                     <h5 class="pt-2">Billing & Shipping information:</h5>
                     <h5 class="pt-2"><%=userData.first_name%> <%=userData.last_name%></h5>

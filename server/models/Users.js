@@ -18,7 +18,6 @@ module.exports = function (sequelize, Sequelize) {
         },
         mobile: { 
             type: Sequelize.INTEGER,
-            defaultValue: 0,
         },
         avatar: { type: Sequelize.STRING },
         last_login: { type: Sequelize.DATE },

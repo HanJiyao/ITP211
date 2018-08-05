@@ -52,7 +52,7 @@ module.exports=function(sequelize,Sequelize){
             title: 'Great hard disk',
             content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.',
             user_id: 1,
-            rating: 4,
+            rating: 3,
         });
         Reviews.upsert({
             id: 2,
@@ -76,15 +76,15 @@ module.exports=function(sequelize,Sequelize){
             title: 'hard disk damaged',
             content: 'poor product',
             user_id: 1,
-            rating: 3,
+            rating: 1,
         });
         Reviews.upsert({
             id: 5,
             productID: 4,
-            title: 'Great ram',
+            title: 'Great cpu',
             content: 'work perfectly',
             user_id: 1,
-            rating: 4,
+            rating: 5,
         });
         Reviews.upsert({
             id: 6,
@@ -92,177 +92,24 @@ module.exports=function(sequelize,Sequelize){
             title: 'just normal',
             content: 'seems second hand ram',
             user_id: 1,
-            rating: 3,
+            rating: 1,
         })
+        Reviews.upsert({
+            id: 7,
+            productID: 4,
+            title: 'Great chip',
+            content: 'This i5 is just so good!!!!',
+            user_id: 1,
+            rating: 4,
+        });
+        Reviews.upsert({
+            id: 8,
+            productID: 2,
+            title: 'Great Product',
+            content: 'work perfectly',
+            user_id: 1,
+            rating: 5,
+        });
     });
-    Reviews.upsert({
-        id: 5,
-        productID: 4,
-        title: 'Great ram',
-        content: 'This ram is just so good!!!!',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 20,
-        productID: 2,
-        title: 'Great Product',
-        content: 'work perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 27,
-        productID: 6,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 29,
-        productID: 3,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 27,
-        productID: 6,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 57,
-        productID: 5,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 52,
-        productID: 7,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 100,
-        productID: 8,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 101,
-        productID: 10,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 122,
-        productID: 12,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 124,
-        productID: 13,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 277,
-        productID: 14,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 271,
-        productID: 15,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 279,
-        productID: 16,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 2777,
-        productID: 17,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 209,
-        productID: 18,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 2134,
-        productID: 19,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 2735,
-        productID: 20,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 5555,
-        productID: 21,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 9999,
-        productID: 22,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-    Reviews.upsert({
-        id: 3211,
-        productID: 23,
-        title: 'Great product',
-        content: 'works perfectly',
-        user_id: 1,
-        rating: 5,
-    });
-   
     return Reviews;
 }

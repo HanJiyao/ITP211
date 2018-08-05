@@ -26,22 +26,24 @@ exports.show = (req, res) => {
 exports.checkout = (req,res) => {
     var user = req.session.passport.user;
     models.sequelize.query(
-        'select c.id id, p.id productID, p.price price, c.quantity quantity, p.quantity prodQuantity, p.userID sellerID, address,mobile postal_code\
+        'select *, c.id id, p.id productID, p.price price, c.quantity quantity, p.quantity prodQuantity, p.userID sellerID, address, postal_code\
         from Carts c\
         join Products p on c.productID = p.id\
         join Users u on c.userID = u.id\
         where c.checked=1 and c.userID='+user.id, {model: models.Cart}
     ).then(async (cartData) => {
-        let totalPrice = 0;
+        var mobile = (cartData[0].dataValues.mobile == "") ? null : parseInt(cartData[0].dataValues.mobile);
+        let totalPriceNum = 0;
         for (var i=0;i<cartData.length; i++){
             let productPrice = parseFloat(cartData[i].dataValues.price * cartData[i].dataValues.quantity);
-            totalPrice += productPrice;
+            totalPriceNum += productPrice;
         }
         await models.Orders.create({
-            userID:user.id, totalPrice: totalPrice,
-            shippingName: user.first_name + ' ' + user.last_name,
-            shippingContact:user.mobile,
-            shippingAddress: cartData[0].dataValues.address ,
+            userID:user.id, 
+            totalPrice: totalPriceNum,
+            shippingName: cartData[0].dataValues.first_name + ' ' + cartData[0].dataValues.last_name,
+            shippingContact: mobile,
+            shippingAddress: cartData[0].dataValues.address, 
             shippingPostalCode:cartData[0].dataValues.postal_code
         }).then(async (orderData)=>{
             for (var i = 0; i < cartData.length; i++) {

@@ -56,8 +56,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 pl-lg-5 pr-lg-5">
-                            <form class="row mt-3">
-                                <input class="col-10 border border-dark border-right-0 rounded-left" id="masterSearch" type="search" placeholder="Search" aria-label="Search" style="border-radius:10em 0 0 10rem!important;"/>
+                            <form class="row mt-3" id="searchForm">
+                                <input class="col-10 border border-dark border-right-0 rounded-left" id="masterSearch" type="text" placeholder="Search" style="border-radius:10em 0 0 10rem!important;"/>
                                 <style>
                                     #masterSearch:focus {
                                         outline: 0;
@@ -65,46 +65,69 @@
                                     #searchIcon{
                                         transition: color 0.3s;
                                     }
+                                    #searchBtn{
+                                        cursor: pointer;
+                                    }
+                                    #searchBtn:focus{
+                                        outline: 0;
+                                    }
+                                    #searchBtn:hover{
+                                        color: #f80!important;
+                                    }
                                 </style>
-                                <script>
-                                    $("#masterSearch").focus(()=>{
-                                        $("#searchIcon").addClass("text-warning")
-                                    })
-                                    $("#masterSearch").blur(()=>{
-                                        $("#searchIcon").removeClass("text-warning")
-                                    })
-                                </script>
-                                <button class="col-2 p-0 border border-dark border-left-0 rounded-right bg-white text-right" type="submit" style="border-radius:0 10em 10rem 0!important;">
+                                <button id="searchBtn" class="col-2 p-0 border border-dark border-left-0 rounded-right bg-white text-right" type="submit" style="border-radius:0 10em 10rem 0!important;">
                                     <i id="searchIcon" class="material-icons" style="font-size: 42px;vertical-align:-12px;">search</i>
                                 </button>
                             </form>
+                            <script>
+                                $("#masterSearch").focus(()=>{
+                                    $("#searchIcon").addClass("text-warning")
+                                });
+                                $("#masterSearch").blur(()=>{
+                                    $("#searchIcon").removeClass("text-warning")
+                                });
+                                var keyword = "all";
+                                $("#masterSearch").keyup(()=>{
+                                    var keyword = ($("#masterSearch").val()=="")?"all":$("#masterSearch").val();
+                                    console.log(keyword)
+                                })
+                                $("#searchForm").submit(()=>{
+                                    keyword = ($("#masterSearch").val()=="")?"all":$("#masterSearch").val();
+                                    window.location.href = "<%=hostPath%>/search/all/min/max/"+keyword+"/popularity/desc";
+                                    return false;
+                                });
+                            </script>
                             <div class="row text-lg-cente">
                                 <ul class="navbar-nav w-100" style="font-size:15px;">
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             Category
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#">Processors</a>
-                                            <a class="dropdown-item" href="#">Memory</a>
-                                            <a class="dropdown-item" href="#">MotherBoard</a>
-                                            <a class="dropdown-item" href="#">Graphic Card</a>
-                                            <a class="dropdown-item" href="#">Fans & Cooling</a>
-                                            <a class="dropdown-item" href="#">Power Supplies</a>
-                                            <a class="dropdown-item" href="#">Computer Case</a>
-                                            <a class="dropdown-item" href="#">Storage</a>
-                                            <a class="dropdown-item" href="#">Optical Drive</a>
-                                            <a class="dropdown-item" href="#">Mouse</a>
-                                            <a class="dropdown-item" href="#">Keyboard</a>
-                                            <a class="dropdown-item" href="#">Monitor</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Processor/min/max/all/popularity/desc">Processor</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Memory/min/max/all/popularity/desc">Memory</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/MotherBoard/min/max/all/popularity/desc">MotherBoard</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Graphic Card/min/max/all/popularity/desc">Graphic Card</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Sound Card/min/max/all/popularity/desc">Sound Card</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Cooling Fans/min/max/all/popularity/desc">Cooling Fans</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Power Supply/min/max/all/popularity/desc">Power Supply</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Computer Case/min/max/all/popularity/desc">Computer Case</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Storage/min/max/all/popularity/desc">Storage</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Networking/min/max/all/popularity/desc">Networking</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Mouse/min/max/all/popularity/desc">Mouse</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Keyboard/min/max/all/popularity/desc">Keyboard</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Monitor/min/max/all/popularity/desc">Monitor</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Headset/min/max/all/popularity/desc">Headset</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Speaker/min/max/all/popularity/desc">Speaker</a>
+                                            <a class="dropdown-item" href="<%=hostPath%>/search/Accessory/min/max/all/popularity/desc">Accessory</a>
                                         </div>
                                     </li>
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="#">Features</a>
+                                        <a class="nav-link" href="/">Features</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Popular</a>
+                                        <a class="nav-link" href="<%=hostPath%>/search/all/min/max/all/popularity/desc">Popular</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" target="_blank" href="https://s.taobao.com/search?spm=a230r.1.0.0.2a097c09UxqsV1&q=%E7%94%B5%E8%84%91%E4%B8%BB%E6%9C%BA&rs=up&rsclick=1&preq=%E7%94%B5%E8%84%91%E7%BB%84%E8%A3%85">Taobao Collection</a>
@@ -127,7 +150,7 @@
                                         <% } %>
                                     </div>
                                 </a>
-                                <a href="#" class="col-3 p-0">
+                                <a class="col-3 p-0">
                                     <div class="text-white text-center">
                                         <i class="material-icons" style="font-size:36px;padding-top: 30px">
                                             chat

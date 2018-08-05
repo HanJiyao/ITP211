@@ -26,6 +26,7 @@ exports.list=function(req,res){
             user:user,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true),
             cartNum: cartNum,
+            hostPath: req.protocol + "://" + req.get("host"),
         })
     }).catch((err)=>{
         return res.status(400).send({
