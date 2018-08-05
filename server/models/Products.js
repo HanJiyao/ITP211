@@ -237,7 +237,6 @@ module.exports = function (sequelize, Sequelize) {
             id: 18,
             productID: 1018, 
             productImage: "CoolMaster-ML120L.JPG",
-            productImage: "CoolMaster-MasterFan-ML120L.JPG",
             productName: "CoolerMaster MasterFan MF120L",
             productType: "Cooling Fans", 
             productDesc:"2x 120mm Red Led Fan perfectly crafted 7-blade fan design for your system",
