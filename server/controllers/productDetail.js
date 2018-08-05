@@ -23,7 +23,7 @@ exports.show = function (req, res) {
                 }
             });
             await models.sequelize.query(
-            "select created, user_id userID, title, content, rating, email, first_name, last_name\
+            "select r.created, user_id userID, title, content, rating, email, first_name, last_name\
             from Reviews r\
             join Products p on p.id = r.productID\
             join Users u on u.id = r.user_id\

@@ -15,6 +15,7 @@ exports.list=function(req,res){
             cartNum: cartNum,
             avatar: avatar = require('gravatar').url(user.email, {s: '100', r: 'x', d: 'retro'}, true),
             urlPath:req.protocol+"://" + req.get("host"),
+            hostPath: req.protocol + "://" + req.get("host"),
         })
     }).catch((err)=>{
         return res.status(400).send({
@@ -38,6 +39,7 @@ exports.listdetail=function(req,res){
             cartNum: cartNum,
             avatar: avatar = require('gravatar').url(user.email, {s: '100', r: 'x', d: 'retro'}, true),
             urlPath:req.protocol+"://" + req.get("host"),
+            hostPath: req.protocol + "://" + req.get("host"),
         })
     }).catch((err)=>{
         return res.status(400).send({

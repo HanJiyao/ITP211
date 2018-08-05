@@ -41,9 +41,25 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.FLOAT(10, 2),
         },
     });
-    OrderDetails.sync({
-        force: false,
-        logging: console.log
+    OrderDetails.sync({force: false,logging: console.log}).then(()=>{
+        OrderDetails.upsert({
+            //static test data
+            id: 1,
+            orderID: 1,
+            productID: 1,
+            sellerID:1,
+            quantity:5,
+            price:999.95,
+        });
+        OrderDetails.upsert({
+            //static test data
+            id: 2,
+            orderID: 1,
+            productID: 4,
+            sellerID:1,
+            quantity:2,
+            price:486,
+        });
     })
     return OrderDetails;
 }

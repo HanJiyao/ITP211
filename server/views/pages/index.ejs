@@ -34,7 +34,6 @@
             <div class="carousel-caption">
               <div class="animated fadeInDown">
                 <h3 class="h3-responsive">Awesome Build</h3>
-                <p>First text</p>
               </div>
             </div>
           </div>
@@ -46,7 +45,6 @@
             <div class="carousel-caption">
               <div class="animated fadeInDown">
                 <h3 class="h3-responsive">High Quality Specs</h3>
-                <p>Secondary text</p>
               </div>
             </div>
           </div>
@@ -58,7 +56,6 @@
             <div class="carousel-caption">
               <div class="animated fadeInDown">
                 <h3 class="h3-responsive">Professional Guide</h3>
-                <p>Third text</p>
               </div>
             </div>
           </div>
@@ -74,9 +71,12 @@
       </div>
     </div>
     <div class="container pt-5 pb-5 mb-5">
-      <h3 class="text-center p-3"> Just For You </h3>
-      <div class="row">
-        <% for(var i=0; i < products.length; i++){ %>
+        <h3 class="p-2">
+          <img src="images/source/fire.png" / style="border-radius: 50%;height: 42px;width: 42px;box-shadow: 0 2px 5px #999999;">
+          <span class="pl-3" style="vertical-align: -5px;">Most Popular</span>
+        </h3>
+        <div class="row">
+        <% for(var i=0; i < 4; i++){ %>
           <style>
             .productCard{
               transition: box-shadow 0.3s, border 0.3s;
@@ -87,7 +87,7 @@
               box-shadow: 0 0 10px #f80;
             }
           </style>
-          <a class="col-lg-3 pb-4" href="<%=hostPath%>/product/<%=products[i].id%>">
+          <a class="col-lg-3 pl-2 pr-2 pb-3" href="<%=hostPath%>/product/<%=products[i].id%>">
             <div class="card productCard">
               <div class="p-3">
                 <div class="prodImgContainer" 
@@ -101,7 +101,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <h6 class="card-title mb-1 text-dark font-weight-normal" style="white-space: nowrap;overflow: hidden;"><%= products[i].productName %></h6>
+                <h6 class="card-title mb-1 text-dark font-weight-normal" style="height: 2.5rem;overflow: hidden;"><%= products[i].productName %></h6>
                 <div class="card-text pb-2">
                   <%= products[i].productType %>
                 </div>
@@ -114,7 +114,7 @@
                 </div>
                 <div class="card-text pt-2 grey-text" style="position: relative;">
                   <div class="star-ratings" style="width: 95px;vertical-align: -6px;">
-                    <div class="star-ratings-top text-warning font-weight-bold" style="font-size: 1.2rem;">
+                    <div class="star-ratings-top text-warning font-weight-bold popular" style="font-size: 1.2rem;">
                       ★★★★★
                     </div>
                     <div class="star-ratings-bottom text-light font-weight-bold" style="font-size: 1.2rem">
@@ -123,10 +123,196 @@
                   </div>
                   <script>
                       var width = "<%if(products[i].dataValues.rating!=null){%><%=products[i].dataValues.rating/5*100%><%}else{%>0<%}%>%"
-                      $($(".star-ratings-top")[`<%=i%>`]).css("width",width)
+                      $($(".star-ratings-top.popular")[`<%=i%>`]).css("width",width)
                   </script>
                   <span class="pl-1" style="display: inline-block;"> (<%=products[i].dataValues.reviewCount%>)</span>
                   <span style="display: inline-block;position: absolute; right:0;top:14px;">Sales: <%=products[i].dataValues.saleCount%></span>
+                </div>
+              </div>
+            </div>
+          </a>
+        <% } %>
+      </div>
+      <h3 class="p-2">
+        <img src="images/source/thumbs-up.png" / style="border-radius: 50%;height: 42px;width: 42px;box-shadow: 0 2px 5px #999999;">
+        <span class="pl-3" style="vertical-align: -5px;">Top Ratings</span>
+      </h3>
+      <div class="row">
+        <% for(var i=0; i < 4; i++){ %>
+          <style>
+            .productCard{
+              transition: box-shadow 0.3s, border 0.3s;
+              border: thin solid rgba(0, 0, 0, 0);
+            }
+            .productCard:hover{
+              border: thin solid #f80;
+              box-shadow: 0 0 10px #f80;
+            }
+          </style>
+          <a class="col-lg-3 pl-2 pr-2 pb-3" href="<%=hostPath%>/product/<%=productsRating[i].id%>">
+            <div class="card productCard">
+              <div class="p-3">
+                <div class="prodImgContainer" 
+                  style=
+                    "background-image:url('<%=hostPath%>/images/products/<%=productsRating[i].productImage%>');
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    width: 100%;
+                    padding-top: 75%;">
+                </div>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-1 text-dark font-weight-normal" style="height: 2.5rem;overflow: hidden;"><%= productsRating[i].productName %></h6>
+                <div class="card-text pb-2">
+                  <%= productsRating[i].productType %>
+                </div>
+                <h4 class="card-title text-warning mb-0">
+                  SGD <%= productsRating[i].price %>
+                </h4>
+                <div class="grey-text mb-2"><small><del class="pr-2">S$<%=Math.round(productsRating[i].price/(1-productsRating[i].discount_percentage),2)%></del> Saving <%=productsRating[i].discount_percentage*100%>%</small></div>
+                <div class="card-text">
+                  <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= productsRating[i].userID %>
+                </div>
+                <div class="card-text pt-2 grey-text" style="position: relative;">
+                  <div class="star-ratings" style="width: 95px;vertical-align: -6px;">
+                    <div class="star-ratings-top text-warning font-weight-bold rating" style="font-size: 1.2rem;">
+                      ★★★★★
+                    </div>
+                    <div class="star-ratings-bottom text-light font-weight-bold" style="font-size: 1.2rem">
+                      ★★★★★
+                    </div>
+                  </div>
+                  <script>
+                      var width = "<%if(productsRating[i].dataValues.rating!=null){%><%=productsRating[i].dataValues.rating/5*100%><%}else{%>0<%}%>%"
+                      $($(".star-ratings-top.rating")[`<%=i%>`]).css("width",width)
+                  </script>
+                  <span class="pl-1" style="display: inline-block;"> (<%=productsRating[i].dataValues.reviewCount%>)</span>
+                  <span style="display: inline-block;position: absolute; right:0;top:14px;">Sales: <%=productsRating[i].dataValues.saleCount%></span>
+                </div>
+              </div>
+            </div>
+          </a>
+        <% } %>
+      </div>
+      <h3 class="p-2">
+        <img src="images/source/sale-tag-icon.png" / style="border-radius: 50%;height: 42px;width: 42px;box-shadow: 0 2px 5px #999999;">
+        <span class="pl-3" style="vertical-align: -5px;">Special Sales</span>
+      </h3>
+      <div class="row">
+        <% for(var i=0; i < 4; i++){ %>
+          <style>
+            .productCard{
+              transition: box-shadow 0.3s, border 0.3s;
+              border: thin solid rgba(0, 0, 0, 0);
+            }
+            .productCard:hover{
+              border: thin solid #f80;
+              box-shadow: 0 0 10px #f80;
+            }
+          </style>
+          <a class="col-lg-3 pl-2 pr-2 pb-3" href="<%=hostPath%>/product/<%=productsSale[i].id%>">
+            <div class="card productCard">
+              <div class="p-3">
+                <div class="prodImgContainer" 
+                  style=
+                    "background-image:url('<%=hostPath%>/images/products/<%=productsSale[i].productImage%>');
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    width: 100%;
+                    padding-top: 75%;">
+                </div>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-1 text-dark font-weight-normal" style="height: 2.5rem;overflow: hidden;"><%= productsSale[i].productName %></h6>
+                <div class="card-text pb-2">
+                  <%= productsSale[i].productType %>
+                </div>
+                <h4 class="card-title text-warning mb-0">
+                  SGD <%= productsSale[i].price %>
+                </h4>
+                <div class="grey-text mb-2"><small><del class="pr-2">S$<%=Math.round(productsSale[i].price/(1-productsSale[i].discount_percentage),2)%></del> Saving <%=productsSale[i].discount_percentage*100%>%</small></div>
+                <div class="card-text">
+                  <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= productsSale[i].userID %>
+                </div>
+                <div class="card-text pt-2 grey-text" style="position: relative;">
+                  <div class="star-ratings" style="width: 95px;vertical-align: -6px;">
+                    <div class="star-ratings-top text-warning font-weight-bold sale" style="font-size: 1.2rem;">
+                      ★★★★★
+                    </div>
+                    <div class="star-ratings-bottom text-light font-weight-bold" style="font-size: 1.2rem">
+                      ★★★★★
+                    </div>
+                  </div>
+                  <script>
+                      var width = "<%if(productsSale[i].dataValues.rating!=null){%><%=productsSale[i].dataValues.rating/5*100%><%}else{%>0<%}%>%"
+                      $($(".star-ratings-top.sale")[`<%=i%>`]).css("width",width)
+                  </script>
+                  <span class="pl-1" style="display: inline-block;"> (<%=productsSale[i].dataValues.reviewCount%>)</span>
+                  <span style="display: inline-block;position: absolute; right:0;top:14px;">Sales: <%=productsSale[i].dataValues.saleCount%></span>
+                </div>
+              </div>
+            </div>
+          </a>
+        <% } %>
+      </div>
+      <h3 class="p-2">
+        <img src="images/source/new-icon.png" / style="border-radius: 50%;height: 42px;width: 42px;box-shadow: 0 2px 5px #999999;">
+        <span class="pl-3" style="vertical-align: -5px;">Newly Add</span>
+      </h3>
+      <div class="row">
+        <% for(var i=0; i < 4; i++){ %>
+          <style>
+            .productCard{
+              transition: box-shadow 0.3s, border 0.3s;
+              border: thin solid rgba(0, 0, 0, 0);
+            }
+            .productCard:hover{
+              border: thin solid #f80;
+              box-shadow: 0 0 10px #f80;
+            }
+          </style>
+          <a class="col-lg-3 pl-2 pr-2 pb-3" href="<%=hostPath%>/product/<%=productsNew[i].id%>">
+            <div class="card productCard">
+              <div class="p-3">
+                <div class="prodImgContainer" 
+                  style=
+                    "background-image:url('<%=hostPath%>/images/products/<%=productsNew[i].productImage%>');
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    width: 100%;
+                    padding-top: 75%;">
+                </div>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title mb-1 text-dark font-weight-normal" style="height: 2.5rem;overflow: hidden;"><%= productsNew[i].productName %></h6>
+                <div class="card-text pb-2">
+                  <%= productsNew[i].productType %>
+                </div>
+                <h4 class="card-title text-warning mb-0">
+                  SGD <%= productsNew[i].price %>
+                </h4>
+                <div class="grey-text mb-2"><small><del class="pr-2">S$<%=Math.round(productsNew[i].price/(1-productsNew[i].discount_percentage),2)%></del> Saving <%=productsNew[i].discount_percentage*100%>%</small></div>
+                <div class="card-text">
+                  <i class="material-icons pr-2" style="vertical-align: -6px">store</i><%= productsNew[i].userID %>
+                </div>
+                <div class="card-text pt-2 grey-text" style="position: relative;">
+                  <div class="star-ratings" style="width: 95px;vertical-align: -6px;">
+                    <div class="star-ratings-top text-warning font-weight-bold new" style="font-size: 1.2rem;">
+                      ★★★★★
+                    </div>
+                    <div class="star-ratings-bottom text-light font-weight-bold" style="font-size: 1.2rem">
+                      ★★★★★
+                    </div>
+                  </div>
+                  <script>
+                      var width = "<%if(productsNew[i].dataValues.rating!=null){%><%=productsNew[i].dataValues.rating/5*100%><%}else{%>0<%}%>%"
+                      $($(".star-ratings-top.new")[`<%=i%>`]).css("width",width)
+                  </script>
+                  <span class="pl-1" style="display: inline-block;"> (<%=productsNew[i].dataValues.reviewCount%>)</span>
+                  <span style="display: inline-block;position: absolute; right:0;top:14px;">Sales: <%=productsNew[i].dataValues.saleCount%></span>
                 </div>
               </div>
             </div>

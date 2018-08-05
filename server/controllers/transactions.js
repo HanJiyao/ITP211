@@ -30,14 +30,20 @@ exports.list = function (req, res) {
     }).then((data) => {
         cartNum = data[0].dataValues.cartNum
     });
-    transactionsModel.query('SELECT *, u.username AS username FROM Transactions t JOIN Users u ON t.paymentMadeTo = u.id WHERE user_id='+user.id,{model:Transactions }).then((transactions)=> {
+    models.sequelize.query('SELECT *, u.username as paymentMadeTo, s.username as paymentReceivedFrom\
+    FROM Transactions t \
+    LEFT JOIN Users u ON t.paymentMadeTo = u.id \
+    LEFT JOIN Users s ON t.paymentReceivedFrom = s.id \
+    WHERE userID='+user.id+' ORDER BY transactionDate',{model: models.Transactions })
+    .then((transactions)=> {
         res.render("viewTransactions", {
             title: "My Transaction History",
             itemList: transactions,
             urlPath: req.protocol + "://" + req.get("host") + "/transactions" + req.url,
             user: user,
             cartNum: cartNum,
-            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true)
+            avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true),
+            hostPath: req.protocol + "://" + req.get("host"),
         });
     }).catch((err)=> {
         return res.status(400).send({

@@ -15,7 +15,7 @@ exports.list=function(req,res){
         cartNum = data[0].dataValues.cartNum
     })
     //list all users and sort by date
-    sequelize.query("select r.productID,r.helpfulness,r.rating,r.id,r.title,r.content,r.created ,u.email AS user_id from Reviews r join Users u on r.user_id=u.id where user_id="+user.id,{model:Reviews })
+    sequelize.query("select *, r.productID,r.helpfulness,r.rating,r.id,r.title,r.content,r.created ,u.email AS user_id from Reviews r join Users u on r.user_id=u.id where user_id="+user.id,{model:Reviews })
     .then((reviews)=>{
 
     res.render("reviews",{
@@ -26,6 +26,7 @@ exports.list=function(req,res){
             user:user,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true),
             cartNum: cartNum,
+            hostPath: req.protocol + "://" + req.get("host"),
         })
     }).catch((err)=>{
         return res.status(400).send({
@@ -41,6 +42,8 @@ exports.list=function(req,res){
             title:req.body.title,
             content:req.body.content,
             user_id:req.user.id ,
+            first_name:req.first_name,
+            last_name:req.last_name,
             rating:req.body.rating,
             productID:req.body.productID,
             

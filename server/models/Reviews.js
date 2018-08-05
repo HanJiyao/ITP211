@@ -52,7 +52,7 @@ module.exports=function(sequelize,Sequelize){
             title: 'Great hard disk',
             content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae urna odio. Etiam vestibulum, mi ut dignissim elementum, risus enim porttitor nunc, sed consequat nunc eros sit amet quam.',
             user_id: 1,
-            rating: 4,
+            rating: 3,
         });
         Reviews.upsert({
             id: 2,
@@ -76,15 +76,15 @@ module.exports=function(sequelize,Sequelize){
             title: 'hard disk damaged',
             content: 'poor product',
             user_id: 1,
-            rating: 3,
+            rating: 1,
         });
         Reviews.upsert({
             id: 5,
             productID: 4,
-            title: 'Great ram',
+            title: 'Great cpu',
             content: 'work perfectly',
             user_id: 1,
-            rating: 4,
+            rating: 5,
         });
         Reviews.upsert({
             id: 6,
@@ -92,8 +92,24 @@ module.exports=function(sequelize,Sequelize){
             title: 'just normal',
             content: 'seems second hand ram',
             user_id: 1,
-            rating: 3,
+            rating: 1,
         })
+        Reviews.upsert({
+            id: 7,
+            productID: 4,
+            title: 'Great chip',
+            content: 'This i5 is just so good!!!!',
+            user_id: 1,
+            rating: 4,
+        });
+        Reviews.upsert({
+            id: 8,
+            productID: 2,
+            title: 'Great Product',
+            content: 'work perfectly',
+            user_id: 1,
+            rating: 5,
+        });
     });
     return Reviews;
 }

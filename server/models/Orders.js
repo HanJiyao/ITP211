@@ -21,6 +21,12 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.FLOAT(10,2),
             allowNull: false,
         },
+        shippingName:{
+            type: Sequelize.STRING,
+        },
+        shippingContact:{
+            type: Sequelize.INTEGER,
+        },
         shippingAddress:{
             type: Sequelize.STRING,
         },
@@ -36,7 +42,7 @@ module.exports = function (sequelize, Sequelize) {
             //static test data
             id: 1,
             userID: 1,
-            totalPrice: 0,
+            totalPrice: 1485.95,
         });
     })
     return Orders;

@@ -26,6 +26,7 @@ exports.profile = function (req, res) {
             user: userData,
             cartNum: cartNum,
             avatar: require('gravatar').url(userData.email, { s: '100', r: 'x', d: 'retro' }, true),
+            hostPath: req.protocol + "://" + req.get("host"),
             urlPath: req.protocol + "://" + req.get("host") + "/profile"
         });
     }).catch((err) => {
@@ -36,11 +37,13 @@ exports.profile = function (req, res) {
 }
 exports.profileUpdate = function (req, res) {
     var id = req.session.passport.user.id;
+    var mobile = (req.body.mobile == "") ? null : parseInt(req.body.mobile);
+    console.log(mobile)
     var updateData = {
         username: req.body.username,
         email: req.body.email,
         avatar: req.body.avatar,
-        mobile: req.body.mobile,
+        mobile: mobile,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         gender: req.body.gender,
@@ -53,7 +56,7 @@ exports.profileUpdate = function (req, res) {
             return res.send(400, {
                 message: "error"
             });
-        }
+        };
         res.redirect("/profile");
     })
 };
@@ -95,7 +98,8 @@ exports.adminListAccount = function (req, res) {
             user: user,
             cartNum: cartNum,
             avatar: require('gravatar').url(user.email, { s: '100', r: 'x', d: 'retro' }, true),
-            urlPath: req.protocol + "://" + req.get("host") + "/admin"
+            urlPath: req.protocol + "://" + req.get("host") + "/admin",
+            hostPath: req.protocol + "://" + req.get("host"),
         });
     })
 }

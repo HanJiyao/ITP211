@@ -65,7 +65,7 @@ h{
               <td><%=i+1%></td>
               
              
-              <td><%= orderhistory[i].dataValues.id %></td>
+              <td>#<%= orderhistory[i].dataValues.id %></td>
               <td id="orderDate<%=i%>"></td>
               <script>
                   document.getElementById("orderDate<%=i%>").innerText = moment("<%=orderhistory[i].dataValues.orderDate%>","ddd MMM D").format("MMM Do YYYY");
@@ -78,7 +78,8 @@ h{
             <% } %>
         </tbody>
           </table>
-        
+         
+               
             <br>
             <br>
             <% include ../partials/footer %>
