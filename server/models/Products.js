@@ -240,7 +240,6 @@ module.exports = function (sequelize, Sequelize) {
             productImage: "CoolMaster-ML120L.JPG",
 =======
             productImage: "CoolMaster-MasterFan-ML120L.JPG",
->>>>>>> 9670f123547a472c808ca1413faf120785787196
             productName: "CoolerMaster MasterFan MF120L",
             productType: "Cooling Fans", 
             productDesc:"2x 120mm Red Led Fan perfectly crafted 7-blade fan design for your system",
