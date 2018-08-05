@@ -6,6 +6,7 @@
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    margin-bottom: 0;
     }
   .tablesorter-header{
     cursor: pointer;
@@ -127,6 +128,7 @@
         </div>
       </div>
     </div>
+    <div class="card ml-4 mr-4">
     <table class="table" id= "productTable">
       <thread>
         <tr class = "text-center">
@@ -180,6 +182,7 @@
         <%} %>
       </thread>
     </table>
+</div>
     <script>
       $(".editBtn").click(function () {
         var record_num = $(this).closest("tr").data('id');

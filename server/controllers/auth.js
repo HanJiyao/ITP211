@@ -1,8 +1,6 @@
 var exports = module.exports = {}
 var models = require("../models");
 var userModel = models.Users;
-var productModel = models.Products;
-var paymentModel = models.PaymentDetails;
 exports.signup = function (req, res) {
     (req.session.passport) ? res.redirect('/profile') : res.render('signup', { title: 'Signup Page', message: req.flash('signupMessage')});
 }
@@ -69,16 +67,39 @@ exports.accountDelete = function(req, res) {
     var id = req.session.passport.user.id;
     console.log("deleting user " + id);
     req.session.destroy()
-    productModel.destroy({ where: { userID: id } });
-    paymentModel.destroy({ where: { userID: id } });
-    userModel.destroy({ where: { id: id } }).then((deleteUser) => {
-        if (!deleteUser) {
-            return res.send(400, {
-                message: "error"
-            });
-        };
-        res.redirect('/');
-    });
+    models.Transactions.destroy({ where: { userID: id } }).then(async()=>{
+        await models.Transactions.destroy({ where: { paymentMadeTo: id } }).then(async()=>{
+            await models.Transactions.destroy({ where: { paymentReceivedFrom: id } }).then(async()=>{
+                await models.PaymentDetails.destroy({ where: { userID: id } }).then(async()=>{
+                    await models.Orders.destroy({ where: { userID: id } }).then(async()=>{
+                        await models.Wallet.destroy({ where: { userID: id } }).then(async()=>{
+                            await models.Reviews.destroy({ where: { user_id: id } }).then(async()=>{
+                                await models.Cart.destroy({ where: { userID: id } }).then(async()=>{
+                                    await models.Products.destroy({ where: { userID: id } }).then(async()=>{
+                                        await userModel.destroy({ where: { id: id } }).then((deleteUser) => {
+                                            if (!deleteUser) {
+                                                return res.send(400, {
+                                                    message: "error"
+                                                });
+                                            };
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    })
+    res.redirect('/'); 
+}
+exports.adminValidAccount = (req, res)=>{
+    if (req.body.password == "Admin"){
+        res.status(200).send({ valid: true });
+    } else {
+        res.status(200).send({ valid: false });
+    }
 }
 exports.adminListAccount = function (req, res) {
     var user = req.session.passport.user;
@@ -90,7 +111,7 @@ exports.adminListAccount = function (req, res) {
         cartNum = data[0].dataValues.cartNum
     });
     userModel.findAll({ 
-        attributes: ["id", "email", "username", "password", "last_login","createdAt"] 
+        attributes: ["id", "email", "username", "password", "last_login","createdAt", "mobile"] 
     }).then(function (userData) {
         res.render("auth", {
             title: "Admin Console",
@@ -122,14 +143,30 @@ exports.adminEditAccount = function (req, res) {
 exports.adminDeleteAccount = function (req, res) {
     var id = req.params.id;
     console.log("deleting account" + id);
-    productModel.destroy({ where: { userID: id } });
-    paymentModel.destroy({ where: { userID: id } });
-    userModel.destroy({ where: { id: id } }).then((deleteRecord) => {
-        if (!deleteRecord) {
-            return res.send(400, {
-                message: "error"
-            });
-        }
-        res.status(200).send({ message: "Delete User Account: " + id });
-    });
+    models.Transactions.destroy({ where: { userID: id } }).then(async()=>{
+        await models.Transactions.destroy({ where: { paymentMadeTo: id } }).then(async()=>{
+            await models.Transactions.destroy({ where: { paymentReceivedFrom: id } }).then(async()=>{
+                await models.PaymentDetails.destroy({ where: { userID: id } }).then(async()=>{
+                    await models.Orders.destroy({ where: { userID: id } }).then(async()=>{
+                        await models.Wallet.destroy({ where: { userID: id } }).then(async()=>{
+                            await models.Reviews.destroy({ where: { user_id: id } }).then(async()=>{
+                                await models.Cart.destroy({ where: { userID: id } }).then(async()=>{
+                                    await models.Products.destroy({ where: { userID: id } }).then(async()=>{
+                                        await userModel.destroy({ where: { id: id } }).then((deleteUser) => {
+                                            if (!deleteUser) {
+                                                return res.send(400, {
+                                                    message: "error"
+                                                });
+                                            };
+                                            res.status(200).send({ message: "Delete User Account: " + id });
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    })
 }

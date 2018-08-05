@@ -9,6 +9,9 @@
   <% include ../partials/header %>
   <div class="container">
     <h3 class="text-center p-3"> My WishList </h3>
+    <%if (products.length == 0){%>
+      <h5 class="text-center">You have not add any Products in Wishlist, you can keep Exploring and put your Favourite Here</h5>
+    <%}%>
     <div class="row">
     <% for(var i=0; i < products.length; i++){ %>
           <style>
@@ -28,9 +31,9 @@
               color:red!important;
             }
           </style>
-          <div class="col-lg-3 pb-4" id="wishlist<%=i%>">
+          <div class="col-lg-3 pb-4" id="wishlist<%=products[i].dataValues.productID%>">
             <div class="card productCard">
-              <div class="text-right p-2"><i class="material-icons font-weight-bold grey-text delBtn" id="del<%=i%>">close</i></div>
+              <div class="text-right p-2"><i class="material-icons font-weight-bold grey-text delBtn" id="del<%=products[i].dataValues.productID%>">close</i></div>
               <a class="" href="<%=hostPath%>/product/<%=products[i].dataValues.productID%>">
                 <div class="p-3">
                   <div class="prodImgContainer" 
@@ -44,7 +47,7 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <h6 class="card-title mb-1 text-dark font-weight-normal"><%= products[i].productName %></h6>
+                  <h6 class="card-title mb-1 text-dark font-weight-normal" style="height: 2.5rem;overflow: hidden;"><%= products[i].productName %></h6>
                   <div class="card-text pb-2">
                     <%= products[i].productType %>
                   </div>
@@ -58,12 +61,12 @@
               </a>
             </div>
             <script>
-            $("#del<%=i%>").click(()=>{
+            $("#del<%=products[i].dataValues.productID%>").click(()=>{
               $.ajax({
-                url: '<%=hostPath%>/wishlistmanager/<%=products[i].id%>',
+                url: '<%=hostPath%>/wishlistmanager/<%=products[i].dataValues.productID%>',
                 type: 'DELETE',
                 success: (result)=>{
-                  $("#wishlist<%=i%>").remove();
+                  $("#wishlist<%=products[i].dataValues.productID%>").remove();
                 },
                 error: (result)=>{
                   alert("Unable to delete wishlist record.");

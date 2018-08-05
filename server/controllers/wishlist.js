@@ -17,7 +17,7 @@ exports.list = function(req, res){
     var user = req.session.passport.user;
     var cartNum = 0;
     models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '', {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
-    models.sequelize.query('select * from Products p join Wishlists w on p.id = w.productID', {model: models.Products})
+    models.sequelize.query('select *, u.username as userID, w.productID productID from Products p join Wishlists w on p.id = w.productID join Users u on u.id = p.userID', {model: models.Products})
     .then((products)=>{
         res.render("wishlist", {
             title: "View Wishlist",
@@ -36,7 +36,7 @@ exports.list = function(req, res){
 exports.delete = function(req, res){
     var record_num = req.params.id;
     console.log("deleting" + record_num);
-    models.Wishlist.destroy({where: { id: record_num}}).then((deleteRecord)=>{
+    models.Wishlist.destroy({where: { productID: record_num}}).then((deleteRecord)=>{
         if (!deleteRecord){
             return res.send(400, {
                 message: "error"

@@ -36,10 +36,7 @@ module.exports = function (sequelize, Sequelize) {
         price: {
             type: Sequelize.FLOAT(10, 2),
             allowNull: false,
-        },
-        discount: {
-            type: Sequelize.FLOAT(10, 2),
-        },
+        }
     });
     OrderDetails.sync({force: false,logging: console.log}).then(()=>{
         OrderDetails.upsert({

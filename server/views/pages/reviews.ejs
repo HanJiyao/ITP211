@@ -69,7 +69,7 @@
             <div class="lead">
                 <div class="list-group">
                     <% reviews.forEach(function(reviews){ %>
-                        <a href="#" class="list-group-item" data-id="<%= reviews.id%>">
+                        <div class="list-group-item card" data-id="<%= reviews.id%>">
                             <img src="<%= gravatar %>" alt="" style="float: left; margin-right: 10px">
                             <div class="reviews">
                                 <form action="/reviews" method="delete">
@@ -78,7 +78,6 @@
                                     </h4>
                                     <h4 class="list-group-item-heading">
                                         <%= reviews.title %>
-                                            
                                             <button class="btn btn-secondary pull-right deleteBtn" type="button" data-id="<%= reviews.id%>">Delete</button>
                                             <button class="btn btn-secondary pull-right editBtn" type="button" data-id="<%= reviews.id%>">Edit</button>
                                     </h4>
@@ -107,7 +106,7 @@
                                 </form>
                                 
                             </div>
-                        </a>
+                        </div>
                         <% }); %>
                 </div>
             </div>

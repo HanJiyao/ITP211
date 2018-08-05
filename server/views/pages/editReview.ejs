@@ -7,13 +7,13 @@
 </head>
 <body>
     <% include ../partials/header %>
+    <div class="container card mt-3"  style="max-width: 500px;">
     <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Edit Reviews Record</h4>
     </div>
     <form action="/reviews/edit/<%=reviews.id%>" method="post" enctype="multipart/form-data">
         <fieldset class="form-group">
-                <label for="productID">ProductID</label>
-                <input type="text" id="productID" name="productID" class="form-control" placeholder="Product ID" required="true" value="<%=reviews.productID%>" >
+                <label for="productID">ProductID: <%=reviews.productID%></label>
             </fieldset>
             <fieldset class="form-group">
                 <label for="title">title</label>
@@ -39,7 +39,7 @@
                 rating: $("#rating").val(),
                 content:$("#content").val(),
                 title: $("#title").val(),
-                productID: $("#productID").val(),
+                productID: "<%=reviews.productID%>",
             }
             $.ajax({
                 url: url,
@@ -49,6 +49,7 @@
                 contentType: "application/json",
                 success: function(result){
                     alert(" Review updated successfully");
+                    window.location.href="<%=hostPath%>/reviews"
                 },
                 error: function(result){
                     alert(result.message);
@@ -60,9 +61,11 @@
             location.href = "<%=hostPath%>/reviews"
         }
     </script>
+   </div> 
     <br>
     <br>
     <br>
+
     <% include ../partials/footer %>
 </body>
 </html>

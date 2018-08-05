@@ -41,29 +41,26 @@ h{
 </script>
 <body>
     <% include ../partials/header %>
-
-    <h>Order Details</h>
+<div class="container">
+    <h>Order Details for Order #<%= orderhistory[0].dataValues.orderID %></h>
     <br>
-    <h>(Click on table header to sort)</h>
+    <h5>(Click on table header to sort)</h5>
     <script>
     $(function () {
         $("#myTable").tablesorter();
     });
 </script>
+
+<div class="card">
       <table id="myTable" class="tablesorter"> 
    <thead class="tablesorter-header">
         
             <tr>
               <th>S/N</th>
-              <th>Product ID</th>
               <th>Product Image</th>
               <th>Date of Purchase</th>
-              
-              <th>Order ID</th>
               <th>Product Name</th>
               <th>Product Type</th>
-             
-              <th>Product Price</th>
               <th>Quantity</th>
               <th>Total Price</th>
               <th>Write a review</th>
@@ -75,16 +72,13 @@ h{
             <tr>
             
               <td><%=i+1%></td>
-              <td>#<%=orderhistory[i].dataValues.productID%></td>
               <td><img src = "<%=urlPath%>/images/products/<%=orderhistory[i].dataValues.productImage %> " width="70px" height="70px"></td>
               <td id="orderDate<%=i%>"></td>
               <script>
                   document.getElementById("orderDate<%=i%>").innerText = moment("<%=orderhistory[i].dataValues.orderDate%>","ddd MMM D").format("MMM Do YYYY");
               </script>
-              <td>#<%= orderhistory[i].dataValues.orderID %></td>
               <td><%= orderhistory[i].dataValues.productName %></td>
               <td><%= orderhistory[i].dataValues.productType %></td>
-              <td>$<%= orderhistory[i].dataValues.price %></td>
               <td><%= orderhistory[i].dataValues.quantity %></td>
               <td>$<%= orderhistory[i].dataValues.totalPrice %></td>
               <td>  <button id="buttonshit<%=i%>"  type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createPost">
@@ -96,6 +90,32 @@ h{
             <% } %>
         </tbody>
           </table>
+</div>
+<!-- Grid column -->
+    <div style="width:400px;height:400px; margin:0 auto;">
+
+        <!--Card-->
+        <div class="card mt-3" align="center">
+
+            <!--Card image-->
+            <div class="view">
+                <img src="https://www.ma-maison-algarve.com/wp-content/uploads/2017/10/delivery-symbol.png" class="card-img-top p-4" alt="photo">
+                <a href="#">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body elegant-color white-text">
+                <!--Title-->
+                <h4 class="card-title">Shipping Details</h4>
+                <!--Text-->
+                <p class="card-text white-text"><b>Name: <%= orderhistory[0].dataValues.shippingName %></b></p>
+                <p class="card-text white-text"><b>Contact Number: <%= orderhistory[0].dataValues.shippingContact %></b></p>
+                <p class="card-text white-text">Address: <%=orderhistory[0].dataValues.shippingAddress %> <%=orderhistory[0].dataValues.shippingPostalCode %></p>
+            </div>
+            </div>
+            </div>
           <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -135,33 +155,10 @@ h{
                     </div>
                 </div>
             </div>  
-    <!-- Grid column -->
-    <div style="width:400px;height:400px; margin:0 auto;">
-
-        <!--Card-->
-        <div class="card" align="center">
-
-            <!--Card image-->
-            <div class="view">
-                <img src="https://www.ma-maison-algarve.com/wp-content/uploads/2017/10/delivery-symbol.png" class="card-img-top" alt="photo">
-                <a href="#">
-                    <div class="mask rgba-white-slight"></div>
-                </a>
-            </div>
-
-            <!--Card content-->
-            <div class="card-body elegant-color white-text">
-                <!--Title-->
-                <h4 class="card-title">Shipping Details</h4>
-                <!--Text-->
-                <p class="card-text white-text"><b>Name:<%= orderhistory[0].dataValues.shippingName %></b></p>
-                <p class="card-text white-text"><b>Contact Number:<%= orderhistory[0].dataValues.shippingContact %></b></p>
-                <p class="card-text white-text">Address:<%=orderhistory[0].dataValues.shippingAddress %> <%=orderhistory[0].dataValues.shippingPostalCode %></p>
-            </div>
-            </div>
-            </div>
+    
           <br>
           <br>
+</div>
             <% include ../partials/footer %>
 
 </body>

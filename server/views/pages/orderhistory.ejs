@@ -43,9 +43,11 @@ h{
         $("#myTable").tablesorter();
     });
 </script>
+<div class="container">
     <h>Order History</h> 
     <br>
-    <h>(Click the table head to sort)</h>
+    <h5>(Click the table head to sort)</h5>
+    <div class="card">
       <table id="myTable" class="tablesorter text-center"> 
    <thead class="tablesorter-header text-center" >
         
@@ -81,6 +83,7 @@ h{
             
         </tbody>
           </table>
+</div>
           <% if (orderhistory.length<1){ %>
                 <p  align="center" style="font-size:40px;">You have yet to order anything,
                     <br>
@@ -89,6 +92,7 @@ h{
                
             <br>
             <br>
+           </div> 
             <% include ../partials/footer %>
 
 </body>
