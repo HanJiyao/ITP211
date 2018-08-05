@@ -62,7 +62,7 @@
                                 <div class="form-group">
                                     <fieldset class="form-group">
                                         <label for="expiryDate">Expiry Date</label>
-                                        <input type="text" id="expiryDate" name="expiryDate" class="form-control" placeholder="" required="true" value="<%=item.expiryDate%>">
+                                        <input type="month" id="expiryDate" name="expiryDate" class="form-control" placeholder="" required="true" value="<%=item.expiryDate%>">
                                     </fieldset>
                                 </div>
                                 <button type="button" class="btn btn-success btn-lg" onclick="validate()">Save Changes</button>
@@ -92,7 +92,65 @@
                 alert("Card Type is not selected!");
             }
             else {
+                checkCardNum();
+                // checkDate();
+            }
+        };
+        function checkCardNum() {
+            var cardNumStr = $("#cardNumber").val();
+            var sum = 0;
+            var multiplyTwo = false;
+            var valid = '';
+            var mod = 0;
+            for (var i = cardNumStr.length-1; i >= 0; i--) {
+                var currDigit = parseInt(cardNumStr[i]);
+                
+                if (multiplyTwo) {
+                    if ((currDigit*2) > 9) {
+                        sum += (currDigit*2) - 9;
+                    }
+                    else {
+                        sum += (currDigit*2);
+                    }
+                }
+                else {
+                    sum += currDigit;
+                }
+                var multiplyTwo =! multiplyTwo;//change from false to true and vice versa
+            }
+            console.log(sum);
+            mod = (sum % 10);
+            console.log(mod);
+            if (mod == 0) {
+                valid = 'valid';
+                checkDate();
+            }
+            else {
+                valid = 'invalid';
+                alert("You have entered an invalid credit card number!");
+            }
+            console.log(valid);
+        };
+        function checkDate() {
+            var d = new Date();
+            var currYear = d.getFullYear();
+            var currMonth = d.getMonth() + 1;
+            
+            var dateStr = $("#expiryDate").val();
+            var monthInt = parseInt(dateStr.slice(-2));
+            var yearInt = parseInt(dateStr.substr(0,4));
+            
+            if (yearInt < currYear) {
+                // return false;
+                alert("Expiry Date is invalid!");
+            }
+            else if (yearInt == currYear && monthInt < currMonth) {
+                // return false;
+                alert("Expiry Date is invalid!");
+            }
+            else {
                 saveDetails();
+                // return true;
             }
         };
         function saveDetails() {

@@ -42,21 +42,57 @@ module.exports = function (sequelize, Sequelize) {
             //static test data
             id: 1,
             cardHolderName: "Tan Yong Rui",
-            cardNumber: "0000111122223333",
+            cardNumber: "4916114495606612",
             cardType: "Visa",
             securityCode: "555",
-            expiryDate: "03/95",
+            expiryDate: "2020-03",
             userID: 1
         });
         PaymentDetails.upsert({
             id: 2,
-            cardHolderName: "Lim Yong Ming",
-            cardNumber: "9999111122223333",
+            cardHolderName: "Dominic Tay Jia Wen",
+            cardNumber: "5439199098484025",
             cardType: "MasterCard",
             securityCode: "666",
-            expiryDate: "03/15",
+            expiryDate: "2021-03",
             userID: 1
-        })
+        });
+        PaymentDetails.upsert({
+            id: 3,
+            cardHolderName: "Fang Che Ee",
+            cardNumber: "344897396624938",
+            cardType: "American Express",
+            securityCode: "222",
+            expiryDate: "2021-11",
+            userID: 1
+        });
+        PaymentDetails.upsert({
+            id: 4,
+            cardHolderName: "Lee Kai Ming",
+            cardNumber: "6011367885651189",
+            cardType: "Discover",
+            securityCode: "333",
+            expiryDate: "2025-01",
+            userID: 1
+        });
+        PaymentDetails.upsert({
+            id: 5,
+            cardHolderName: "Han Jiyao",
+            cardNumber: "3544155527763980",
+            cardType: "JCB",
+            securityCode: "777",
+            expiryDate: "2019-08",
+            userID: 1
+        });
+        PaymentDetails.upsert({
+            id: 6,
+            cardHolderName: "Muhammad Hisyam",
+            cardNumber: "36425275671045",
+            cardType: "Diners Club",
+            securityCode: "999",
+            expiryDate: "2023-05",
+            userID: 1
+        });
     });
     return PaymentDetails;
 }
