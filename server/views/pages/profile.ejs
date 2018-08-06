@@ -141,7 +141,7 @@
                                 </style>
                                 <div class="col-md-12">
                                     <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                                        <input type="text" class="datetimepicker-input col-10 p-0" name="birthday" id="birthday" value="<%= user.birthday %>" data-target="#datetimepicker4" placeholder="YYYY-MM-DD" style="border-right: none;border-left: none;border-top: none;border-bottom: 1px solid #ced4da;font-weight: 500;color: #495057;"/>
+                                        <input type="text" class="datetimepicker-input col-10 p-0" name="birthday" id="birthday" data-target="#datetimepicker4" placeholder="YYYY-MM-DD" style="border-right: none;border-left: none;border-top: none;border-bottom: 1px solid #ced4da;font-weight: 500;color: #495057;"/>
                                         <div class="col-2 p-0 text-center" data-target="#datetimepicker4" data-toggle="datetimepicker">
                                             <button class="btn btn-warning btn-block" style="padding:6px;-webkit-border-radius:10em!important;border-radius:10em!important;" onclick="return noRefresh()">
                                                 <i class="material-icons text-white" style="font-size: 1.5rem; padding: 5px;">
@@ -159,7 +159,9 @@
                                     });
                                     noRefresh=()=>{
                                         return false
-                                    }
+                                    };
+                                    console.log(moment(new Date("<%= user.birthday %>")).format("YYYY-MM-DD"))
+                                    $("#birthday").val(moment(new Date("<%= user.birthday %>")).format("YYYY-MM-DD"))
                                 </script>
                             </div>
                             <h5 class="mt-3">
