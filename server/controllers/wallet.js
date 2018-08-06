@@ -90,7 +90,7 @@ exports.update = function (req,res) {
             userID: req.session.passport.user.id
         }
         console.log(newBalance,currBalance, balance_num);
-        walletModel.update(updateBalance, {where: {id: user.id}}).then(async (updatedBalanceData)=> {
+        walletModel.update(updateBalance, {where: {userID: user.id}}).then(async (updatedBalanceData)=> {
             await models.Transactions.create(updateTransaction).then(()=>{
                 if (!updatedBalanceData || updatedBalanceData == 0) {
                     return res.send(400, {

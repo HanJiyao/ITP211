@@ -36,7 +36,7 @@ exports.profile = function (req, res) {
 exports.profileUpdate = function (req, res) {
     var id = req.session.passport.user.id;
     var mobile = (req.body.mobile == "") ? null : parseInt(req.body.mobile);
-    console.log(mobile)
+    console.log(req.body.birthday)
     var updateData = {
         username: req.body.username,
         email: req.body.email,
