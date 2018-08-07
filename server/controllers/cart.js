@@ -6,7 +6,7 @@ exports.insert = (req, res) => {
         quantity: req.body.quantity,
         userID: req.session.passport.user.id,
     }
-    models.Cart.find({where:{productID:req.params.id}}).then((existData)=>{
+    models.Cart.find({where:{productID:req.params.id, userID:req.session.passport.user.id}}).then((existData)=>{
         if(existData){
             Cart.update({quantity:existData.quantity+parseFloat(req.body.quantity)},{where:{id:existData.id}})
         }else{

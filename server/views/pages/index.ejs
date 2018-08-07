@@ -71,12 +71,13 @@
       </div>
     </div>
     <div class="container pt-5 pb-5 mb-5">
+        <% var maxNum = (products.length <4)?products.length:4 %>
         <h3 class="p-2">
           <img src="images/source/fire.png" / style="border-radius: 50%;height: 42px;width: 42px;box-shadow: 0 2px 5px #999999;">
           <span class="pl-3" style="vertical-align: -5px;">Most Popular</span>
         </h3>
         <div class="row">
-        <% for(var i=0; i < 4; i++){ %>
+        <% for(var i=0; i < maxNum; i++){ %>
           <style>
             .productCard{
               transition: box-shadow 0.3s, border 0.3s;
@@ -138,7 +139,7 @@
         <span class="pl-3" style="vertical-align: -5px;">Top Ratings</span>
       </h3>
       <div class="row">
-        <% for(var i=0; i < 4; i++){ %>
+        <% for(var i=0; i < maxNum; i++){ %>
           <style>
             .productCard{
               transition: box-shadow 0.3s, border 0.3s;
@@ -200,7 +201,7 @@
         <span class="pl-3" style="vertical-align: -5px;">Special Sales</span>
       </h3>
       <div class="row">
-        <% for(var i=0; i < 4; i++){ %>
+        <% for(var i=0; i < maxNum; i++){ %>
           <style>
             .productCard{
               transition: box-shadow 0.3s, border 0.3s;
@@ -262,7 +263,7 @@
         <span class="pl-3" style="vertical-align: -5px;">Newly Add</span>
       </h3>
       <div class="row">
-        <% for(var i=0; i < 4; i++){ %>
+        <% for(var i=0; i < maxNum; i++){ %>
           <style>
             .productCard{
               transition: box-shadow 0.3s, border 0.3s;

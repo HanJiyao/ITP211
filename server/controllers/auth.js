@@ -71,17 +71,33 @@ exports.accountDelete = function(req, res) {
         await models.Transactions.destroy({ where: { paymentMadeTo: id } }).then(async()=>{
             await models.Transactions.destroy({ where: { paymentReceivedFrom: id } }).then(async()=>{
                 await models.PaymentDetails.destroy({ where: { userID: id } }).then(async()=>{
-                    await models.Orders.destroy({ where: { userID: id } }).then(async()=>{
-                        await models.Wallet.destroy({ where: { userID: id } }).then(async()=>{
-                            await models.Reviews.destroy({ where: { user_id: id } }).then(async()=>{
-                                await models.Cart.destroy({ where: { userID: id } }).then(async()=>{
-                                    await models.Products.destroy({ where: { userID: id } }).then(async()=>{
-                                        await userModel.destroy({ where: { id: id } }).then((deleteUser) => {
-                                            if (!deleteUser) {
-                                                return res.send(400, {
-                                                    message: "error"
-                                                });
-                                            };
+                    await models.Orders.findAll({ where: { userID: id } }).then(async(orderData)=>{
+                        await models.Products.findAll({ where: { userID: id } }).then(async(productData)=>{
+                            for (var i=0;i<orderData.length;i++){
+                                await models.OrderDetails.destroy({ where: { orderID: orderData[i].id} }).then(async (orderdetailsData)=>{
+                                    await models.Orders.destroy({ where: { id: orderdetailsData.orderID } })
+                                })
+                            }
+                            for (var j = 0; j < productData.length; j++) {
+                                await models.OrderDetails.destroy({ where: { productID:productData[j].id } }).then(async (orderdetailsData)=>{
+                                    await models.Orders.destroy({ where: { id: orderdetailsData.orderID } })
+                                })
+                            }
+                            await models.Orders.destroy({ where: { userID: id } }).then(async()=>{
+                                await models.Wallet.destroy({ where: { userID: id } }).then(async()=>{
+                                    await models.Reviews.destroy({ where: { user_id: id } }).then(async()=>{
+                                        await models.Wishlist.destroy({ where: { userID: id } }).then(async()=>{
+                                            await models.Cart.destroy({ where: { userID: id } }).then(async()=>{
+                                                await models.Products.destroy({ where: { userID: id } }).then(async()=>{
+                                                    await userModel.destroy({ where: { id: id } }).then((deleteUser) => {
+                                                        if (!deleteUser) {
+                                                            return res.send(400, {
+                                                                message: "error"
+                                                            });
+                                                        };
+                                                    })
+                                                })
+                                            })
                                         })
                                     })
                                 })
@@ -142,23 +158,38 @@ exports.adminEditAccount = function (req, res) {
 }
 exports.adminDeleteAccount = function (req, res) {
     var id = req.params.id;
-    console.log("deleting account" + id);
     models.Transactions.destroy({ where: { userID: id } }).then(async()=>{
         await models.Transactions.destroy({ where: { paymentMadeTo: id } }).then(async()=>{
             await models.Transactions.destroy({ where: { paymentReceivedFrom: id } }).then(async()=>{
                 await models.PaymentDetails.destroy({ where: { userID: id } }).then(async()=>{
-                    await models.Orders.destroy({ where: { userID: id } }).then(async()=>{
-                        await models.Wallet.destroy({ where: { userID: id } }).then(async()=>{
-                            await models.Reviews.destroy({ where: { user_id: id } }).then(async()=>{
-                                await models.Cart.destroy({ where: { userID: id } }).then(async()=>{
-                                    await models.Products.destroy({ where: { userID: id } }).then(async()=>{
-                                        await userModel.destroy({ where: { id: id } }).then((deleteUser) => {
-                                            if (!deleteUser) {
-                                                return res.send(400, {
-                                                    message: "error"
-                                                });
-                                            };
-                                            res.status(200).send({ message: "Delete User Account: " + id });
+                    await models.Orders.findAll({ where: { userID: id } }).then(async(orderData)=>{
+                        await models.Products.findAll({ where: { userID: id } }).then(async(productData)=>{
+                            for (var i=0;i<orderData.length;i++){
+                                await models.OrderDetails.destroy({ where: { orderID: orderData[i].id} }).then(async (orderdetailsData)=>{
+                                    await models.Orders.destroy({ where: { id: orderdetailsData.orderID } })
+                                })
+                            }
+                            for (var j = 0; j < productData.length; j++) {
+                                await models.OrderDetails.destroy({ where: { productID:productData[j].id } }).then(async (orderdetailsData)=>{
+                                    await models.Orders.destroy({ where: { id: orderdetailsData.orderID } })
+                                })
+                            }
+                            await models.Orders.destroy({ where: { userID: id } }).then(async()=>{
+                                await models.Wallet.destroy({ where: { userID: id } }).then(async()=>{
+                                    await models.Reviews.destroy({ where: { user_id: id } }).then(async()=>{
+                                        await models.Wishlist.destroy({ where: { userID: id } }).then(async()=>{
+                                            await models.Cart.destroy({ where: { userID: id } }).then(async()=>{
+                                                await models.Products.destroy({ where: { userID: id } }).then(async()=>{
+                                                    await userModel.destroy({ where: { id: id } }).then((deleteUser) => {
+                                                        if (!deleteUser) {
+                                                            return res.send(400, {
+                                                                message: "error"
+                                                            });
+                                                        };
+                                                        res.status(200).send({ message: "Delete User Account: " + id });
+                                                    })
+                                                })
+                                            })
                                         })
                                     })
                                 })
