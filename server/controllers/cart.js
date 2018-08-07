@@ -4,6 +4,7 @@ exports.insert = (req, res) => {
     var cartData = {
         productID: req.params.id,
         quantity: req.body.quantity,
+        cartPrice: req.body.cartPrice,
         userID: req.session.passport.user.id,
     }
     models.Cart.find({where:{productID:req.params.id, userID:req.session.passport.user.id}}).then((existData)=>{
@@ -19,7 +20,7 @@ exports.show = (req, res) => {
     var user = req.session.passport.user;
     models.sequelize.query('select count(*) cartNum from Carts where userID =' + user.id + '',{model: models.Cart}).then((data)=>{cartNum = data[0].dataValues.cartNum});
     models.sequelize.query(
-        'select c.id id, p.id productID, p.productImage productImage, p.productName productName, p.productType productType, p.price price, c.quantity quantity, p.quantity prodQuantity\
+        'select c.id id, p.id productID, productImage, productName, productType, cartPrice price, c.quantity quantity, p.quantity prodQuantity\
         from Carts c\
         join Products p on c.productID = p.id\
         where c.userID =' + user.id, {model: models.Cart}).then((cartData)=>{

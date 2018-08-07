@@ -5,7 +5,7 @@
     <title>
         <%= title %>
     </title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="icon" href="<%=hostPath%>/images/source/laptop-512.png">
 </head>
 
 <body>
@@ -62,9 +62,9 @@
             </div>
             <hr>
             <% if (reviews.length<1){ %>
-                    <p  align="center" style="font-size:40px;">You have yet to review anything,
+                    <h3  align="center">You have yet to review anything,
                         <br>
-                        please go to orders page to review from there.</p>
+                        please go to orders page to review from there.</h3>
                 <% } %>
             <div class="lead">
                 <div class="list-group">

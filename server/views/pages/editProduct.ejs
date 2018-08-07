@@ -4,15 +4,17 @@
     <title>
         <%= title %>
     </title>
+<link rel="icon" href="<%=hostPath%>/images/source/laptop-512.png">
+    
+</head>
+<body>
+    <% include ../partials/header %>
     <style>
     #editProduct {
         background-color:#fff3e0;
         color: #000000;
     }
     </style>
-</head>
-<body>
-    <% include ../partials/header %>
     <div class="container m-auto pb-5" style="max-width: 500px;">
     <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Edit Product Record</h4>

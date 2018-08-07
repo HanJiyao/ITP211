@@ -1,33 +1,31 @@
 module.exports = function (sequelize, Sequelize) {
-    var Cart = sequelize.define('Cart',{
+    var Offer = sequelize.define('Offer', {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
-        }, 
+        },
         productID: {
             type: Sequelize.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'Products',
-                    key: 'id'
-                }
-        },
-        cartPrice: {
-            type: Sequelize.FLOAT(10, 2),
             allowNull: false,
+            references: {
+                model: 'Products',
+                key: 'id'
+            }
         },
-        quantity:{
-            type: Sequelize.INTEGER,
+        offerPrice:{
+            type: Sequelize.FLOAT(10, 2),
             allowNull: false,
         },
         created: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
         },
-        checked:{
+        updated:{
+            type: Sequelize.DATE,
+        },
+        accepted: {
             type: Sequelize.BOOLEAN,
-            defaultValue: false
         },
         userID: {
             type: Sequelize.INTEGER,
@@ -38,8 +36,11 @@ module.exports = function (sequelize, Sequelize) {
             }
         },
     });
-    Cart.sync({force: false,logging: console.log}).then(() => {
+    Offer.sync({
+        force: false,
+        logging: console.log
+    }).then(() => {
         console.log("Cart table synced");
     });
-    return Cart;
+    return Offer;
 }

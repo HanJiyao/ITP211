@@ -4,13 +4,14 @@
   <title>
     <%= title %>
   </title>
+<link rel="icon" href="<%=hostPath%>/images/source/laptop-512.png">
 </head>
 <body>
   <% include ../partials/header %>
   <div class="container">
-    <h3 class="text-center p-3"> My WishList </h3>
+    <h2 class="text-center p-3"> My WishList </h2>
     <%if (products.length == 0){%>
-      <h5 class="text-center">You have not add any Products in Wishlist, you can keep Exploring and put your Favourite Here</h5>
+      <h3 class="text-center">You have not add any items in Wishlist, you can keep Exploring to add your Favourite Here</h3>
     <%}%>
     <div class="row">
     <% for(var i=0; i < products.length; i++){ %>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+<link rel="icon" href="<%=hostPath%>/images/source/laptop-512.png">
+</head>
+<body>
+    <% include ../partials/header %>
+    <div class="container mb-5 pb-5 text-center">
+        <%if(offerData.length==0){%>
+            <h3 class="pt-5">This product current do not have any offers made</h3>
+        <%}else{%>
+        <div class="card pl-3 pr-3 mt-5" id="adminPanel">
+            <div class="row bg-primary text-white pt-4 pb-4 font-weight-bold">
+                <div class="col-2">
+                    Offer DateTime
+                </div>
+                <div class="col-2">
+                    Last Update
+                </div>
+                <div class="col-1 p-0">
+                    Offer From
+                </div>
+                <div class="col-2">
+                    Current Price
+                </div>
+                <div class="col-2">
+                    Offer Price
+                </div>
+                <div class="col-1">
+                    Accept
+                </div>
+                <div class="col-1">
+                    Reject
+                </div>
+                <div class="col-1">
+                    Status
+                </div>
+            </div>
+            <% for(var i=0; i < offerData.length; i++){ %>
+            <div class="row pt-3 pb-3" id="<%=offerData[i].id%>">
+                <div class="col-2 createdAt pt-2 pl-0 pr-0">
+                </div>
+                <script>
+                    $(".createdAt")[`<%=i%>`].innerText =  moment(new Date("<%= offerData[i].created %>")).format("ddd DD MMM YYYY HH:mm");
+                </script>
+                <div class="col-2 updateAt pt-2 pl-0 pr-0">
+                </div>
+                <script>
+                    $(".updateAt")[`<%=i%>`].innerText =  moment(new Date("<%= offerData[i].updated %>")).format("ddd DD MMM YYYY HH:mm");
+                </script>
+                <div class="col-1 pt-2 pl-0 pr-0">
+                    <%=offerData[i].dataValues.username%>
+                </div>
+                <div class="col-2 pt-2">
+                    S$ <%=offerData[i].dataValues.price%>
+                </div>
+                <div class="col-2 pt-2">
+                    S$ <%=offerData[i].dataValues.offerPrice%>
+                </div>
+                <%if(offerData[i].dataValues.accepted == null){%>
+                    <div class="col-1">
+                        <button class="text-center btn btn-success m-0 p-0" id="accept<%=offerData[i].dataValues.productID%>" style="height: 42px;width: 42px;border-radius: 50%;">
+                            <i class="material-icons font-weight-bold" style="vertical-align:-16px;font-size:2rem;" id="wishIcon">check</i>
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button class="text-center btn btn-danger m-0 p-0" id="reject<%=offerData[i].dataValues.productID%>" style="height: 42px;width: 42px;border-radius: 50%;">
+                            <i class="material-icons font-weight-bold" style="vertical-align:-16px;font-size:2rem;" id="wishIcon">close</i>
+                        </button>
+                    </div>
+                    <div class="col-1 pt-2">
+                        Pending
+                    </div>
+                    <script>
+                        $("#accept<%=offerData[i].dataValues.productID%>").click(()=>{
+                            var offer = {
+                                productID:"<%=offerData[i].dataValues.productID%>",
+                                userID:"<%=offerData[i].dataValues.userID%>",
+                                accepted: true,
+                            }
+                            $.ajax({
+                                url: "<%=hostPath%>/offer/accept/"+offer.productID,
+                                type: "POST",
+                                data: JSON.stringify(offer),
+                                dataType: "json",
+                                contentType: "application/json",
+                                success: ()=>{
+                                    window.location.href= "/offer/<%=offerData[i].dataValues.productID%>";
+                                },
+                                error: (result)=>{
+                                    alert("Error updating offer");
+                                }
+                            })
+                        })
+                        $("#reject<%=offerData[i].dataValues.productID%>").click(()=>{
+                            var offer = {
+                                productID:"<%=offerData[i].dataValues.productID%>",
+                                userID:"<%=offerData[i].dataValues.userID%>",
+                                accepted: false,
+                            }
+                            $.ajax({
+                                url: "<%=hostPath%>/offer/accept/"+offer.productID,
+                                type: "POST",
+                                data: JSON.stringify(offer),
+                                dataType: "json",
+                                contentType: "application/json",
+                                success: ()=>{
+                                    window.location.href= "/offer/<%=offerData[i].dataValues.productID%>";
+                                },
+                                error: (result)=>{
+                                    alert("Error updating offer");
+                                }
+                            })
+                        })
+                    </script>
+                <%} else if (offerData[i].dataValues.accepted == true){%>
+                    <div class="col-1">
+                        <button disabled class="text-center btn btn-success m-0 p-0" id="addWishList" style="height: 42px;width: 42px;border-radius: 50%;">
+                            <i class="material-icons font-weight-bold" style="vertical-align:-16px;font-size:2rem;" id="wishIcon">check</i>
+                        </button>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-1 pt-2 pr-0 pl-0">
+                        Accepted
+                    </div>
+                <%}else{%>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-1">
+                        <button disabled class="text-center btn btn-danger m-0 p-0" id="addWishList" style="height: 42px;width: 42px;border-radius: 50%;">
+                            <i class="material-icons font-weight-bold" style="vertical-align:-16px;font-size:2rem;" id="wishIcon">close</i>
+                        </button>
+                    </div>
+                    <div class="col-1 pt-2 pr-0 pl-0">
+                        Rejected
+                    </div>
+                <%}%>
+            </div>
+            <% } %>
+        </div>
+        <%}%>
+    </div>
+    <% include ../partials/footer %>
+</body>
+</html>

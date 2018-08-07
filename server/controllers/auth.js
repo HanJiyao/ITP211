@@ -2,10 +2,10 @@ var exports = module.exports = {}
 var models = require("../models");
 var userModel = models.Users;
 exports.signup = function (req, res) {
-    (req.session.passport) ? res.redirect('/profile') : res.render('signup', { title: 'Signup Page', message: req.flash('signupMessage')});
+    (req.session.passport) ? res.redirect('/profile') : res.render('signup', { title: 'Signup Page', message: req.flash('signupMessage'), hostPath: req.protocol + "://" + req.get("host"),});
 }
 exports.login = function (req, res) {
-    (req.session.passport) ? res.redirect('/profile') : res.render('login', { title: 'Login Page', message: req.flash('loginMessage')});
+    (req.session.passport) ? res.redirect('/profile') : res.render('login', { title: 'Login Page', message: req.flash('loginMessage'), hostPath: req.protocol + "://" + req.get("host"),});
 }
 var models = require("../models");
 var userModel = models.Users;
@@ -86,15 +86,17 @@ exports.accountDelete = function(req, res) {
                             await models.Orders.destroy({ where: { userID: id } }).then(async()=>{
                                 await models.Wallet.destroy({ where: { userID: id } }).then(async()=>{
                                     await models.Reviews.destroy({ where: { user_id: id } }).then(async()=>{
-                                        await models.Wishlist.destroy({ where: { userID: id } }).then(async()=>{
+                                        await models.Offer.destroy({ where: { userID: id } }).then(async()=>{
                                             await models.Cart.destroy({ where: { userID: id } }).then(async()=>{
                                                 await models.Products.destroy({ where: { userID: id } }).then(async()=>{
-                                                    await userModel.destroy({ where: { id: id } }).then((deleteUser) => {
-                                                        if (!deleteUser) {
-                                                            return res.send(400, {
-                                                                message: "error"
-                                                            });
-                                                        };
+                                                    await models.Wishlist.destroy({ where: { userID: id } }).then(async()=>{
+                                                        await userModel.destroy({ where: { id: id } }).then((deleteUser) => {
+                                                            if (!deleteUser) {
+                                                                return res.send(400, {
+                                                                    message: "error"
+                                                                });
+                                                            };
+                                                        })
                                                     })
                                                 })
                                             })
@@ -177,16 +179,18 @@ exports.adminDeleteAccount = function (req, res) {
                             await models.Orders.destroy({ where: { userID: id } }).then(async()=>{
                                 await models.Wallet.destroy({ where: { userID: id } }).then(async()=>{
                                     await models.Reviews.destroy({ where: { user_id: id } }).then(async()=>{
-                                        await models.Wishlist.destroy({ where: { userID: id } }).then(async()=>{
+                                        await models.Offer.destroy({ where: { userID: id } }).then(async()=>{
                                             await models.Cart.destroy({ where: { userID: id } }).then(async()=>{
                                                 await models.Products.destroy({ where: { userID: id } }).then(async()=>{
-                                                    await userModel.destroy({ where: { id: id } }).then((deleteUser) => {
-                                                        if (!deleteUser) {
-                                                            return res.send(400, {
-                                                                message: "error"
-                                                            });
-                                                        };
-                                                        res.status(200).send({ message: "Delete User Account: " + id });
+                                                    await models.Wishlist.destroy({ where: { userID: id } }).then(async()=>{
+                                                        await userModel.destroy({ where: { id: id } }).then((deleteUser) => {
+                                                            if (!deleteUser) {
+                                                                return res.send(400, {
+                                                                    message: "error"
+                                                                });
+                                                            };
+                                                            res.status(200).send({ message: "Delete User Account: " + id });
+                                                        })
                                                     })
                                                 })
                                             })

@@ -67,6 +67,8 @@ var indexRouter = require('./server/routes/index');
 app.use('/', indexRouter)
 var cartRouter = require('./server/routes/cart');
 app.use('/cart', cartRouter);
+var offerRouter = require('./server/routes/offer');
+app.use('/offer', offerRouter);
 var searchRouter = require('./server/routes/search');
 app.use('/search', searchRouter);
 var checkoutRouter = require('./server/routes/checkout');
@@ -106,7 +108,8 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: {},
+        hostPath: req.protocol + "://" + req.get("host"),
     });
 });
 

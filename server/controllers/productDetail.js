@@ -5,8 +5,10 @@ exports.show = function (req, res) {
     var id = req.params.id
     var cartNum = 0;
     var wishlistData = false;
+    var offerData = false;
     if(user){
         models.sequelize.query('select count(*) cartNum from Carts where userID='+user.id, {model: models.Cart}).then((data) => {cartNum = data[0].dataValues.cartNum});
+        models.Offer.find({where: {userID:user.id , productID:id}}).then((offer) => {offerData=offer});
     }
     models.sequelize.query(
         'select productImage, productName, quantity, price, discount_percentage, p.id id, productType, productDesc, u.username AS userID, count(r.productID) reviewCount, round(avg(rating), 1) rating\
@@ -17,7 +19,6 @@ exports.show = function (req, res) {
         group by productImage, productName, quantity, price, p.id, productType, productDesc, u.username',
         { model: models.Products }).then(async (product)=>{
             await models.Wishlist.find({where:{productID:product[0].dataValues.id,userID:user.id}}).then((wishlist)=>{
-                console.log(wishlist)
                 if(wishlist!=null){
                     wishlistData = wishlist.id
                 }
@@ -33,6 +34,7 @@ exports.show = function (req, res) {
                 for (var i=0;i<reviews.length;i++){
                     reviewsAvatars.push(require('gravatar').url(reviews[i].dataValues.email, { s: '60', r: 'x', d: 'retro' }, true))
                 }
+                console.log(offerData)
                 models.Cart.findAll({where:{userID:user.id}}).then((cartData)=>{
                 res.render('productDetail', {
                     user: user,
@@ -44,8 +46,16 @@ exports.show = function (req, res) {
                     reviewsAvatars: reviewsAvatars,
                     wishlist: wishlistData,
                     hostPath: req.protocol + "://" + req.get("host"),
+                    message: req.flash('signupMessage'),
+                    offerData:offerData
                 });
             })  
         })
-    })
+    }).catch((err) => {
+        res.render('error', {
+            message: err.message,
+            error: {},
+            hostPath: req.protocol + "://" + req.get("host"),
+        });
+    });
 };
