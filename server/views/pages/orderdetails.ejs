@@ -63,7 +63,7 @@ h{
               <th>Product Name</th>
               <th>Product Type</th>
               <th>Quantity</th>
-              <th>Total Price</th>
+              <th>Product Price</th>
               <th>Write a review</th>
             </tr>
         </thead>
@@ -81,7 +81,7 @@ h{
               <td><%= orderhistory[i].dataValues.productName %></td>
               <td><%= orderhistory[i].dataValues.productType %></td>
               <td><%= orderhistory[i].dataValues.quantity %></td>
-              <td>$<%= orderhistory[i].dataValues.totalPrice %></td>
+              <td>$<%= orderhistory[i].dataValues.price %></td>
               <td>  <button id="buttonshit<%=i%>"  type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createPost">
                 Write a review
             </button>
