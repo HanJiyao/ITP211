@@ -55,6 +55,7 @@ exports.checkout = (req,res) => {
                 let productID = cartData[i].dataValues.productID;
                 let orderQuantity = cartData[i].dataValues.quantity;
                 let productPrice = parseFloat(cartData[i].dataValues.price * cartData[i].dataValues.quantity);
+                await models.Offer.destroy({where:{productID:productID, userID:user.id}})
                 await models.Products.findById(productID).then(async (product)=>{
                     await models.Wallet.find({ where: { userID: user.id } }).then(async (userWallet)=>{
                         newUserBalance = parseFloat(userWallet.balance) - productPrice;
