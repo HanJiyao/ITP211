@@ -349,7 +349,7 @@ module.exports = function (sequelize, Sequelize) {
              productImage: "11G-P4-6696-KR_XL_4.jpg",
              productName: "EVGA GeForce GTX 1080 Ti FTW3 GAMING, 11G-P4-6696-KR, 11GB GDDR5X",
              productType: "Graphic Card",
-             productDesc: "Real Base Clock: 1569 MHz / Real Boost Clock: 1683 MHz; Memory Detail: 11264MB GDDR5X 1 x Dual Link DVI - D, 1 x HDMI 2.0 b, 3 x DisplayPort 1.4 EVGA iCX Technology - Asynchronous Fan Control 9 additional temp sensors to monitor memory and PWN GPU / Memory / PWM Thermal Status Indicator LEDs ",
+             productDesc: "Real Base Clock: 1569 MHz / Real Boost Clock: 1683 MHz",
              quantity: 200,
              price: 1135.90,
              discount_percentage: 0.3,
